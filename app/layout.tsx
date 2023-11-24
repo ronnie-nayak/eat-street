@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import Nav from '@/components/nav'
+import { Quicksand } from "next/font/google"
+
+const quicksand = Quicksand({
+  subsets: ['latin'],
+  weight: ['400', '700']
+})
+
 
 
 export const metadata: Metadata = {
@@ -15,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body >
+      <body className={quicksand.className + "text-sm"} >
         <Nav />
         {children}
       </body>
