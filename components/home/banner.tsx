@@ -6,7 +6,7 @@ export default function Banner() {
         backgroundSize: "cover",
       }}>
         <h1
-          className="w-[78%] text-[6vw] lg:text-[4vw] font-bold leading-none text-[#EBFFDC] mb-4">
+          className="w-[78%] text-[5vw] lg:text-[4vw] font-bold leading-none text-[#EBFFDC] mb-4">
           Order Tasty Fruits
           and Get Free Delivery!
         </h1>

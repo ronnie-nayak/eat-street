@@ -8,7 +8,7 @@ export default function Sections({ title, image }: { title: string, image: strin
         backgroundSize: "cover",
       }}>
         <h1
-          className="w-[50%] text-[6vw] lg:text-[4vw] font-bold leading-none text-[#243F2F] mb-4">
+          className="w-[33%] text-[4vw] lg:text-[4vw] font-bold leading-none text-[#243F2F] mb-6">
           {title}
         </h1>
         <button className="bg-white font-bold p-4 rounded-full mb-4">
