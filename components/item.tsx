@@ -9,7 +9,7 @@ export default function Item() {
       gridTemplateColumns: "300px",
       gridTemplateRows: "240px 200px 120px",
       gridTemplateAreas: ` "image" "content" "price" `
-    }} className="relative border-gray-200 border-2 w-min">
+    }} className="relative border-gray-200 border-2 w-[300px]">
       <header style={{
         gridArea: "image"
       }}>

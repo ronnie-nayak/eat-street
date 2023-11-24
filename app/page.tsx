@@ -13,7 +13,7 @@ export default function Home() {
       <h2 className="text-[4vw] font-bold text-[#243F2F] text-center m-7">
         Bestsellers in September
       </h2>
-      <Item />
+      <Slider />
     </div>
   )
 }
