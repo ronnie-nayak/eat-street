@@ -12,7 +12,7 @@ export default function Item() {
     }} className="relative border-gray-200 border-2 w-[300px]">
       <header style={{
         gridArea: "image"
-      }}>
+      }} className="absolute -z-10">
         <img src="/items/mint.jpg" />
       </header>
       <section style={{
