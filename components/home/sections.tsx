@@ -3,7 +3,7 @@
 export default function Sections({ title, image }: { title: string, image: string }) {
   return (
     <div>
-      <div className=" h-[23vh] md:h-[40vh] lg:h-[50vh] px-4 py-8 m-2 rounded-3xl" style={{
+      <div className=" h-[25vh] md:h-[40vh] lg:h-[50vh] px-4 py-8 m-2 rounded-3xl" style={{
         background: `url(${image}) right center no-repeat #4F743D`,
         backgroundSize: "cover",
       }}>
