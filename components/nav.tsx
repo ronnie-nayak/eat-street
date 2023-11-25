@@ -1,15 +1,24 @@
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { IoCartOutline } from "react-icons/io5";
 
 export default function Nav() {
   return (
-    <div className="flex justify-between items-center pr-4">
-      <div className="w-[86px] h-[60px] flex items-center justify-center">
+    <div className="flex justify-center items-center px-4 lg:h-20">
+      <div className=" h-[60px] flex items-center justify-center lg:hidden">
         <FontAwesomeIcon icon={faBars} className="w-[30px] " />
       </div>
-      <Image src={"/nav/tastydaily.png"} width={101} height={0} alt="tastydaily" />
-      <FontAwesomeIcon icon={faCartShopping} className="w-[24px] text-[#03AB64]" />
+      <img src="/nav/tastydaily.png" className="h-12 mx-auto lg:hidden" />
+      <IoCartOutline size={26} className="text-[#243F2F] lg:hidden" />
+
+      <div className="hidden lg:block ">
+        <div>
+
+        </div>
+        <img src="/lghome/tastydaily.png" className="h-10 hidden lg:block" />
+      </div>
+
     </div >
   )
 }

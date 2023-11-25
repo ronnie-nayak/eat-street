@@ -18,10 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quicksand.className} >
-        <RecoilRoot>
-          <Nav />
-          {children}
-        </RecoilRoot>
+        <div>
+          <RecoilRoot>
+            <Nav />
+            <div className="bg-[#EFF5EE]">
+              {children}
+            </div>
+          </RecoilRoot>
+        </div>
       </body>
     </html>
   )
