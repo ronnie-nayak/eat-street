@@ -1,23 +1,39 @@
 'use client'
+import Item from "../item";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
-import Flicking from "@egjs/react-flicking";
-import "@egjs/react-flicking/dist/flicking.css";
-// Or, if you have to support IE9
-import "@egjs/react-flicking/dist/flicking-inline.css";
 export default function Slider() {
-
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
   return (
     <div>
-      <Flicking
-        align="prev"
-        circular={true}
-        onMoveEnd={e => {
-          console.log(e);
-        }}>
-        <div className="panel">1</div>
-        <div className="panel">2</div>
-        <div className="panel">3</div>
-      </Flicking>
+      <Carousel responsive={responsive}>
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+      </Carousel>
     </div>
   )
 }

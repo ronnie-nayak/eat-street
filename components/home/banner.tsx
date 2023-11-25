@@ -1,7 +1,7 @@
 export default function Banner() {
   return (
     <div>
-      <div className="h-[30vh] md:h-[40vh] lg:h-[50vh] px-4 py-8" style={{
+      <div className="h-[29vh] md:h-[40vh] lg:h-[50vh] px-4 py-8" style={{
         background: "url('/home/banner.jpg') right no-repeat #4F743D",
         backgroundSize: "cover",
       }}>
