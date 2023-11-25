@@ -14,7 +14,6 @@ export default function AspectRatio({ children, width, height }: Props) {
       width: "100%",
       height: "0",
       paddingBottom: `${(1 / (width / height)) * 100}%`,
-      minWidth: `${width}px`,
     }} >
       <div style={{
         position: "absolute",
