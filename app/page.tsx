@@ -6,7 +6,6 @@ import Order from "@/components/home/order";
 import Sections2 from "@/components/home/section2";
 import Sections3 from "@/components/home/section3";
 import Sections from "@/components/home/sections";
-import Item from "@/components/item";
 import ItemSmall from "@/components/itemSmall";
 import Slider from "@/components/slider/slider";
 
@@ -14,14 +13,17 @@ export default function Home() {
   return (
     <div className="relative">
       <Banner />
-      <Sections title="Fresh Seafood Everyday!" image="/home/crab.jpg" />
-      <Sections title="Sweet Organic Drinks" image="/home/bottle.jpg" />
-      <Sections title="For Steak Lovers" image="/home/steak.jpg" />
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:py-8 lg:px-16 m-2">
+        <Sections title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
+        <Sections title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
+        <Sections title={"For Steak\nLovers"} image="/home/steak.jpg" />
+      </div>
       <h2 className="text-[5vw] font-bold text-[#243F2F] text-center m-7">
         Bestsellers in September
       </h2>
       <Slider />
       <Biker />
+      <Grider />
       <Slider />
       <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       <Sections3 title="For Ten Chicken Eggs" image="/home/egg.jpg" discount={33} />
