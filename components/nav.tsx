@@ -1,3 +1,4 @@
+'use client'
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -8,6 +9,8 @@ import { GiSlicedBread } from "react-icons/gi";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { GoPerson } from "react-icons/go";
 import { FaRegHeart } from "react-icons/fa";
+import { signIn, signOut, useSession, getProviders, } from "next-auth/react"
+import { useEffect, useState } from "react";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
@@ -22,8 +25,20 @@ function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
 }
 
 export default function Nav() {
+  const { data: session, status } = useSession()
+
+  const [providers, setProviders] = useState(null)
+
+  useEffect(() => {
+    const setProvider = async () => {
+      const response = await getProviders()
+      setProviders(response)
+    }
+    setProvider()
+  }, [])
+
   return (
-    <div className="h-16 xl:h-24">
+    <nav className="h-16 xl:h-24">
       <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-around items-center px-4 xl:h-24">
 
         <div className="h-[60px] flex items-center justify-center xl:hidden">
@@ -48,12 +63,32 @@ export default function Nav() {
 
         <div className="hidden xl:flex items-center gap-4">
           <IoSearch size={22} />
-          <GoPerson size={26} />
-          <FaRegHeart size={22} />
-          <IoCartOutline size={26} className="text-[#243F2F] " />
+          {session?.user ? (
+            <>
+              <FaRegHeart size={22} />
+              <IoCartOutline size={26} className="text-[#243F2F] " />
+              <img onClick={signOut} src={session?.user?.image} className="w-10 h-10 rounded-full" />
+            </>
+          ) : (
+            <>
+              {providers &&
+                Object.values(providers).map((provider) => (
+                  <button
+                    type="button"
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                  >
+                    SignIn
+                  </button>
+                )
+                )
+              }
+            </>
+          )}
+
         </div>
 
       </div >
-    </div>
+    </nav>
   )
 }

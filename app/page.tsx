@@ -1,13 +1,8 @@
 import Grider from "@/components/grider/grider";
 import Banner from "@/components/home/banner";
-import Biker from "@/components/home/biker";
 import Footer from "@/components/home/footer";
-import Info from "@/components/home/info";
-import Order from "@/components/home/order";
-import Sections2 from "@/components/home/section2";
-import Sections3 from "@/components/home/section3";
-import Sections from "@/components/home/sections";
-import ItemSmall from "@/components/itemSmall";
+import { Sections, Sections2, Sections3, Biker, Order, Info } from "@/components/home/sections";
+import { ItemSmall } from "@/components/item";
 import Slider from "@/components/slider/slider";
 
 export default function Home() {
@@ -31,13 +26,11 @@ export default function Home() {
       <Biker />
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
-        <div className="w-full">
-          <div className="xl:hidden">
-            <Slider noOfItems={2} name="secondtwo" />
-          </div>
-          <div className="hidden xl:block">
-            <Slider noOfItems={5} name="lastfive" />
-          </div>
+        <div className="xl:hidden w-full">
+          <Slider noOfItems={2} name="secondtwo" />
+        </div>
+        <div className="hidden xl:block w-full">
+          <Slider noOfItems={5} name="lastfive" />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>

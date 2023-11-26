@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import Nav from '@/components/nav'
 import { Quicksand } from "next/font/google"
 import { RecoilRoot } from 'recoil'
+import Provider from '@/components/provider'
 
 const quicksand = Quicksand({
   subsets: ['latin'],
@@ -18,14 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quicksand.className} >
-        <div>
-          <RecoilRoot>
+        <RecoilRoot>
+          <Provider>
             <Nav />
             <div className="bg-[#EFF5EE] font-bold">
               {children}
             </div>
-          </RecoilRoot>
-        </div>
+          </Provider>
+        </RecoilRoot>
       </body>
     </html>
   )
