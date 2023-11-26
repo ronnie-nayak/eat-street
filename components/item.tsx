@@ -21,7 +21,7 @@ export default function Item() {
           gridArea: "content"
         }} className="p-9 ">
           <h2 className="font-semibold text-3xl">Mint</h2>
-          <p className="text-1xl py-2">
+          <p className="text-1xl py-2 font-normal">
             The mint plant is a herbaceous perennial that is widely known.
           </p>
         </section>
@@ -35,9 +35,9 @@ export default function Item() {
         </footer>
 
         <div className="absolute top-2 left-2 flex gap-1 items-center">
-          <span className="px-2 py-1 rounded-full bg-[#243F2F] text-white font-bold text-xs">NEW</span>
-          <span className="px-2 py-1 rounded-full bg-[#00AA63] text-white font-bold text-xs">SALE</span>
-          <span className="px-2 py-1 rounded-full bg-[#F73E04] text-white font-bold text-xs">OUT OF STOCK</span>
+          <span className="px-2 py-1 rounded-full bg-[#243F2F] text-white  text-xs">NEW</span>
+          <span className="px-2 py-1 rounded-full bg-[#00AA63] text-white  text-xs">SALE</span>
+          <span className="px-2 py-1 rounded-full bg-[#F73E04] text-white  text-xs">OUT OF STOCK</span>
         </div>
 
         <div className="absolute top-2 right-2 flex flex-col gap-2 items-center">

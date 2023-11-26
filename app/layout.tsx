@@ -21,7 +21,7 @@ export default function RootLayout({
         <div>
           <RecoilRoot>
             <Nav />
-            <div className="bg-[#EFF5EE]">
+            <div className="bg-[#EFF5EE] font-bold">
               {children}
             </div>
           </RecoilRoot>
