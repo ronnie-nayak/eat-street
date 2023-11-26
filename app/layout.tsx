@@ -1,4 +1,3 @@
-'use client'
 import '@/styles/globals.css'
 import Nav from '@/components/nav'
 import { Quicksand } from "next/font/google"
@@ -10,6 +9,10 @@ const quicksand = Quicksand({
   weight: ['400', '700']
 })
 
+export const metadata = {
+  title: "Eat Street",
+  description: "Discover & Share a world of Flavour",
+};
 
 export default function RootLayout({
   children,
@@ -19,14 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quicksand.className} >
-        <RecoilRoot>
-          <Provider>
-            <Nav />
-            <div className="bg-[#EFF5EE] font-bold">
-              {children}
-            </div>
-          </Provider>
-        </RecoilRoot>
+        <Provider>
+          <Nav />
+          <div className="bg-[#EFF5EE] font-bold">
+            {children}
+          </div>
+        </Provider>
       </body>
     </html>
   )
