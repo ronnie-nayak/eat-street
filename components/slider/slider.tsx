@@ -4,7 +4,7 @@ import Item from "../item";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
-export default function Slider({ noOfItems, name }: { noOfItems: number, name: string }) {
+export default function Slider({ noOfItems, name, arrayOfItems }: { noOfItems: number, name: string, arrayOfItems: Array<any> }) {
 
   const widthOfItems = Math.floor(100 / noOfItems)
   const slideLeft = () => {
@@ -30,48 +30,14 @@ export default function Slider({ noOfItems, name }: { noOfItems: number, name: s
         <FontAwesomeIcon icon={faChevronRight} className="h-6 w-6" />
       </button>
       <div className={`${name} flex items-center rounded-xl h-full overflow-y-clip overflow-x-scroll scroll-smooth `}>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
-        <div style={{
-          minWidth: `${widthOfItems}%`
-        }} className={`w-full `}><Item /></div>
 
-
-
+        {arrayOfItems.map((item, index) => (
+          <div style={{
+            minWidth: `${widthOfItems}%`
+          }} className="w-full">
+            <Item {...item} key={index} />
+          </div>
+        ))}
 
       </div>
     </div >

@@ -1,34 +1,48 @@
 import { faEye, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AspectRatio from "./aspectRatio";
 import { IoCartOutline } from "react-icons/io5";
 
-export default function Item() {
+export default function Item({ _id, name, desc, price }) {
+
+  const addToFavourites = async () => {
+    console.log(_id)
+    const res = await fetch(`/api/favourites`, {
+      method: "PATCH",
+      body: JSON.stringify({ _id }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await res.json()
+    console.log(data)
+  }
+
   return (
     <AspectRatio width={300} height={560} >
       <div style={{
         display: "grid",
         gridTemplateRows: "2fr 5fr 1fr",
         gridTemplateAreas: ` "image" "content" "price" `
-      }} className="relative h-full bg-white">
+      }} className="relative h-full bg-white border border-gray-300">
         <header style={{
           gridArea: "image"
         }} className="">
-          <img src="/items/mint.jpg" className="w-full" />
+          <img src={`/items/${name}.jpg`} className="w-full" />
         </header>
         <section style={{
           gridArea: "content"
-        }} className="p-9 ">
-          <h2 className="font-semibold text-3xl">Mint</h2>
+        }} className="p-9 overflow-clip">
+          <h2 className="font-semibold text-3xl">{name}</h2>
           <p className="text-1xl py-2 font-normal">
-            The mint plant is a herbaceous perennial that is widely known.
+            {desc}
           </p>
         </section>
         <footer style={{
-          gridArea: "price"
+          gridArea: "price",
+          alignSelf: "end"
         }} className="flex items-center justify-between px-4 py-8 ">
-          <h3 className="font-semibold text-[#00AA63] text-2xl">$13.00</h3>
+          <h3 className="font-semibold text-[#00AA63] text-2xl">${price}.00</h3>
           <button className="rounded-full p-2 bg-gray-200">
             <IoCartOutline size={26} className="text-[#243F2F]" />
           </button>
@@ -41,7 +55,9 @@ export default function Item() {
         </div>
 
         <div className="absolute top-2 right-2 flex flex-col gap-2 items-center">
-          <button className="rounded-full p-2 border-gray-200 border-2">
+          <button className="rounded-full p-2 border-gray-200 border-2"
+            onClick={addToFavourites}
+          >
             <FontAwesomeIcon icon={faHeart} className="w-5" />
           </button>
           <button className="rounded-full p-2 border-gray-200 border-2">

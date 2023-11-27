@@ -11,6 +11,7 @@ import { GoPerson } from "react-icons/go";
 import { FaRegHeart } from "react-icons/fa";
 import { signIn, signOut, useSession, getProviders, } from "next-auth/react"
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
@@ -52,9 +53,13 @@ export default function Nav() {
         <div className="hidden xl:flex items-center text-[#243F2F]  text-xl gap-6">
           <Option title="Shop" icon={<IoStorefrontOutline size={32} />} />
           <Option title="Vegetables" icon={<LuCarrot size={32} />} />
-          <Option title="Fresh Fruit" icon={<LuCherry size={32} />} />
+          <Link href="/fruits">
+            <Option title="Fresh Fruit" icon={<LuCherry size={32} />} />
+          </Link>
           <Option title="Meat" icon={<TbMeat size={32} />} />
-          <img src="/lghome/tastydaily.png" className="h-10 hidden xl:block mx-4" />
+          <Link href="/">
+            <img src="/lghome/tastydaily.png" className="h-10 hidden xl:block mx-4" />
+          </Link>
           <Option title="Seafood" icon={<IoFishOutline size={32} />} />
           <Option title="Baking" icon={<GiSlicedBread size={32} />} />
           <Option title="Drinks" icon={<LuCupSoda size={32} />} />
@@ -65,7 +70,9 @@ export default function Nav() {
           <IoSearch size={22} />
           {session?.user ? (
             <>
-              <FaRegHeart size={22} />
+              <Link href="favourites">
+                <FaRegHeart size={22} />
+              </Link>
               <IoCartOutline size={26} className="text-[#243F2F] " />
               <img onClick={signOut} src={session?.user?.image} className="w-10 h-10 rounded-full" />
             </>

@@ -1,19 +1,13 @@
 import Item from "../item";
 
 
-export default function Grider() {
+export default function Grider({ arrayOfItems }) {
   return (
     <div style={{
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))"
-    }} className="m-10 rounded-xl overflow-clip bg-white">
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
+    }} className="bg-white">
+      {arrayOfItems.map((item, index) => (<Item {...item} key={index} />))}
     </div>
   )
 }

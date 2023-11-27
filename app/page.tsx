@@ -1,11 +1,24 @@
+'use client'
 import Grider from "@/components/grider/grider";
 import Banner from "@/components/home/banner";
 import Footer from "@/components/home/footer";
 import { Sections, Sections2, Sections3, Biker, Order, Info } from "@/components/home/sections";
 import { ItemSmall } from "@/components/item";
 import Slider from "@/components/slider/slider";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [fruits, setFruits] = useState([1, 2, 3, 4, 5, 6, 7, 8])
+
+  useEffect(() => {
+    const getFruits = async () => {
+      let yal = await fetch("/api/fruits", { method: "GET" })
+      let tal = await yal.json()
+      setFruits(tal)
+    }
+    getFruits()
+  }, [])
+
   return (
     <div className="relative">
       <Banner />
@@ -18,19 +31,19 @@ export default function Home() {
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        <Slider noOfItems={2} name="firsttwo" />
+        <Slider noOfItems={2} name="firsttwo" arrayOfItems={fruits} />
       </div>
-      <div className="hidden xl:block">
-        <Grider />
+      <div className="hidden xl:block m-10">
+        <Grider arrayOfItems={fruits} />
       </div>
       <Biker />
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider noOfItems={2} name="secondtwo" />
+          <Slider noOfItems={2} name="secondtwo" arrayOfItems={fruits} />
         </div>
         <div className="hidden xl:block w-full">
-          <Slider noOfItems={5} name="lastfive" />
+          <Slider noOfItems={5} name="lastfive" arrayOfItems={fruits} />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>

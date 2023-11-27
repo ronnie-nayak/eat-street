@@ -1,8 +1,7 @@
 import '@/styles/globals.css'
 import Nav from '@/components/nav'
 import { Quicksand } from "next/font/google"
-import { RecoilRoot } from 'recoil'
-import Provider from '@/components/provider'
+import Provider from './provider'
 
 const quicksand = Quicksand({
   subsets: ['latin'],
