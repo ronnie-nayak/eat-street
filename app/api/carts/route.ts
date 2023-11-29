@@ -12,8 +12,8 @@ export async function GET(req: Request, res: Response) {
     }
 
     await connectToDatabase();
-    const userFavourites = await Users.findOne({ email: session?.user?.email }).populate('favorites');
-    return new Response(JSON.stringify(userFavourites), { status: 200 })
+    const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts');
+    return new Response(JSON.stringify(userCarts), { status: 200 })
   } catch (error: any) {
     return new Response(error.message, { status: 500 })
   }
@@ -37,7 +37,7 @@ export async function PATCH(req: Request) {
       { email: session?.user?.email },
       {
         $addToSet: {
-          favorites: _id
+          carts: _id
         }
       })
 
@@ -47,7 +47,7 @@ export async function PATCH(req: Request) {
         { email: session?.user?.email },
         {
           $pull: {
-            favorites: _id
+            carts: _id
           }
         })
     }
@@ -60,7 +60,7 @@ export async function PATCH(req: Request) {
       { _id },
       {
         $addToSet: {
-          favouriteUsers: session?.user?.id
+          cartUsers: session?.user?.id
         }
       })
     if (resultSecond.modifiedCount === 0) {
@@ -69,7 +69,7 @@ export async function PATCH(req: Request) {
         { _id },
         {
           $pull: {
-            favouriteUsers: session?.user?.id
+            cartUsers: session?.user?.id
           }
         })
     }

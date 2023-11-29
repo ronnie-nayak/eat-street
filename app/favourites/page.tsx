@@ -1,23 +1,28 @@
-
 'use client'
 import Grider from "@/components/grider/grider";
 import Products from "@/components/products/products";
 import { useEffect, useState } from "react";
 
-import { signIn, signOut, useSession, getProviders, } from "next-auth/react"
 
-export default function Fruit() {
-  const [fruits, setFruits] = useState([])
-  const { data: session } = useSession()
-
+export default function Favourites() {
+  const [favourites, setFavourites] = useState([])
   useEffect(() => {
-    const getFruits = async () => {
-      let yal = await fetch("api/favourites")
-      let tal = await yal.json()
-      console.log(tal)
-      setFruits(tal)
+    const getFavourites = async () => {
+      try {
+
+        const res = await fetch("/api/favourites", { method: "GET" })
+        const data = await res.json()
+        if (res.ok) {
+          setFavourites(data.favorites)
+        } else {
+          return Promise.reject(data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
     }
-    getFruits()
+    getFavourites()
   }, [])
 
   return (
@@ -30,7 +35,7 @@ export default function Fruit() {
           <Products />
         </div>
         <div className="w-11/12  py-2 ">
-          sldkfjs
+          <Grider arrayOfItems={favourites} />
         </div>
       </div>
     </div>

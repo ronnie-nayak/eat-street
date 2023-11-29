@@ -2,24 +2,66 @@ import { faEye, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AspectRatio from "./aspectRatio";
 import { IoCartOutline } from "react-icons/io5";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-export default function Item({ _id, name, desc, price }) {
+export default function Item({ _id, name, desc, count, favouriteUsers, cartUsers }: { favouriteUsers?: Array<any>, cartUsers?: Array<any> }) {
+  const { data: session, status } = useSession()
+  const [fav, setFav] = useState(false)
+  const [cart, setCart] = useState(false)
+  useEffect(() => {
+    const isFav = favouriteUsers?.includes(session?.user?.id)
+    const isCart = cartUsers?.includes(session?.user?.id)
+    setFav(isFav)
+    setCart(isCart)
+  }, [session])
 
   const addToFavourites = async () => {
-    console.log(_id)
-    const res = await fetch(`/api/favourites`, {
-      method: "PATCH",
-      body: JSON.stringify({ _id }),
-      headers: {
-        "Content-Type": "application/json"
+    try {
+      setFav(prev => !prev)
+      const res = await fetch(`/api/favourites`, {
+        method: "PATCH",
+        body: JSON.stringify({ _id }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const data = res.json()
+      if (res.ok) {
+      } else {
+        setFav(prev => !prev)
+        return Promise.reject(data)
       }
-    })
-    const data = await res.json()
-    console.log(data)
+    } catch (error) {
+      setFav(prev => !prev)
+      console.log(error)
+    }
+  }
+  const addToCart = async () => {
+    try {
+
+      setCart(prev => !prev)
+      const res = await fetch(`/api/carts`, {
+        method: "PATCH",
+        body: JSON.stringify({ _id }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const data = res.json()
+      if (res.ok) {
+      } else {
+        setCart(prev => !prev)
+        return Promise.reject(data)
+      }
+    } catch (error) {
+      setCart(prev => !prev)
+      console.log(error)
+    }
   }
 
   return (
-    <AspectRatio width={300} height={560} >
+    <AspectRatio width={434} height={740} >
       <div style={{
         display: "grid",
         gridTemplateRows: "2fr 5fr 1fr",
@@ -42,9 +84,11 @@ export default function Item({ _id, name, desc, price }) {
           gridArea: "price",
           alignSelf: "end"
         }} className="flex items-center justify-between px-4 py-8 ">
-          <h3 className="font-semibold text-[#00AA63] text-2xl">${price}.00</h3>
-          <button className="rounded-full p-2 bg-gray-200">
-            <IoCartOutline size={26} className="text-[#243F2F]" />
+          <h3 className="font-semibold text-[#00AA63] text-2xl">${count}.00</h3>
+          <button className={`${cart ? 'text-white bg-gray-800' : 'text-[#243F2F] bg-gray-200'} rounded-full p-2 `}
+            onClick={addToCart}
+          >
+            <IoCartOutline size={26} />
           </button>
         </footer>
 
@@ -55,7 +99,7 @@ export default function Item({ _id, name, desc, price }) {
         </div>
 
         <div className="absolute top-2 right-2 flex flex-col gap-2 items-center">
-          <button className="rounded-full p-2 border-gray-200 border-2"
+          <button className={`${fav ? 'border-red-600' : 'border-gray-200 '} rounded-full p-2 border-2`}
             onClick={addToFavourites}
           >
             <FontAwesomeIcon icon={faHeart} className="w-5" />

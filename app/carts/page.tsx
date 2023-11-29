@@ -1,41 +1,42 @@
+
 'use client'
 import Grider from "@/components/grider/grider";
 import Products from "@/components/products/products";
 import { useEffect, useState } from "react";
 
 
-export default function Fruit() {
-  const [fruits, setFruits] = useState([])
-
+export default function Carts() {
+  const [carts, setCarts] = useState([])
   useEffect(() => {
-    const getFruits = async () => {
+    const getCarts = async () => {
       try {
 
-        let res = await fetch("/api/fruits", { method: "GET" })
-        let data = await res.json()
+        const res = await fetch("/api/carts", { method: "GET" })
+        const data = await res.json()
         if (res.ok) {
-          setFruits(data)
+          setCarts(data.favorites)
         } else {
           return Promise.reject(data)
         }
       } catch (error) {
         console.log(error)
       }
+
     }
-    getFruits()
+    getCarts()
   }, [])
 
   return (
     <div>
       <div className="h-36 bg-white flex items-center justify-center">
-        <h1 className="text-4xl">Vegetables</h1>
+        <h1 className="text-4xl">Wishlist</h1>
       </div>
       <div className="flex items-center justify-center p-9">
         <div className="w-1/12 self-start">
           <Products />
         </div>
         <div className="w-11/12  py-2 ">
-          <Grider arrayOfItems={fruits} />
+          <Grider arrayOfItems={carts} />
         </div>
       </div>
     </div>

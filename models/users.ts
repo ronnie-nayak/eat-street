@@ -1,5 +1,4 @@
 import { Schema, model, models } from 'mongoose'
-import Yolos from './yolos'
 
 const UsersSchema = new Schema({
   email: {
@@ -18,11 +17,11 @@ const UsersSchema = new Schema({
   },
   favorites: [{
     type: Schema.Types.ObjectId,
-    ref: "Yolos"
+    ref: "Items"
   }],
   carts: [{
     type: Schema.Types.ObjectId,
-    ref: "Yolos"
+    ref: "Items"
   }],
   // orders: {
   //   type: mongoose.Schema.Types.ObjectId,

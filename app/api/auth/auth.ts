@@ -40,7 +40,7 @@ export const config = {
         }
 
         return true
-      } catch (error) {
+      } catch (error: any) {
         console.log("Error checking if user exists: ", error.message);
         return false
       }
