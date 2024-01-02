@@ -3,47 +3,47 @@ export const datax = [
   {
     name: 'avacado',
     desc: 'a pear-shaped fruit with a rough leathery skin',
-    price: 2
+    count: 2
   },
   {
     name: 'blackberry',
     desc: 'an edible fruit produced by many species in the Rubus genus',
-    price: 3
+    count: 3
   },
   {
     name: 'blueberry',
     desc: 'a sweet, juicy, blue-colored berry',
-    price: 4
+    count: 4
   },
   {
     name: 'coconut',
     desc: 'a large, oval-shaped fruit with a hard shell',
-    price: 1
+    count: 1
   },
   {
     name: 'grape',
     desc: 'a small, round fruit with a smooth skin and juicy pulp',
-    price: 5
+    count: 5
   },
   {
     name: 'greenapple',
     desc: 'a type of apple with a green skin and tart flavor',
-    price: 2
+    count: 2
   },
   {
     name: 'kiwi',
     desc: 'a small, oval-shaped fruit with a brown, fuzzy skin',
-    price: 3
+    count: 3
   },
   {
     name: 'mint',
     desc: 'a fragrant herb with dark green leaves',
-    price: 1
+    count: 1
   },
   {
     name: 'strawberry',
     desc: 'a sweet, juicy, red-colored fruit',
-    price: 6
+    count: 6
   }
 ]
 

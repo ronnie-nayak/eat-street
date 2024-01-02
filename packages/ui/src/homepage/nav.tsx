@@ -10,6 +10,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { signIn, signOut, useSession, getProviders, } from "next-auth/react"
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { PopupSearch } from ".";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
@@ -31,7 +32,6 @@ function handleSearch(e: React.FormEvent<HTMLFormElement>) {
 
 export function Nav() {
   const { data: session, status } = useSession()
-  const [searchStart, setSearchStart] = useState(false)
   const [providers, setProviders] = useState(null)
 
   useEffect(() => {
@@ -70,9 +70,7 @@ export function Nav() {
         </div>
 
         <div className="hidden xl:flex items-center gap-4 justify-self-end absolute right-9">
-          <div className="cursor-pointer" onClick={() => setSearchStart((oldVal) => !oldVal)}>
-            <IoSearch size={22} />
-          </div>
+          <PopupSearch />
           {session?.user ? (
             <>
               <Link href="favourites">
@@ -100,24 +98,6 @@ export function Nav() {
 
         </div>
       </div >
-
-
-      {searchStart && (
-        <div className="h-full w-full bg-black/80 fixed z-10 grid place-items-center">
-          <div className="">
-            <form className="flex gap-2">
-              <input type="text" className="w-full h-12 rounded-full px-4" placeholder="Search" />
-              <button type="submit" className=" h-12 w-12 rounded-full bg-[#00D783] flex justify-center items-center"
-                onClick={handleSearch}
-              >
-                <IoSearch size={22} />
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-
     </nav>
   )
 }

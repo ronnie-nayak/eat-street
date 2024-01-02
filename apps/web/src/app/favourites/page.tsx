@@ -1,5 +1,5 @@
 'use client'
-import { Grider, Products } from "@repo/ui/src";
+import { Grid, Products } from "@repo/ui/src";
 import { useEffect, useState } from "react";
 
 
@@ -34,7 +34,7 @@ export default function Favourites() {
           <Products />
         </div>
         <div className="w-11/12  py-2 ">
-          <Grider arrayOfItems={favourites} />
+          <Grid arrayOfItems={favourites} />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 
 'use client'
-import { Grider, Products } from "@repo/ui/src";
+import { Grid, Products } from "@repo/ui/src";
 import { useEffect, useState } from "react";
 
 
@@ -35,7 +35,7 @@ export default function Carts() {
           <Products />
         </div>
         <div className="w-11/12  py-2 ">
-          <Grider arrayOfItems={carts} />
+          <Grid arrayOfItems={carts} />
         </div>
       </div>
     </div>

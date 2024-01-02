@@ -1,10 +1,12 @@
 'use client'
-import { Banner, Biker, Footer, Grider, Info, ItemSmall, Order, Sections, Sections2, Sections3, Slider } from "@repo/ui/src";
+import { Banner, Biker, Footer, Grid, Info, ItemSmall, Order, Sections, Sections2, Sections3, Slider } from "@repo/ui/src";
 import { dataInfo } from "../lib/data";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { dataState } from "@repo/atoms"
 
 export default function Home() {
-  const [fruits, setFruits] = useState([])
+  const [fruits, setFruits] = useRecoilState(dataState)
   useEffect(() => {
     const getFruits = async () => {
       try {
@@ -31,24 +33,23 @@ export default function Home() {
         <Sections title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
         <Sections title={"For Steak\nLovers"} image="/home/steak.jpg" />
       </div>
-      {/* <Tester /> */}
       <h2 className="text-2xl  text-[#243F2F] text-center m-7 ">
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        <Slider noOfItems={2} name="firsttwo" arrayOfItems={fruits} />
+        <Slider arrayOfItems={fruits} />
       </div>
       <div className="hidden xl:block m-10">
-        <Grider arrayOfItems={fruits} />
+        <Grid arrayOfItems={fruits} />
       </div>
       <Biker />
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider noOfItems={2} name="secondtwo" arrayOfItems={fruits} />
+          <Slider arrayOfItems={fruits} />
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider noOfItems={5} name="lastfive" arrayOfItems={fruits} />
+          <Slider arrayOfItems={fruits} />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>
@@ -59,7 +60,6 @@ export default function Home() {
         <Sections3 title="Excellent Bread From Our Bakers" image="/home/bread.jpg" discount={33} />
         <Sections3 title="Order Burger with Great Meat" image="/home/burger.jpg" discount={50} />
       </div>
-      <ItemSmall />
       <Order />
       <div className="flex flex-row xl:justify-around gap-4 p-10">
         {dataInfo.map((item) => (<Info image={item.image} first={item.first} second={item.second} />))}

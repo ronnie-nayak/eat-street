@@ -1,86 +1,58 @@
-'use client'
+
 import { faEye, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoCartOutline } from "react-icons/io5";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { AspectRatio } from "../../components/ui/aspect-ratio";
 
-type Props = {
-  _id: string,
-  name: string,
-  desc: string,
-  count: number,
-  favouriteUsers?: Array<any>,
-  cartUsers?: Array<any>
-}
+export function ItemPage({ _id, name, desc, count, favouriteUsers, cartUsers }: { favouriteUsers?: Array<any>, cartUsers?: Array<any> }) {
 
-export function Item({ _id, name, desc, count, favouriteUsers, cartUsers }: Props) {
+  name = "mint"
+  desc = "very tasty"
+
   const { data: session, status } = useSession()
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
   useEffect(() => {
-    const isFav: boolean = favouriteUsers?.includes(session?.user?.id) ?? false
-    const isCart: boolean = cartUsers?.includes(session?.user?.id) ?? false
+    const isFav = favouriteUsers?.includes(session?.user?.id)
+    const isCart = cartUsers?.includes(session?.user?.id)
     setFav(isFav)
     setCart(isCart)
-  }, [session])
+  }, [session]
+  )
 
   const addToFavourites = async () => {
-    try {
-      setFav(prev => !prev)
-      const res = await fetch(`/api/favourites`, {
-        method: "PATCH",
-        body: JSON.stringify({ _id }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const data = res.json()
-      if (res.ok) {
-      } else {
-        setFav(prev => !prev)
-        return Promise.reject(data)
+    setFav(prev => !prev)
+    const res = await fetch(`/api/favourites`, {
+      method: "PATCH",
+      body: JSON.stringify({ _id }),
+      headers: {
+        "Content-Type": "application/json"
       }
-    } catch (error) {
-      setFav(prev => !prev)
-      console.log(error)
-    }
+    })
+    const data = await res.json()
+    console.log(data)
   }
   const addToCart = async () => {
-    try {
-
-      setCart(prev => !prev)
-      const res = await fetch(`/api/carts`, {
-        method: "PATCH",
-        body: JSON.stringify({ _id }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const data = res.json()
-      if (res.ok) {
-      } else {
-        setCart(prev => !prev)
-        return Promise.reject(data)
+    setCart(prev => !prev)
+    const res = await fetch(`/api/carts`, {
+      method: "PATCH",
+      body: JSON.stringify({ _id }),
+      headers: {
+        "Content-Type": "application/json"
       }
-    } catch (error) {
-      setCart(prev => !prev)
-      console.log(error)
-    }
+    })
+    const data = await res.json()
+    console.log(data)
   }
-
   return (
-    <div style={{
-      minWidth: "235px",
-      maxWidth: "545px",
-    }
-    }>
-      <AspectRatio ratio={270 / 480}  >
+
+    <div className="m-auto max-w-7xl py-9">
+      <AspectRatio width={1150} height={1500} >
         <div style={{
           display: "grid",
-          gridTemplateRows: "2fr 5fr 1fr",
-          gridTemplateAreas: ` "image" "content" "price" `
+          gridTemplateColumns: "1fr 1fr",
+          gridTemplateAreas: ` "image content" `
         }} className="relative h-full bg-white border border-gray-300">
           <header style={{
             gridArea: "image"
@@ -126,17 +98,5 @@ export function Item({ _id, name, desc, count, favouriteUsers, cartUsers }: Prop
         </div >
       </AspectRatio >
     </div>
-  )
-}
-
-export function ItemSmall({ _id, name, desc, count }: Props) {
-  return (
-    <div className="flex items-center h-[80px] gap-4 m-4">
-      <img src={`/items/${name}.jpg`} className="h-full w-[80px] object-cover rounded-xl" />
-      <div>
-        <h3 className=" text-[#243F2F]">{name}</h3>
-        <h3 className=" text-[#0BAD69]">${count}</h3>
-      </div>
-    </div >
   )
 }
