@@ -21,6 +21,10 @@ const config = {
     },
     extend: {
       colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        'limeGreen': '#243F2F',
+        'purple': '#3f3cbb',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

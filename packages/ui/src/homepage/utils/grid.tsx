@@ -5,7 +5,7 @@ export function Grid({ arrayOfItems }) {
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill,minmax(235px,2fr))",
+      gridTemplateColumns: "repeat(auto-fill,minmax(260px,2fr))",
     }} className="bg-white">
       {arrayOfItems.map((item, index) => (<Item {...item} key={uuidv4()} />))}
     </div>

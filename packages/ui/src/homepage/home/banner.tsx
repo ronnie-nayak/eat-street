@@ -11,7 +11,7 @@ export function Banner() {
           and Get Free Delivery!
         </h1>
         <div className="flex flex-col xl:flex-row gap-4 items-start xl:items-center xl:mt-12 xl:text-xl">
-          <button className="flex gap-3 bg-[#243F2F]  text-white p-4 rounded-full xl:p-6">
+          <button className="flex gap-3 bg-limeGreen text-white p-4 rounded-full xl:p-6 hover:text-limeGreen hover:bg-white transition-all duration-300">
             <img src="/home/cart.svg" />
             Explore Shop
           </button>

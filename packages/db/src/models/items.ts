@@ -13,6 +13,15 @@ const ItemsSchema = new Schema({
   price: {
     type: Number,
   },
+  oldPrice: {
+    type: Number,
+  },
+  stock: {
+    type: Number,
+  },
+  new: {
+    type: Boolean,
+  },
   favouriteUsers: [
     {
       type: Schema.Types.ObjectId,
