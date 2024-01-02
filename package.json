@@ -9,10 +9,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@repo/typescript-config": "*",
     "eslint": "^8.54.0",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
-    "@repo/typescript-config": "*",
     "turbo": "latest"
   },
   "engines": {
@@ -22,5 +22,18 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "bcrypt": "^5.1.1",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
+    "next-auth": "^4.24.5",
+    "react-icons": "^4.12.0",
+    "recoil": "^0.7.7"
+  }
 }
