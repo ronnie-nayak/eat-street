@@ -15,19 +15,10 @@ import {
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation'
 import { PopupPreview } from ".";
+import { useRecoilValue } from "recoil";
+import { idState } from "@repo/atoms"
+import { Props } from "../types";
 
-type Props = {
-  _id: string,
-  name: string,
-  desc: string,
-  price: number,
-  oldPrice: number,
-  stock: number,
-  sold: number,
-  newTag: boolean,
-  favouriteUsers?: Array<any>,
-  cartUsers?: Array<any>
-}
 
 export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, favouriteUsers, cartUsers }: Props) {
   const { data: session } = useSession()

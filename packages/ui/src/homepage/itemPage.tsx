@@ -15,31 +15,33 @@ import {
 } from "../../components/ui/tooltip";
 import { motion } from "framer-motion"
 import { toast } from "sonner"
+import { useRecoilValue } from 'recoil';
+import { idState } from '@repo/atoms';
 
 type Props = {
-  _id: string,
-  name: string,
-  desc: string,
-  price: number,
-  oldPrice: number,
+  _id?: string,
+  name?: string,
+  desc?: string,
+  price?: number,
+  oldPrice?: number,
   stock: number,
   sold: number,
-  newTag: boolean,
+  newTag?: boolean,
   favouriteUsers?: Array<any>,
   cartUsers?: Array<any>
 }
 
 
 
-export function ItemPage({ _id }) {
+export function ItemPage({ _id }: { _id: string }) {
 
   const pathname = usePathname().split("/").slice(0, -1)
-  const { data: session } = useSession()
-  const [page, setPage] = useState({})
+  const [page, setPage] = useState<Props>({ sold: 1, stock: 1 })
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
   const [amount, setAmount] = useState(1)
   const [loading, setLoading] = useState(true)
+  const { data: session } = useSession()
   useEffect(() => {
     const getFruits = async () => {
       try {
@@ -69,8 +71,8 @@ export function ItemPage({ _id }) {
 
   useEffect(() => {
     console.log(page)
-    setFav(page?.favouriteUsers?.some(e => e.refId === session?.user?.id))
-    setCart(page?.cartUsers?.some(e => e.refId === session?.user?.id))
+    setFav(page?.favouriteUsers?.some(e => e.refId === session?.user?.id) ?? false)
+    setCart(page?.cartUsers?.some(e => e.refId === session?.user?.id) ?? false)
     setLoading(false)
     console.log("fav", fav)
     console.log("cart", cart)
@@ -159,7 +161,7 @@ export function ItemPage({ _id }) {
                       </div>
                       <div className="font-thin text-sm flex justify-between">
                         <h4>Sold: {page?.sold}</h4>
-                        <h4>Available: {page?.stock - page?.sold}</h4>
+                        <h4>Available: {page?.stock ?? 1 - page?.sold}</h4>
                       </div>
                     </div >
                   </section>

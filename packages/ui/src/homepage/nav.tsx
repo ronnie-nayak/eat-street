@@ -75,7 +75,7 @@ export function Nav() {
               <Link href="/carts">
                 <IoCartOutline size={26} className="text-[#243F2F] " />
               </Link>
-              <img src={session?.user?.image} className="w-10 h-10 rounded-full" />
+              <img src={session?.user?.image ?? ""} className="w-10 h-10 rounded-full" />
             </>
           ) : (
             <>

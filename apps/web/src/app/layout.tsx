@@ -1,10 +1,10 @@
 import "./globals.css";
 import "@repo/ui/styles.css";
 import { Quicksand } from "next/font/google"
-import Provider from './provider'
 import type { Metadata } from "next";
 import { Nav } from "@repo/ui/src";
 import { Toaster } from "@repo/ui/components/ui/sonner";
+import Provider from "./provider";
 
 
 export const metadata: Metadata = {

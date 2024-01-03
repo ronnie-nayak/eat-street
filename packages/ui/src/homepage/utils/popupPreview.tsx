@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog"
 
-export function PopupPreview({ children, _id, }) {
+export function PopupPreview({ children, _id, }: { children: JSX.Element, _id: string }) {
   return (
     <div>
       <Dialog>

@@ -2,16 +2,16 @@ import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 
 import type { NextAuthOptions } from "next-auth";
 import { getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { connectToDatabase } from "../../../utils/database";
 import { Users } from "@repo/db"
+import { connectToDatabase } from "../../../utils/database";
 
 // You'll need to import and pass this
 // to `NextAuth` in `app/api/auth/[...nextauth]/route.ts`
 export const config = {
   providers: [
     GoogleProvider({
-      clientId: process?.env?.GOOGLE_CLIENT_ID ?? "",
-      clientSecret: process?.env?.GOOGLE_CLIENT_SECRET ?? "",
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     })
   ],
   callbacks: {

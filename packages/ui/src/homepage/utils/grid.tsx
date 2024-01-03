@@ -1,14 +1,15 @@
 import { JSX } from "react/jsx-runtime"
 import { Item } from ".."
 import { v4 as uuidv4 } from "uuid"
+import { Props } from "../../types";
 
-export function Grid({ arrayOfItems }) {
+export function Grid({ arrayOfItems }: { arrayOfItems: Array<Props> }) {
   return (
     <div style={{
       display: "grid",
       gridTemplateColumns: "repeat(auto-fill,minmax(260px,2fr))",
     }} className="bg-white">
-      {arrayOfItems.map((item: JSX.IntrinsicAttributes & { _id: string; name: string; desc: string; count: number; favouriteUsers?: any[] | undefined; cartUsers?: any[] | undefined }) => (<Item {...item} key={uuidv4()} />))}
+      {arrayOfItems.map((item) => (<Item {...item} key={uuidv4()} />))}
     </div>
   )
 }
