@@ -1,5 +1,5 @@
 'use client'
-import { Banner, Biker, Footer, Grid, Info, ItemSmall, Order, Sections, Sections2, Sections3, Slider } from "@repo/ui/src";
+import { Banner, Biker, Footer, Grid, Info, Order, Sections, Sections2, Sections3, Slider } from "@repo/ui/src";
 import { dataInfo } from "../lib/data";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";

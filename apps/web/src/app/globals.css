@@ -87,3 +87,20 @@
     display: none;
   }
 }
+
+
+
+.animate-timer {
+  position: relative;
+  animation: animatetop 1s infinite;
+}
+
+@keyframes animatetop {
+  from {
+    top: -50px;
+  }
+
+  to {
+    top: 20px;
+  }
+}

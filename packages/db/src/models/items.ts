@@ -19,21 +19,19 @@ const ItemsSchema = new Schema({
   stock: {
     type: Number,
   },
-  new: {
-    type: Boolean,
+  sold: {
+    type: Number,
   },
-  favouriteUsers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Users"
-    }
-  ],
-  cartUsers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Users"
-    }
-  ]
+  newTag: {
+    type: Schema.Types.Boolean,
+    required: [true, 'newTag is required duh']
+  },
+  favouriteUsers: [new Schema({
+    refId: { type: Schema.Types.ObjectId, ref: 'Users' },
+  }, { _id: false })],
+  cartUsers: [new Schema({
+    refId: { type: Schema.Types.ObjectId, ref: 'Users' },
+  }, { _id: false })],
 })
 
 export const Items = models?.Items || model('Items', ItemsSchema)

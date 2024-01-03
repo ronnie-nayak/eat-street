@@ -1,8 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { connectToDatabase } from "../../../utils/database"
 import { Items } from "@repo/db"
+import { connectToDatabase } from "../../../utils/database"
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   await connectToDatabase()
 
   const yal = await Items.find()

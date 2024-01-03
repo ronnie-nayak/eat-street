@@ -1,9 +1,3 @@
-declare namespace JSX {
-  interface IntrinsicElements {
-    "dotlottie-player": any;
-  }
-}
-
 import NextAuth from "next-auth"
 
 declare module "next-auth" {

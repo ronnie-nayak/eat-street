@@ -1,5 +1,5 @@
-import { Item } from ".."
 import { v4 as uuidv4 } from 'uuid'
+import { Item } from ".."
 import {
   Carousel,
   CarouselContent,
@@ -7,8 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../../components/ui/carousel"
-import { DialogFooter } from "../../../components/ui/dialog"
-import { Vertical } from "./vertical"
 
 export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
   return (
@@ -19,7 +17,7 @@ export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
       }}
       >
         <CarouselContent>
-          {arrayOfItems.map((item, index) => (
+          {arrayOfItems.map((item) => (
             <CarouselItem className="basis-1/4 2xl:basis-1/5">
               <Item {...item} key={uuidv4()} />
             </CarouselItem>

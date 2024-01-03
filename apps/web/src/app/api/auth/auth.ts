@@ -10,8 +10,8 @@ import { Users } from "@repo/db"
 export const config = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process?.env?.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process?.env?.GOOGLE_CLIENT_SECRET ?? "",
     })
   ],
   callbacks: {
@@ -22,7 +22,7 @@ export const config = {
 
       return session;
     },
-    async signIn({ account, profile, user, credentials }) {
+    async signIn({ profile, user }) {
       try {
         await connectToDatabase();
 

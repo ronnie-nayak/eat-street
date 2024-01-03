@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../../../components/ui/button"
 import { useForm } from "react-hook-form"
 
-export function Products({ filterItems }) {
+export function Products() {
   const formSchema = z.object({
     lower: z.coerce.number().min(0),
     upper: z.coerce.number().max(1000),

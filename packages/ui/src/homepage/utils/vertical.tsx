@@ -1,16 +1,13 @@
 'use client'
-import { dataState } from "@repo/atoms"
-import { ItemSmall } from ".."
 import { v4 } from "uuid"
-import { useState } from "react"
+import { ItemSmall } from ".."
 
 
 export function Vertical({ arrayOfItems }: { arrayOfItems?: any[] }) {
-
-  const [fruits, setFruits] = useState([])
+  console.log(arrayOfItems)
   return (
     <div className="h-96 overflow-scroll">
-      {fruits.map((item, index) => (
+      {arrayOfItems?.map((item) => (
         <ItemSmall {...item} key={v4()} />
       ))}
     </div>

@@ -24,6 +24,7 @@ const config = {
         transparent: 'transparent',
         current: 'currentColor',
         'limeGreen': '#243F2F',
+        'forestGreen': '#00AA63',
         'purple': '#3f3cbb',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -80,7 +81,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
 } satisfies Config
 
 export default config

@@ -2,17 +2,17 @@ import { Items, Users } from "@repo/db";
 import { connectToDatabase } from "../../../utils/database";
 import { auth } from "../auth/auth";
 
-export async function GET(req: Request, res: Response) {
+export async function GET() {
   try {
-
     const session = await auth()
     if (!session) {
       return new Response("Unauthorized", { status: 401 })
     }
-
     await connectToDatabase();
-    const userFavourites = await Users.findOne({ email: session?.user?.email }).populate('favorites');
-    return new Response(JSON.stringify(userFavourites), { status: 200 })
+    const userFavourites = await Users.findOne({ email: session?.user?.email }).populate('favourites.refId');
+
+    let returner = userFavourites.favourites.map((favourite: any) => favourite.refId)
+    return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {
     return new Response(error.message, { status: 500 })
   }
@@ -35,18 +35,19 @@ export async function PATCH(req: Request) {
     let result = await Users.updateOne(
       { email: session?.user?.email },
       {
-        $addToSet: {
-          favorites: _id
+        $pull: {
+          favourites: { refId: _id }
         }
       })
+
 
     if (result.modifiedCount === 0) {
       //0 means, no modifikation, that means its already liked
       await Users.updateOne(
         { email: session?.user?.email },
         {
-          $pull: {
-            favorites: _id
+          $addToSet: {
+            favourites: { refId: _id }
           }
         })
     }
@@ -58,8 +59,8 @@ export async function PATCH(req: Request) {
     let resultSecond = await Items.updateOne(
       { _id },
       {
-        $addToSet: {
-          favouriteUsers: session?.user?.id
+        $pull: {
+          favouriteUsers: { refId: session?.user?.id }
         }
       })
     if (resultSecond.modifiedCount === 0) {
@@ -67,8 +68,8 @@ export async function PATCH(req: Request) {
       await Items.updateOne(
         { _id },
         {
-          $pull: {
-            favouriteUsers: session?.user?.id
+          $addToSet: {
+            favouriteUsers: { refId: session?.user?.id }
           }
         })
     }

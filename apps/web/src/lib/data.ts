@@ -1,49 +1,91 @@
 
 export const datax = [
   {
-    name: 'avacado',
-    desc: 'a pear-shaped fruit with a rough leathery skin',
-    count: 2
-  },
-  {
-    name: 'blackberry',
-    desc: 'an edible fruit produced by many species in the Rubus genus',
-    count: 3
-  },
-  {
-    name: 'blueberry',
-    desc: 'a sweet, juicy, blue-colored berry',
-    count: 4
-  },
-  {
-    name: 'coconut',
-    desc: 'a large, oval-shaped fruit with a hard shell',
-    count: 1
-  },
-  {
-    name: 'grape',
-    desc: 'a small, round fruit with a smooth skin and juicy pulp',
-    count: 5
-  },
-  {
-    name: 'greenapple',
-    desc: 'a type of apple with a green skin and tart flavor',
-    count: 2
-  },
-  {
-    name: 'kiwi',
-    desc: 'a small, oval-shaped fruit with a brown, fuzzy skin',
-    count: 3
-  },
-  {
-    name: 'mint',
-    desc: 'a fragrant herb with dark green leaves',
-    count: 1
-  },
-  {
-    name: 'strawberry',
-    desc: 'a sweet, juicy, red-colored fruit',
-    count: 6
+    name: 'Avacado',
+    desc: 'A fruit with a tough outer layer and a soft, tasty inside.',
+    price: 2.99,
+    oldPrice: 3.99,
+    stock: 100,
+    sold: 10,
+    newTag: true,
+  }
+  , {
+    name: 'Blackberry',
+    desc: 'A sweet fruit with a slightly tart flavor.',
+    price: 1.99,
+    oldPrice: 2.99,
+    stock: 50,
+    sold: 0,
+    newTag: false,
+  }
+
+  , {
+    name: 'Blueberry',
+    desc: 'A small, sweet fruit with a slightly tart flavor.',
+    price: 0.99,
+    oldPrice: 1.99,
+    stock: 75,
+    sold: 0,
+    newTag: true,
+  }
+
+  , {
+    name: 'Coconut',
+    desc: 'A large, hard-shelled fruit with a sweet, nutty flavor.',
+    price: 4.99,
+    oldPrice: 5.99,
+    stock: 25,
+    sold: 0,
+    newTag: false,
+  }
+
+  , {
+    name: 'Grape',
+    desc: 'A small, juicy fruit with a sweet flavor.',
+    price: 0.49,
+    oldPrice: 0.99,
+    stock: 200,
+    newTag: true,
+  }
+
+  , {
+    name: 'GreenApple',
+    desc: 'A tart, crunchy fruit with a green skin.',
+    price: 0.79,
+    oldPrice: 1.29,
+    stock: 150,
+    sold: 0,
+    newTag: false,
+  }
+
+  , {
+    name: 'Kiwi',
+    desc: 'A small, fuzzy fruit with a sweet and tangy flavor.',
+    price: 1.49,
+    oldPrice: 2.49,
+    stock: 100,
+    sold: 0,
+    newTag: true,
+  }
+
+  , {
+    name: 'Mint',
+    desc: 'A fragrant herb with a cool, refreshing flavor.',
+    price: 0.99,
+    oldPrice: 1.99,
+    stock: 50,
+    sold: 0,
+    newTag: false,
+  }
+
+  , {
+    name: 'Strawberry',
+    desc: 'A sweet, juicy fruit with a red exterior.',
+    price: 0.69,
+    oldPrice: 1.19,
+    stock: 175,
+    sold: 0,
+    newTag: true,
   }
 ]
 

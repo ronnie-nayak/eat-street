@@ -1,15 +1,16 @@
 'use client'
-import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IoCartOutline, IoFishOutline, IoSearch, IoStorefrontOutline } from "react-icons/io5";
-import { LuCarrot, LuCherry, LuCupSoda } from "react-icons/lu";
-import { TbMeat } from "react-icons/tb";
+import { BuiltInProviderType } from "next-auth/providers/index";
+import { ClientSafeProvider, LiteralUnion, getProviders, signIn, useSession, } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FaRegHeart } from "react-icons/fa";
 import { GiSlicedBread } from "react-icons/gi";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
-import { FaRegHeart } from "react-icons/fa";
-import { signIn, signOut, useSession, getProviders, } from "next-auth/react"
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { IoCartOutline, IoFishOutline, IoStorefrontOutline } from "react-icons/io5";
+import { LuCarrot, LuCherry, LuCupSoda } from "react-icons/lu";
+import { TbMeat } from "react-icons/tb";
 import { PopupSearch } from ".";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
@@ -24,15 +25,10 @@ function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   )
 }
 
-function handleSearch(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault()
-  console.log("search")
-
-}
 
 export function Nav() {
-  const { data: session, status } = useSession()
-  const [providers, setProviders] = useState(null)
+  const { data: session } = useSession()
+  const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
 
   useEffect(() => {
     const setProvider = async () => {
@@ -73,11 +69,13 @@ export function Nav() {
           <PopupSearch />
           {session?.user ? (
             <>
-              <Link href="favourites">
+              <Link href="/favourites">
                 <FaRegHeart size={22} />
               </Link>
-              <IoCartOutline size={26} className="text-[#243F2F] " />
-              <img onClick={signOut} src={session?.user?.image} className="w-10 h-10 rounded-full" />
+              <Link href="/carts">
+                <IoCartOutline size={26} className="text-[#243F2F] " />
+              </Link>
+              <img src={session?.user?.image} className="w-10 h-10 rounded-full" />
             </>
           ) : (
             <>

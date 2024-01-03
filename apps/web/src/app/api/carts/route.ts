@@ -2,7 +2,7 @@ import { Items, Users } from "@repo/db";
 import { connectToDatabase } from "../../../utils/database";
 import { auth } from "../auth/auth";
 
-export async function GET(req: Request, res: Response) {
+export async function GET() {
   try {
 
     const session = await auth()
@@ -11,8 +11,10 @@ export async function GET(req: Request, res: Response) {
     }
 
     await connectToDatabase();
-    const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts');
-    return new Response(JSON.stringify(userCarts), { status: 200 })
+    const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts.refId');
+    console.log("userCarts", userCarts.carts)
+    let returner = userCarts.carts.map((cart: any) => cart.refId)
+    return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {
     return new Response(error.message, { status: 500 })
   }
@@ -26,27 +28,30 @@ export async function PATCH(req: Request) {
       return new Response("Unauthorized", { status: 401 })
     }
     await connectToDatabase();
-    const { _id } = await req.json()
+    const { _id, amount } = await req.json()
     // const userFavourites = await Users.findOne({ email: session?.user?.email });
     // const updatedUserFavourites = await Users.findOneAndUpdate(
     //   { email: session?.user?.email },
     //   { $push: { favorites: _id } }
     // )
+
+
     let result = await Users.updateOne(
       { email: session?.user?.email },
       {
-        $addToSet: {
-          carts: _id
+        $pull: {
+          carts: { refId: _id }
         }
       })
+
 
     if (result.modifiedCount === 0) {
       //0 means, no modifikation, that means its already liked
       await Users.updateOne(
         { email: session?.user?.email },
         {
-          $pull: {
-            carts: _id
+          $addToSet: {
+            carts: { refId: _id, quantity: amount }
           }
         })
     }
@@ -58,17 +63,20 @@ export async function PATCH(req: Request) {
     let resultSecond = await Items.updateOne(
       { _id },
       {
-        $addToSet: {
-          cartUsers: session?.user?.id
+        $pull: {
+          cartUsers: {
+            refId: session?.user?.id
+          }
         }
       })
     if (resultSecond.modifiedCount === 0) {
-      //0 means, no modifikation, that means its already liked
       await Items.updateOne(
         { _id },
         {
-          $pull: {
-            cartUsers: session?.user?.id
+          $addToSet: {
+            cartUsers: {
+              refId: session?.user?.id
+            }
           }
         })
     }

@@ -2,7 +2,7 @@
 
 export function Sections({ title, image }: { title: string, image: string }) {
   return (
-    <div className=" h-[23.75vh] md:h-[40vh]  w-full px-4 py-8 m-2 rounded-3xl xl:px-8 xl:py-20 hover:-translate-y-2 transition-all ease-in" style={{
+    <div className=" h-[23.75vh] md:h-[40vh]  w-full px-4 py-8 m-2 rounded-3xl xl:px-8 xl:py-20 hover:-translate-y-2 transition-all duration-500" style={{
       background: `url(${image}) right center no-repeat #4F743D`,
       backgroundSize: "cover",
     }}>
@@ -28,7 +28,7 @@ export function Sections2({ title, image }: { title: string, image: string }) {
           className="text-4xl  leading-none text-[#EBFFDC] ">
           {title}
         </h1>
-        <button className="bg-white  p-4 rounded-full mb-4">
+        <button className="bg-white  p-4 rounded-full mb-4 hover:text-white transition-all duration-300 hover:bg-limeGreen">
           Shop Now
         </button>
       </div>
@@ -41,7 +41,7 @@ export function Sections3({ title, image, discount }: { title: string, image: st
     <div style={{
       background: `url(${image}) 50% 70% no-repeat #4F743D`,
       backgroundSize: "cover",
-    }} className=" h-[43vh] m-4 rounded-3xl flex flex-col items-center text-center py-10 xl:w-1/4 ">
+    }} className=" h-[43vh] m-4 rounded-3xl flex flex-col items-center text-center py-10 xl:w-1/4  hover:-translate-y-4 transition-all duration-500">
       <button className="bg-white text-[#00AA63] text-2xl  px-5 py-1 rounded-full mb-4">
         -{discount}%
       </button>
@@ -66,7 +66,7 @@ export function Biker() {
         <small className="text-base">
           * For Orders starts from $100
         </small>
-        <button className="bg-white text-[#276153] p-4 rounded-full mb-4">
+        <button className="bg-white text-[#276153] p-4 rounded-full mb-4 hover:text-white transition-all duration-300 hover:bg-limeGreen">
           Read More
         </button>
       </div>
@@ -78,7 +78,7 @@ export function Order() {
   return (
     <div style={{
       background: "radial-gradient(70.71% 70.71% at 50% 50%, #495875 41%, #48556F 100%)",
-    }} className="text-center flex flex-col xl:flex-row gap-4 p-4 pb-0  m-4 mt-28 rounded-3xl xl:h-[50vh] items-center justify-center xl:items-end">
+    }} className="text-center flex flex-col xl:flex-row gap-4 p-4 pb-0  m-4 mt-28 rounded-3xl xl:h-[30vw] items-center justify-center xl:items-end">
 
       <img src="/lghome/man.png" className="hidden xl:block w-[15%]" />
 
@@ -89,13 +89,13 @@ export function Order() {
         <small className="text-[#D4FFFF] text-lg  ">
           * Free Delivery For Orders Starts From $50
         </small>
-        <div className="flex gap-2 w-1/2">
+        <div className="flex gap-2 w-1/2 cursor-pointer">
           <img src="/home/appStore.png" className="w-full" />
           <img src="/home/googlePlay.png" className="w-full" />
         </div>
       </div>
 
-      <img src="/home/phonegirl.png" className="w-4/12 w-[20%]" />
+      <img src="/home/phonegirl.png" className="w-[20%] " />
     </div>
   )
 }

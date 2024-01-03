@@ -5,9 +5,9 @@ import { connectToDatabase } from "../../../utils/database";
 
 export async function POST(req: Request) {
   await connectToDatabase();
-  datax.map(async ({ name, desc, count }) => {
+  datax.map(async ({ name, desc, price, oldPrice, stock, sold, newTag }) => {
     await Items.create({
-      name, desc, count
+      name, desc, price, oldPrice, stock, sold, newTag
     })
   }
   )

@@ -1,18 +1,33 @@
-
+'use client'
 import { IoSearch } from "react-icons/io5"
-import { Button } from "../../../components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
 } from "../../../components/ui/dialog"
 import { Vertical } from "./vertical"
+import { useEffect, useState } from "react"
 
 export function PopupSearch() {
+  const [fruits, setFruits] = useState()
+  useEffect(() => {
+    const getFruits = async () => {
+      try {
+        const res = await fetch("/api/fruits", { method: "GET" })
+        const data = await res.json()
+        if (res.ok) {
+          setFruits(data)
+        } else {
+          return Promise.reject(data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getFruits()
+  }, [])
   return (
     <div className="cursor-pointer">
       <Dialog>
@@ -31,7 +46,7 @@ export function PopupSearch() {
             </button>
           </form>
 
-          <Vertical />
+          <Vertical arrayOfItems={fruits} />
         </DialogContent>
       </Dialog>
     </div>
