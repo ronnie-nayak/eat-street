@@ -12,7 +12,6 @@ export async function GET() {
 
     await connectToDatabase();
     const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts.refId');
-    console.log("userCarts", userCarts.carts)
     let returner = userCarts.carts.map((cart: any) => cart.refId)
     return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {

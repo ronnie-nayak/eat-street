@@ -3,7 +3,6 @@ import { Grid, Products } from "@repo/ui/src";
 import { useEffect, useState } from "react";
 
 export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) {
-  console.log(apiPath)
   const [page, setPage] = useState([])
 
   useEffect(() => {
@@ -13,15 +12,11 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
         let res = await fetch(apiPath, { method: "GET" })
         let data = await res.json()
         if (res.ok) {
-          console.log(data)
           setPage(data)
         } else {
-          console.log("fail1")
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log("fail2")
-        console.log(error)
       }
     }
     getFruits()

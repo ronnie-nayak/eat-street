@@ -17,6 +17,7 @@ import { motion } from "framer-motion"
 import { toast } from "sonner"
 import { useRecoilValue } from 'recoil';
 import { idState } from '@repo/atoms';
+import { v4 } from 'uuid';
 
 type Props = {
   _id?: string,
@@ -55,14 +56,10 @@ export function ItemPage({ _id }: { _id: string }) {
         let data = await res.json()
         if (res.ok) {
           setPage(data)
-          console.log("success", data)
         } else {
-          console.log("fail1")
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log("fail2")
-        console.log(error)
       }
     }
     getFruits()
@@ -70,17 +67,12 @@ export function ItemPage({ _id }: { _id: string }) {
   )
 
   useEffect(() => {
-    console.log(page)
     setFav(page?.favouriteUsers?.some(e => e.refId === session?.user?.id) ?? false)
     setCart(page?.cartUsers?.some(e => e.refId === session?.user?.id) ?? false)
     setLoading(false)
-    console.log("fav", fav)
-    console.log("cart", cart)
   }, [page])
 
   useEffect(() => {
-    console.log("fav", fav)
-    console.log("cart", cart)
   }, [fav, cart])
 
   const addToFavourites = async () => {
@@ -93,7 +85,6 @@ export function ItemPage({ _id }: { _id: string }) {
       }
     })
     const data = await res.json()
-    console.log(data)
   }
   const addToCart = async () => {
     setCart(prev => !prev)
@@ -105,7 +96,6 @@ export function ItemPage({ _id }: { _id: string }) {
       }
     })
     const data = await res.json()
-    console.log(data)
   }
 
   const cartButton = () => {
@@ -119,9 +109,9 @@ export function ItemPage({ _id }: { _id: string }) {
 
   return (
     <>
-      <div className="m-auto  w-1/4 flex justify-center text-lg breadcrumbs">
+      <div className="m-aut bg-white flex justify-center text-sm font-light p-2 breadcrumbs">
         <ul>
-          {pathname.map((item) => <li>{item}</li>)}
+          {pathname.map((item) => <li key={v4()}>{item}</li>)}
         </ul>
       </div>
       {

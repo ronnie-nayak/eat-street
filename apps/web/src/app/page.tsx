@@ -19,7 +19,6 @@ export default function Home() {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
       }
     }
     getFruits()

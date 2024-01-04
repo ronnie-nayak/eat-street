@@ -4,11 +4,10 @@ import { ItemSmall } from ".."
 
 
 export function Vertical({ arrayOfItems }: { arrayOfItems?: any[] }) {
-  console.log(arrayOfItems)
   return (
-    <div className="h-96 overflow-scroll">
+    <div className="max-h-96 overflow-scroll">
       {arrayOfItems?.map((item) => (
-        <ItemSmall {...item} key={v4()} />
+        <ItemSmall {...item} name={item.name.toLowerCase()} key={v4()} />
       ))}
     </div>
   )

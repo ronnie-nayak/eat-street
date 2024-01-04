@@ -50,7 +50,6 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
       }
     } catch (error) {
       setFav(prev => !prev)
-      console.log(error)
     }
   }
   const addToCart = async () => {
@@ -72,7 +71,6 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
       }
     } catch (error) {
       setCart(prev => !prev)
-      console.log(error)
     }
   }
 
@@ -199,13 +197,16 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
   )
 }
 
-export function ItemSmall({ name, price }: Props) {
+export function ItemSmall({ name, price, _id }: Props) {
+  const router = useRouter()
   return (
-    <div className="flex items-center h-[80px] gap-4 m-4">
+    <div className="flex  items-center h-[80px] gap-4 m-4 bg-white rounded-xl w-96 px-9 font-bold cursor-pointer"
+      onClick={() => router.push("/item/" + _id)}
+    >
       <img src={`/items/${name}.jpg`} className="h-full w-[80px] object-cover rounded-xl" />
       <div>
-        <h3 className=" text-[#243F2F]">{name}</h3>
-        <h3 className=" text-[#0BAD69]">${price}</h3>
+        <h3 className=" text-2xl text-[#243F2F]">{name}</h3>
+        <h3 className=" text-lg text-[#0BAD69]">${price}</h3>
       </div>
     </div >
   )

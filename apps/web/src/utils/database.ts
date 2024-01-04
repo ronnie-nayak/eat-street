@@ -6,7 +6,6 @@ export const connectToDatabase = async () => {
   mongoose.set('strictQuery', true)
 
   if (isConnected) {
-    console.log('=> using existing database connection');
     return;
   }
 
@@ -16,8 +15,6 @@ export const connectToDatabase = async () => {
     })
     isConnected = true;
 
-    console.log('=> using new database connection');
   } catch (err) {
-    console.log('=> error while connecting to database:', err);
   }
 }
