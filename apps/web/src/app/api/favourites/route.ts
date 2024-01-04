@@ -14,6 +14,7 @@ export async function GET() {
     let returner = userFavourites.favourites.map((favourite: any) => favourite.refId)
     return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {
+    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }
@@ -76,6 +77,7 @@ export async function PATCH(req: Request) {
 
     return new Response(JSON.stringify(result), { status: 200 })
   } catch (error: any) {
+    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }

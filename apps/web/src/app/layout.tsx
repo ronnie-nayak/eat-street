@@ -2,7 +2,7 @@ import "./globals.css";
 import "@repo/ui/styles.css";
 import { Quicksand } from "next/font/google"
 import type { Metadata } from "next";
-import { Nav } from "@repo/ui/src";
+import { Footer, Nav } from "@repo/ui/src";
 import { Toaster } from "@repo/ui/components/ui/sonner";
 import Provider from "./provider";
 
@@ -29,6 +29,7 @@ export default function RootLayout({
           <div className="bg-[#EFF5EE] font-bold">
             {children}
           </div>
+          <Footer />
         </Provider>
         <Toaster />
       </body>

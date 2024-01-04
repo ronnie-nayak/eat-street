@@ -4,7 +4,6 @@ import { auth } from "../auth/auth";
 
 export async function GET() {
   try {
-
     const session = await auth()
     if (!session) {
       return new Response("Unauthorized", { status: 401 })
@@ -12,9 +11,10 @@ export async function GET() {
 
     await connectToDatabase();
     const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts.refId');
-    let returner = userCarts.carts.map((cart: any) => cart.refId)
-    return new Response(JSON.stringify(returner), { status: 200 })
+    console.log("userCarts", userCarts.carts)
+    return new Response(JSON.stringify(userCarts.carts), { status: 200 })
   } catch (error: any) {
+    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }
@@ -82,6 +82,7 @@ export async function PATCH(req: Request) {
 
     return new Response(JSON.stringify(result), { status: 200 })
   } catch (error: any) {
+    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }

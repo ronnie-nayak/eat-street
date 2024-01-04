@@ -63,7 +63,6 @@ export default function Home() {
       <div className="flex flex-row xl:justify-around gap-4 p-10">
         {dataInfo.map((item) => (<Info image={item.image} first={item.first} second={item.second} />))}
       </div>
-      <Footer />
     </div >
   )
 }
