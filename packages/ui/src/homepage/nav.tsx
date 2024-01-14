@@ -12,7 +12,6 @@ import { IoCartOutline, IoFishOutline, IoStorefrontOutline } from "react-icons/i
 import { LuCarrot, LuCherry, LuCupSoda } from "react-icons/lu";
 import { TbMeat } from "react-icons/tb";
 import { PopupSearch } from ".";
-import { v4 } from "uuid";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
@@ -84,7 +83,7 @@ export function Nav() {
                 Object.values(providers).map((provider) => (
                   <button
                     type="button"
-                    key={v4()}
+                    key={provider.name}
                     onClick={() => signIn(provider.id)}
                   >
                     SignIn

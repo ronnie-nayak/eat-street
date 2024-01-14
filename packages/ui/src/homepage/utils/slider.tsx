@@ -1,35 +1,34 @@
-import { v4 as uuidv4 } from 'uuid'
-import { Item } from ".."
+import { Item } from "..";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../../../components/ui/carousel"
+} from "../../../components/ui/carousel";
 
 export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
   return (
     <div className="mx-4">
-      <Carousel opts={{
-        loop: true,
-        skipSnaps: true,
-      }}
+      <Carousel
+        opts={{
+          loop: true,
+          skipSnaps: true,
+        }}
       >
         <CarouselContent>
-          {arrayOfItems.map((item) => (
+          {arrayOfItems.map((item, index) => (
             <CarouselItem className="basis-1/4 2xl:basis-1/5">
-              <Item {...item} key={uuidv4()} />
+              <Item {...item} key={index} />
             </CarouselItem>
           ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
-      </Carousel >
+      </Carousel>
     </div>
-  )
+  );
 }
-
 
 // const widthOfItems = Math.floor(100 / noOfItems)
 // const slideLeft = () => {

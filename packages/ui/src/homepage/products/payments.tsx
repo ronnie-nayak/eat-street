@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
 import { Grid } from ".."
-import { v4 } from "uuid"
 import { useRouter } from 'next/navigation'
 import { Props } from "../../types"
 import {
@@ -25,7 +24,6 @@ export function Payments() {
   useEffect(() => {
     const getFruits = async () => {
       try {
-        console.log("here")
         let res = await fetch("/api/carts", { method: "GET" })
         let data = await res.json()
         if (res.ok) {
@@ -44,7 +42,6 @@ export function Payments() {
       subTotal += item.refId.price * item.quantity
     })
     setSubTotal(subTotal)
-    console.log(subTotal, shipping)
   }, [page])
 
 
@@ -87,8 +84,8 @@ export function Payments() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {page.map((item) => (
-              <TableRow key={v4()} className="cursor-pointer"
+            {page.map((item, index) => (
+              <TableRow key={index} className="cursor-pointer"
                 onClick={() => router.push("/item/" + item.refId._id)}
               >
                 <TableCell className="font-medium"><img src={`/items/${item.refId.name.toLowerCase()}.jpg`} className="h-full w-[80px] object-cover rounded-xl" /></TableCell>

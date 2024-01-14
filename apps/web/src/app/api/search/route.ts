@@ -21,6 +21,5 @@ export async function PATCH(req: Request) {
     }
   ]
   const yal = await Items.aggregate(pipeline)
-  console.log("yal", yal)
   return new Response(JSON.stringify(yal), { status: 200 })
 }

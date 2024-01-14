@@ -65,7 +65,6 @@ export function PopupSearch() {
       }
     }
     getFruits()
-    console.log(values)
   }
   return (
     <div className="cursor-pointer">

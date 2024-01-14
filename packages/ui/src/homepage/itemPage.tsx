@@ -17,7 +17,6 @@ import { motion } from "framer-motion"
 import { toast } from "sonner"
 import { useRecoilValue } from 'recoil';
 import { idState } from '@repo/atoms';
-import { v4 } from 'uuid';
 
 type Props = {
   _id?: string,
@@ -72,8 +71,6 @@ export function ItemPage({ _id }: { _id: string }) {
     setLoading(false)
   }, [page])
 
-  useEffect(() => {
-  }, [fav, cart])
 
   const addToFavourites = async () => {
     setFav(prev => !prev)
@@ -111,7 +108,7 @@ export function ItemPage({ _id }: { _id: string }) {
     <>
       <div className="m-aut bg-white flex justify-center text-sm font-light p-2 breadcrumbs">
         <ul>
-          {pathname.map((item) => <li key={v4()}>{item}</li>)}
+          {pathname.map((item, index) => <li key={index}>{item}</li>)}
         </ul>
       </div>
       {
