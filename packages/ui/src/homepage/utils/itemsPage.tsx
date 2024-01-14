@@ -1,9 +1,33 @@
 'use client'
 import { Grid, Products } from "@repo/ui/src";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) {
   const [page, setPage] = useState([])
+  const [filteredPage, setFilteredPage] = useState([])
+
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (filteredPage) {
+
+      const timeout = setTimeout(() => {
+        const lowPriceSearch = searchParams.has("lower") ? searchParams.get("lower") : 0
+        const highPriceSearch = searchParams.has("upper") ? searchParams.get("upper") : 1000
+        // const ratingSearch = searchParams.has("rating") ? searchParams.get("rating") : null
+        let filteredData = page
+        if (lowPriceSearch) filteredData = filteredData.filter((row) => row.price >= parseInt(lowPriceSearch))
+        if (highPriceSearch) filteredData = filteredData.filter((row) => row.price <= parseInt(highPriceSearch))
+        // if (ratingSearch) filteredData = filteredData.filter((row) => row.rating === parseInt(ratingSearch))
+        console.log(filteredData)
+        setFilteredPage(() => [...filteredData])
+        // setPage(1)
+      }, 300)
+      return () => clearTimeout(timeout)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     const getFruits = async () => {
@@ -13,6 +37,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
         let data = await res.json()
         if (res.ok) {
           setPage(data)
+          setFilteredPage(data)
         } else {
           return Promise.reject(data)
         }
@@ -41,7 +66,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
         </div>
         <div className="p-1" style={{ gridArea: "sort" }}>sorting</div>
         <div style={{ gridArea: "products" }}>
-          <Grid arrayOfItems={page} />
+          <Grid arrayOfItems={filteredPage} />
         </div>
       </div>
     </div>

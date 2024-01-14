@@ -5,8 +5,25 @@ import { Input } from "../../../components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../../../components/ui/button"
 import { useForm } from "react-hook-form"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCallback } from "react"
 
 export function Products() {
+
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+
   const formSchema = z.object({
     lower: z.coerce.number().min(0),
     upper: z.coerce.number().max(1000),
@@ -23,6 +40,8 @@ export function Products() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    router.push(pathname + "?" + createQueryString("lower", values.lower.toString()) + "&" + createQueryString("upper", values.upper.toString()) + "&" + createQueryString("rating", values.rating.toString()))
+    console.log(values)
   }
   return (
     <div className="bg-white">
