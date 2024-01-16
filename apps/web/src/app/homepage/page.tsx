@@ -1,50 +1,30 @@
-'use client'
-import { Banner, Biker, Info, Item, NavUI, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
-import { dataInfo, datax } from "../lib/data";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
-export default function Page() {
-  const { data: session } = useSession()
-  const router = useRouter()
-  if (session) {
-    router.replace("/homepage")
-  }
+'use client'
+import { Banner, Biker, Footer, Grid, Info, Item, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
+import { useEffect, useState } from "react";
+import { dataInfo, datax } from "../../lib/data";
+
+export default function HomePage() {
   const [fruits, setFruits] = useState<Props[]>([])
   useEffect(() => {
-    setFruits(datax)
+    const getFruits = async () => {
+      try {
+
+        const res = await fetch("/api/fruits", { method: "GET" })
+        const data = await res.json()
+        if (res.ok) {
+          setFruits(data)
+        } else {
+          return Promise.reject(data)
+        }
+      } catch (error) {
+      }
+    }
+    getFruits()
   }, [])
-  // useEffect(() => {
-  //   const getFruits = async () => {
-  //     try {
-  //
-  //       const res = await fetch("/api/fruits", { method: "GET" })
-  //       const data = await res.json()
-  //       if (res.ok) {
-  //         setFruits(data)
-  //       } else {
-  //         return Promise.reject(data)
-  //       }
-  //     } catch (error) {
-  //     }
-  //   }
-  //   getFruits()
-  // }, [])
-  //
-
-  // const handleClick = (e: React.MouseEvent) => {
-  //   e.stopPropagation()
-  //   if (!session) router.replace("/login")
-  // }
-  //
-
 
   return (
-    <div className="relative font-bold" >
-      {/* <div className="h-screen w-screen bg-none fixed z-20 cursor-pointer"> */}
-      {/* </div> */}
-      <NavUI />
+    <div className="relative">
       <Banner />
       <div className="flex flex-col xl:flex-row justify-center items-center xl:py-8 xl:px-16 m-2">
         <Sections title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
@@ -64,7 +44,7 @@ export default function Page() {
         }} className="bg-white">
 
           {
-            fruits.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
+            fruits.map((item, index) => (<Item  {...item} key={index} />)).splice(0, 10)
           }
         </div>
       </div>

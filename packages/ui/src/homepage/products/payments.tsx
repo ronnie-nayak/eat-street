@@ -86,7 +86,7 @@ export function Payments() {
           <TableBody>
             {page.map((item, index) => (
               <TableRow key={index} className="cursor-pointer"
-                onClick={() => router.push("/item/" + item.refId._id)}
+                onClick={() => router.push("/homepage/item/" + item.refId._id)}
               >
                 <TableCell className="font-medium"><img src={`/items/${item.refId.name.toLowerCase()}.jpg`} className="h-full w-[80px] object-cover rounded-xl" /></TableCell>
                 <TableCell><div>

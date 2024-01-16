@@ -8,14 +8,20 @@ const CommentsSchema = new Schema({
     required: [true, 'namer is required duh']
   },
   rating: {
-    type: String,
+    type: Number,
     required: [true, 'Commentsname is required dub'],
   },
   user:
   {
     type: Schema.Types.ObjectId,
     ref: "Users"
+  },
+  item:
+  {
+    type: Schema.Types.ObjectId,
+    ref: "Items"
   }
+
 })
 
 export const Comments = models?.Comments || model('Comments', CommentsSchema)

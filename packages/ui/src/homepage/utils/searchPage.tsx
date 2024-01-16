@@ -1,10 +1,11 @@
+
 'use client'
 import { BreadCrumbs, Grid, NewFilterForm, Products, Props } from "@repo/ui";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import moment from "moment";
 
-export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) {
+export function SearchPage({ searchTerm }: { searchTerm: string }) {
   const [page, setPage] = useState<Props[]>([])
   const [filteredPage, setFilteredPage] = useState<Props[]>([])
 
@@ -16,7 +17,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
       const timeout = setTimeout(() => {
         const lowPriceSearch = searchParams.has("lower") ? searchParams.get("lower") : null
         const highPriceSearch = searchParams.has("upper") ? searchParams.get("upper") : null
-        const ratingSearch = searchParams.has("rating") ? searchParams.get("rating") : null
+        // const ratingSearch = searchParams.has("rating") ? searchParams.get("rating") : null
         const newSearch = searchParams.has("new") ? searchParams.get("new") : null
         const saleSearch = searchParams.has("sale") ? searchParams.get("sale") : null
         const soldSearch = searchParams.has("sold") ? searchParams.get("sold") : null
@@ -25,7 +26,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
         if (lowPriceSearch) filteredData = filteredData.filter((row) => row.price >= parseInt(lowPriceSearch))
 
         if (highPriceSearch) filteredData = filteredData.filter((row) => row.price <= parseInt(highPriceSearch))
-        if (ratingSearch) filteredData = filteredData.filter((row) => (row?.comments?.length! > 0) && Math.ceil(row.totalStars / row?.comments?.length!) === parseInt(ratingSearch))
+        // if (ratingSearch) filteredData = filteredData.filter((row) => row.rating === parseInt(ratingSearch))
         if (newSearch) filteredData = filteredData.filter((row) => ((moment(row?.dateAdded).add(3, 'y').toDate()) >= new Date()))
         if (saleSearch) filteredData = filteredData.filter((row) => row.oldPrice)
         if (soldSearch) filteredData = filteredData.filter((row) => row.sold === row.stock)
@@ -39,9 +40,14 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
   useEffect(() => {
     const getFruits = async () => {
       try {
-
-        let res = await fetch(apiPath, { method: "GET" })
-        let data = await res.json()
+        const res = await fetch("/api/search", {
+          method: "PATCH",
+          body: JSON.stringify({ search: searchTerm }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        const data = await res.json()
         if (res.ok) {
           setPage(data)
           setFilteredPage(data)
@@ -52,13 +58,13 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
       }
     }
     getFruits()
-  }, [name])
+  }, [searchTerm])
   return (
 
     <div >
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(1)} />
-        <h1 className="text-4xl">{name}</h1>
+        <h1 className="text-4xl">Search</h1>
       </div>
       <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex"
       >

@@ -8,46 +8,46 @@ import { useForm } from "react-hook-form"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 
+const formSchema = z.object({
+  lower: z.coerce.number().min(0),
+  upper: z.coerce.number().max(1000),
+  rating: z.coerce.number().min(5).max(5)
+})
 export function Products() {
 
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(name, value)
+  // const router = useRouter()
+  // const pathname = usePathname()
+  // const searchParams = useSearchParams()
+  // const createQueryString = useCallback(
+  //   (name: string, value: string) => {
+  //     const params = new URLSearchParams(searchParams.toString())
+  //     params.set(name, value)
+  //
+  //     return params.toString()
+  //   },
+  //   [searchParams]
+  // )
 
-      return params.toString()
-    },
-    [searchParams]
-  )
 
-
-  const formSchema = z.object({
-    lower: z.coerce.number().min(0),
-    upper: z.coerce.number().max(1000),
-    rating: z.coerce.number().min(5).max(5)
-  })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      lower: 0,
+      lower: 10,
       upper: 1000,
       rating: 5
     },
   })
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit1(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    router.push(pathname + "?" + createQueryString("lower", values.lower.toString()) + "&" + createQueryString("upper", values.upper.toString()) + "&" + createQueryString("rating", values.rating.toString()))
+    // router.replace(pathname + "?" + createQueryString("lower", values.lower.toString()) + "&" + createQueryString("upper", values.upper.toString()) + "&" + createQueryString("rating", values.rating.toString()))
     console.log(values)
   }
   return (
     <div className="bg-white">
 
       <Form {...form}>
-        <form onSubmit={() => form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit1)} className="space-y-8">
           <FormField
             control={form.control}
             name="lower"

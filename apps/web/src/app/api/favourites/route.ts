@@ -12,6 +12,7 @@ export async function GET() {
     const userFavourites = await Users.findOne({ email: session?.user?.email }).populate('favourites.refId');
 
     let returner = userFavourites.favourites.map((favourite: any) => favourite.refId)
+    console.log("returner", returner)
     return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {
     console.log(error)

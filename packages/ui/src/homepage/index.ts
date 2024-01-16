@@ -1,6 +1,9 @@
 
 export * from './item'
+export * from './commentSection'
+export * from './commentsDisplay'
 export * from './nav'
+export * from './navUI'
 export * from './itemPage'
 export * from './home'
 export * from './products'

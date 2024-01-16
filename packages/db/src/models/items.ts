@@ -22,15 +22,24 @@ const ItemsSchema = new Schema({
   sold: {
     type: Number,
   },
-  newTag: {
-    type: Schema.Types.Boolean,
-    required: [true, 'newTag is required duh']
+  dateAdded: {
+    type: Date,
   },
+  totalStars: {
+    type: Number,
+  },
+  // newTag: {
+  //   type: Schema.Types.Boolean,
+  //   required: [true, 'newTag is required duh']
+  // },
   favouriteUsers: [new Schema({
     refId: { type: Schema.Types.ObjectId, ref: 'Users' },
   }, { _id: false })],
   cartUsers: [new Schema({
     refId: { type: Schema.Types.ObjectId, ref: 'Users' },
+  }, { _id: false })],
+  comments: [new Schema({
+    refId: { type: Schema.Types.ObjectId, ref: 'Comments' },
   }, { _id: false })],
 })
 

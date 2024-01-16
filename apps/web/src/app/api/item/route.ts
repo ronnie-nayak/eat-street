@@ -1,4 +1,3 @@
-import { headers } from 'next/headers'
 import { Items } from "@repo/db"
 import { connectToDatabase } from "../../../utils/database"
 

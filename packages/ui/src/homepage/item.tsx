@@ -18,10 +18,12 @@ import { PopupPreview } from ".";
 import { useRecoilValue } from "recoil";
 import { idState } from "@repo/atoms"
 import { Props } from "../types";
+import moment from "moment";
+import { v4 } from "uuid"
 
 
-export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, favouriteUsers, cartUsers }: Props) {
-  const { data: session } = useSession()
+export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars }: Props) {
+  const { data: session, status } = useSession()
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
   const router = useRouter()
@@ -33,6 +35,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
   }, [session])
 
   const addToFavourites = async () => {
+    if (status !== "authenticated") return router.replace("/login")
     try {
       setFav(prev => !prev)
       const res = await fetch(`/api/favourites`, {
@@ -53,6 +56,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
     }
   }
   const addToCart = async () => {
+
+    if (status !== "authenticated") return router.replace("/login")
     try {
 
       setCart(prev => !prev)
@@ -74,25 +79,45 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
     }
   }
 
+
+  let rating = 0
+  if (comments?.length! > 0) {
+    rating = Math.ceil(totalStars! / comments?.length!)
+  }
+
+  const uniqueStars = v4()
+
   return (
     <div style={{
-      minWidth: "260px",
-      maxWidth: "545px",
+      minWidth: "285px",
+      maxWidth: "550px",
     }} className="relative">
-      <AspectRatio ratio={270 / 480}  >
+      <AspectRatio ratio={290 / 590}  >
         <div style={{
           display: "grid",
-          gridTemplateRows: "5fr 5fr 1fr",
+          gridTemplateRows: "5fr 6fr 1fr",
           gridTemplateAreas: ` "image" "content" "price" `
         }} className="h-full bg-white border border-gray-300" >
           <header style={{
             gridArea: "image"
-          }} className="overflow-hidden cursor-pointer" onClick={() => router.push("/item/" + _id)}>
+          }} className="overflow-hidden cursor-pointer" onClick={() => router.push("/homepage/item/" + _id)}>
             <img src={`/items/${name.toLowerCase()}.jpg`} className="w-full hover:scale-125 transition duration-300" />
           </header>
           <section style={{
             gridArea: "content"
-          }} className="p-9 overflow-clip cursor-pointer" onClick={() => router.push("/item/" + _id)}>
+          }} className="px-9 overflow-clip cursor-pointer" onClick={() => router.push("/homepage/item/" + _id)}>
+
+            {
+              rating > 0 && (
+                <div className="rating pointer-events-none m-4 mx-auto">
+                  <input type="radio" name={`rating-${uniqueStars}`} className="mask mask-star-2 bg-orange-400" checked={rating === 1} />
+                  <input type="radio" name={`rating-${uniqueStars}`} className="mask mask-star-2 bg-orange-400" checked={rating === 2} />
+                  <input type="radio" name={`rating-${uniqueStars}`} className="mask mask-star-2 bg-orange-400" checked={rating === 3} />
+                  <input type="radio" name={`rating-${uniqueStars}`} className="mask mask-star-2 bg-orange-400" checked={rating === 4} />
+                  <input type="radio" name={`rating-${uniqueStars}`} className="mask mask-star-2 bg-orange-400" checked={rating === 5} />
+                </div>
+              )
+            }
 
             <div className="mb-2 ">
               <div className="bg-white h-2 rounded-full overflow-hidden w-full bg-gray-300/25">
@@ -107,8 +132,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
                 <h4>Available: {stock - sold}</h4>
               </div>
             </div >
-            <h2 className="font-semibold text-[150%]">{name}</h2>
-            <p className="text-1xl py-2 font-normal">
+            <h2 className="font-semibold text-lg">{name}</h2>
+            <p className="text-base py-2 font-normal">
               {desc}
             </p>
           </section>
@@ -117,7 +142,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
             alignSelf: "end"
           }} className="flex items-center justify-between px-4 py-8 ">
             <div>
-              {oldPrice && <h4 className="font-semibold text-lg line-through text-gray-600">${oldPrice}</h4>}
+              {oldPrice > 0 && <h4 className="font-semibold text-lg line-through text-gray-600">${oldPrice}</h4>}
               <h3 className="font-semibold text-[#00AA63] text-2xl">${price}</h3>
             </div>
             <TooltipProvider delayDuration={0}>
@@ -141,8 +166,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
 
       <div className="absolute top-2 left-2 flex flex-col gap-1">
         <div className="flex gap-1">
-          {newTag && <span className="px-2 py-1 rounded-full bg-limeGreen text-white  text-xs">NEW</span>}
-          {oldPrice && <span className="px-2 py-1 rounded-full bg-forestGreen text-white  text-xs">SALE</span>}
+          {((moment(dateAdded).add(3, 'y').toDate()) >= new Date()) && <span className="px-2 py-1 rounded-full bg-limeGreen text-white  text-xs">NEW</span>}
+          {oldPrice > 0 && <span className="px-2 py-1 rounded-full bg-forestGreen text-white  text-xs">SALE</span>}
         </div>
         {!(stock - sold) && <span className="px-2 py-1 rounded-full bg-[#F73E04] text-white  text-xs">OUT OF STOCK</span>}
       </div>
@@ -152,7 +177,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
           <Tooltip>
             <TooltipTrigger>
               <div className={clsx(fav ? "border-pink-400" : "border-gray-200",
-                "heart-container w-9 h-9 p-2  border-2 rounded-full hover:border-pink-400 z-0 overflow-hidden")} title="Like" onClick={addToFavourites}>
+                "heart-container w-9 h-9 p-2  border-2 rounded-full hover:border-pink-400 z-0 overflow-hidden")} title="Like"
+                onClick={addToFavourites}>
                 <input type="checkbox" className="checkbox" id="Give-It-An-Id" checked={fav} />
                 <div className="svg-container">
                   <svg viewBox="0 0 24 24" className="svg-outline" xmlns="http://www.w3.org/2000/svg">
@@ -178,19 +204,23 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, newTag, fa
               <p>Add to favourites</p>
             </TooltipContent>
           </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <button className="rounded-full p-2 border-gray-200 border-2 z-20">
+          {
+            (status === "authenticated") && (
+              <Tooltip>
+                <TooltipTrigger>
+                  <button className="rounded-full p-2 border-gray-200 border-2 z-20">
+                    <PopupPreview _id={_id} >
+                      <FontAwesomeIcon icon={faEye} className="w-5" />
+                    </PopupPreview>
 
-                <PopupPreview _id={_id} >
-                  <FontAwesomeIcon icon={faEye} className="w-5" />
-                </PopupPreview>
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Quick View</p>
-            </TooltipContent>
-          </Tooltip>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p>Quick View</p>
+                </TooltipContent>
+              </Tooltip>
+            )
+          }
         </TooltipProvider>
       </div>
     </div >
@@ -201,7 +231,7 @@ export function ItemSmall({ name, price, _id }: Props) {
   const router = useRouter()
   return (
     <div className="flex  items-center h-[80px] gap-4 m-4 bg-white rounded-xl w-96 px-9 font-bold cursor-pointer"
-      onClick={() => router.push("/item/" + _id)}
+      onClick={() => router.push("/homepage/item/" + _id)}
     >
       <img src={`/items/${name}.jpg`} className="h-full w-[80px] object-cover rounded-xl" />
       <div>
@@ -211,3 +241,4 @@ export function ItemSmall({ name, price, _id }: Props) {
     </div >
   )
 }
+

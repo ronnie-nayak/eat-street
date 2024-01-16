@@ -1,5 +1,5 @@
 
-import { ItemsPage } from "@repo/ui/src"
+import { ItemsPage } from "@repo/ui"
 
 export default function Section({ params }: { params: { section: string } }): JSX.Element {
   return (

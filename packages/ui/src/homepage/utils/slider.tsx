@@ -18,8 +18,8 @@ export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
       >
         <CarouselContent>
           {arrayOfItems.map((item, index) => (
-            <CarouselItem className="basis-1/4 2xl:basis-1/5">
-              <Item {...item} key={index} />
+            <CarouselItem key={index} className="basis-1/1 2xl:basis-1/4 xl:basis-1/3 lg:basis-1/2">
+              <Item {...item} />
             </CarouselItem>
           ))}
         </CarouselContent>

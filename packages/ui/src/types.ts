@@ -7,7 +7,10 @@ export type Props = {
   oldPrice: number,
   stock: number,
   sold: number,
-  newTag: boolean,
+  // newTag: boolean,
+  dateAdded: Date,
+  totalStars: number,
   favouriteUsers?: Array<any>,
   cartUsers?: Array<any>
+  comments?: Array<any>
 }

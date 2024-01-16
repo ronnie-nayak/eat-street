@@ -1,5 +1,4 @@
 'use client'
-import { usePathname } from 'next/navigation'
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
@@ -17,26 +16,25 @@ import { motion } from "framer-motion"
 import { toast } from "sonner"
 import { useRecoilValue } from 'recoil';
 import { idState } from '@repo/atoms';
+import { CommentSection, CommentsDisplay } from '.';
+import { IconClock, IconTick } from '../react-svg/svg';
+import moment from 'moment';
+import { Props } from '@repo/ui';
+import { v4 } from 'uuid';
 
-type Props = {
-  _id?: string,
-  name?: string,
-  desc?: string,
-  price?: number,
-  oldPrice?: number,
-  stock: number,
-  sold: number,
-  newTag?: boolean,
-  favouriteUsers?: Array<any>,
-  cartUsers?: Array<any>
-}
+import { usePathname } from 'next/navigation'
 
+const promises = [
+  "100% Money Back Warranty",
+  "Free and Fast Delivery",
+  "All Items Top Best Quality",
+  "24/7 Support"
+]
 
-
-export function ItemPage({ _id }: { _id: string }) {
+export function ItemPage({ _id, boolComment }: { _id: string, boolComment: boolean }) {
 
   const pathname = usePathname().split("/").slice(0, -1)
-  const [page, setPage] = useState<Props>({ sold: 1, stock: 1 })
+  const [page, setPage] = useState<Props>()
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
   const [amount, setAmount] = useState(1)
@@ -53,6 +51,7 @@ export function ItemPage({ _id }: { _id: string }) {
           }
         })
         let data = await res.json()
+        console.log(data, "itemer")
         if (res.ok) {
           setPage(data)
         } else {
@@ -62,8 +61,8 @@ export function ItemPage({ _id }: { _id: string }) {
       }
     }
     getFruits()
-  }, []
-  )
+  }, [_id])
+
 
   useEffect(() => {
     setFav(page?.favouriteUsers?.some(e => e.refId === session?.user?.id) ?? false)
@@ -104,58 +103,75 @@ export function ItemPage({ _id }: { _id: string }) {
     }
   }
 
+  const [comments, setComments] = useState([])
+
+  let rating = 0
+  if (page?.comments?.length! > 0) {
+    rating = Math.ceil(page?.totalStars! / page?.comments?.length!)
+  }
+
+  const uniqueStars = v4()
+  if (!page) return <div>loading</div>
   return (
     <>
-      <div className="m-aut bg-white flex justify-center text-sm font-light p-2 breadcrumbs">
-        <ul>
-          {pathname.map((item, index) => <li key={index}>{item}</li>)}
-        </ul>
-      </div>
       {
         loading ?
-          (<div className="m-auto max-w-6xl py-9" > loading</div>)
+          (<div className="m-auto max-w-6xl " > loading</div>)
           :
-          (<div className="m-auto max-w-7xl py-9 relative">
-            <AspectRatio ratio={1150 / 550} >
+          (<div className="m-auto max-w-7xl relative">
+            <AspectRatio ratio={1150 / 600} >
               <div style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
                 gridTemplateAreas: ` "image content" `
-              }} className="h-full bg-white border border-gray-300">
+              }} className="h-full bg-white border border-gray-300 ">
                 <header style={{
                   gridArea: "image"
                 }} className="overflow-hidden cursor-pointer" >
-                  <img src={`/items/${page?.name?.toLowerCase()}.jpg`} className="w-full " />
+                  <img src={`/items/${page.name.toLowerCase()}.jpg`} className="w-full " />
                 </header>
 
 
                 <div style={{ gridArea: "content" }}>
                   <section className="p-9 overflow-clip cursor-pointer" >
 
-                    <h2 className="text-5xl text-[150%] mb-4">{page?.name}</h2>
+                    <h2 className="text-5xl text-[150%] mb-4">{page.name}</h2>
                     <p className="text-1xl py-2 font-normal mb-6">
-                      {page?.desc}
+                      {page.desc}
                     </p>
+
+                    {
+                      rating > 0 && (
+
+                        <div className="rating pointer-events-none m-4 ">
+                          <input type="radio" name={`rating-${uniqueStars}-fullpage`} className="mask mask-star-2 bg-orange-400" checked={rating === 1} />
+                          <input type="radio" name={`rating-${uniqueStars}-fullpage`} className="mask mask-star-2 bg-orange-400" checked={rating === 2} />
+                          <input type="radio" name={`rating-${uniqueStars}-fullpage`} className="mask mask-star-2 bg-orange-400" checked={rating === 3} />
+                          <input type="radio" name={`rating-${uniqueStars}-fullpage`} className="mask mask-star-2 bg-orange-400" checked={rating === 4} />
+                          <input type="radio" name={`rating-${uniqueStars}-fullpage`} className="mask mask-star-2 bg-orange-400" checked={rating === 5} />
+                        </div>
+                      )
+                    }
 
 
                     <div className="mb-2 w-9/12">
                       <div className="mb-2 bg-white h-2 rounded-full overflow-hidden w-full bg-gray-300/25">
                         <motion.div className="bg-forestGreen h-full"
                           initial={{ width: 0 }}
-                          animate={{ width: `${(page?.sold / page?.stock) * 100}%` }}
+                          animate={{ width: `${(page.sold / page.stock) * 100}%` }}
                           transition={{ duration: 3 }}
                         ></motion.div>
                       </div>
-                      <div className="font-thin text-sm flex justify-between">
-                        <h4>Sold: {page?.sold}</h4>
-                        <h4>Available: {page?.stock ?? 1 - page?.sold}</h4>
+                      <div className="font-thin text-sm flex gap-16">
+                        <h4 >Sold: {page.sold}</h4>
+                        <h4 >Available: {page.stock - page.sold}</h4>
                       </div>
                     </div >
                   </section>
                   <footer className="p-9 ">
                     <div className='flex gap-4 items-baseline mb-4'>
-                      {page?.oldPrice && <h4 className="font-semibold text-lg line-through text-gray-600">${page?.oldPrice}</h4>}
-                      <h3 className="font-semibold text-[#00AA63] text-3xl">${page?.price}</h3>
+                      {page.oldPrice > 0 && <h4 className="font-semibold text-lg line-through text-gray-600">${page.oldPrice}</h4>}
+                      <h3 className="font-semibold text-[#00AA63] text-3xl">${page.price}</h3>
                     </div>
 
 
@@ -165,7 +181,7 @@ export function ItemPage({ _id }: { _id: string }) {
                           −
                         </button>
                         <h2 className='w-5 grid place-items-center text-xl'>{amount}</h2>
-                        <button className='w-9 text-2xl' disabled={amount === (page?.stock - page?.sold)} onClick={() => setAmount((old) => old + 1)}>
+                        <button className='w-9 text-2xl' disabled={amount === (page.stock - page.sold)} onClick={() => setAmount((old) => old + 1)}>
                           +
                         </button>
                       </div>
@@ -210,12 +226,19 @@ export function ItemPage({ _id }: { _id: string }) {
                       </TooltipProvider>
                     </div>
 
-                    <div className='p-3 w-4/6 bg-gray-200 font-thin border border-gray-400 text-sm rounded-xl mt-4'> We Delivery on Next Day from 10:00 AM to 08:00 PM </div>
+                    <div className='p-3 w-5/6 bg-gray-200 font-thin border border-gray-400 text-sm rounded-xl mt-4'>
+
+                      <IconClock className="h-9 w-9 inline-block mr-2 text-green-500" />
+                      We Delivery on Next Day from 10:00 AM to 08:00 PM </div>
                     <ul className='font-thin mt-4 text-sm'>
-                      <li>100% Money Back Warranty</li>
-                      <li>Free and Fast Delivery</li>
-                      <li>All Items Top Best Quality</li>
-                      <li>24/7 Support</li>
+                      {
+                        promises.map((e, i) => (
+                          <li key={i} className='flex gap-2'>
+                            <IconTick className="h-5 w-5 inline-block mr-2 text-green-500" />
+                            <h2 className='text-md font-semibold'>{e}</h2>
+                          </li>
+                        ))
+                      }
                     </ul>
 
                   </footer>
@@ -226,11 +249,20 @@ export function ItemPage({ _id }: { _id: string }) {
 
             <div className="absolute top-14 left-6 flex flex-col gap-1">
               <div className="flex gap-1">
-                {page?.newTag && <span className="px-2 py-1 rounded-full bg-limeGreen text-white  text-xs">NEW</span>}
-                {page?.oldPrice && <span className="px-2 py-1 rounded-full bg-forestGreen text-white  text-xs">SALE</span>}
+                {((moment(page.dateAdded).add(3, 'y').toDate()) >= new Date()) && <span className="px-2 py-1 rounded-full bg-limeGreen text-white  text-xs">NEW</span>}
+                {page.oldPrice > 0 && <span className="px-2 py-1 rounded-full bg-forestGreen text-white  text-xs">SALE</span>}
               </div>
-              {!(page?.stock - page?.sold) && <span className="px-2 py-1 rounded-full bg-[#F73E04] text-white  text-xs">OUT OF STOCK</span>}
+              {!(page.stock - page.sold) && <span className="px-2 py-1 rounded-full bg-[#F73E04] text-white  text-xs">OUT OF STOCK</span>}
             </div>
+            {
+              boolComment && (
+
+                <div className='flex bg-white border border-gray-300 border-t-0'>
+                  <CommentSection _id={_id} comments={comments} setComments={setComments} />
+                  <CommentsDisplay _id={_id} comments={comments} setComments={setComments} />
+                </div>
+              )
+            }
           </div>)}
     </>
 
