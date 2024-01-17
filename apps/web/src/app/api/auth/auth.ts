@@ -4,87 +4,52 @@ import { getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { Users } from "@repo/db"
 import { connectToDatabase } from "../../../utils/database";
-import CredentialsProvider from 'next-auth/providers/credentials';
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github"
 
 // You'll need to import and pass this
 // to `NextAuth` in `app/api/auth/[...nextauth]/route.ts`
 export const config = {
   providers: [
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      id: "credentials",
-      name: 'my-project',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        email: {
-          label: 'email',
-          type: 'email',
-          placeholder: 'jsmith@example.com',
-        },
-        password: { label: 'Password', type: 'password' }
-      },
-      async authorize(credentials, req) {
-        const payload = {
-          email: credentials.email,
-          password: credentials.password,
-        };
-
-
-        try {
-          await connectToDatabase();
-
-          // check if user already exists
-          let userExists = await Users.findOne({ email: payload.email });
-
-          // if not, create a new document and save user in MongoDB
-          if (!userExists) {
-            userExists = await Users.create({
-              email: payload.email,
-              username: payload.email.split("@")[0],
-              image: null,
-            });
-          }
-          console.log("userExists credentials: ", userExists);
-
-          return userExists
-        } catch (error: any) {
-          console.log("Error checking if user exists: ", error.message);
-          throw new Error(error.message);
-        }
-
-        // const res = await fetch('https://cloudcoders.azurewebsites.net/api/tokens', {
-        //   method: 'POST',
-        //   body: JSON.stringify(payload),
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // });
-        //
-        // const user = await res.json();
-        // if (!res.ok) {
-        //   throw new Error(user.message);
-        // }
-        // // If no error and we have user data, return it
-        // if (res.ok && user) {
-        //   return user;
-        // }
-        //
-        // // Return null if user data could not be retrieved
-        // return null;
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
 
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "jsmith@mail.com" },
+      },
+      async authorize(credentials) {
+
+
+        console.log("credentials: ", credentials)
+        console.log("credentials.email: ", credentials?.email)
+
+        await connectToDatabase();
+        const userExists = await Users.findOne({ email: credentials?.email });
+
+        console.log("userExists: ", userExists)
+        // if not, create a new document and save user in MongoDB
+        if (!userExists) {
+          return await Users.create({
+            email: credentials?.email,
+            username: credentials?.email?.split("@")[0],
+            image: "/login/user.svg"
+          });
+        }
+
+
+        return userExists
+      }
     })
+
   ],
-  pages: {
-    signIn: '/login',
-  },
   callbacks: {
     async session({ session }) {
       // store the user id from MongoDB to session
@@ -95,16 +60,20 @@ export const config = {
     },
     async signIn({ profile, user }) {
       try {
+        console.log("profile: ", profile)
+        console.log("user: ", user)
+
+
         await connectToDatabase();
 
         // check if user already exists
-        const userExists = await Users.findOne({ email: profile?.email });
+        const userExists = await Users.findOne({ email: user?.email });
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           await Users.create({
-            email: profile?.email,
-            username: profile?.name?.replace(" ", "").toLowerCase(),
+            email: user?.email,
+            username: user?.name?.replace(" ", "").toLowerCase(),
             image: user?.image,
           });
         }
@@ -117,8 +86,10 @@ export const config = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  // Enable debug messages in the console if you are having problems
-  debug: process.env.NODE_ENV === 'development',
+  // session: {
+  //   strategy: "jwt",
+  // },
+  // debug: process.env.NODE_ENV === "development",
 } satisfies NextAuthOptions
 
 // Use it in server contexts

@@ -3,29 +3,8 @@ import { BuiltInProviderType } from "next-auth/providers/index"
 import { ClientSafeProvider, LiteralUnion, getProviders, signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@repo/ui"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@repo/ui"
-import { Input } from "@repo/ui"
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email.",
-  }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
-  }),
-})
 
 export default function Login() {
   const { data: session, status } = useSession()
@@ -33,6 +12,8 @@ export default function Login() {
   if (status === "authenticated") {
     router.push("/homepage")
   }
+
+
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
 
   useEffect(() => {
@@ -43,36 +24,29 @@ export default function Login() {
     setProvider()
   }, [])
 
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  function guestUser() {
+    const res = signIn('credentials', {
+      email: "aa@bb.lk",
+      redirect: false,
+    })
+    console.log(res, "user????")
+    router.replace("/homepage")
   }
-
-
-
-
-
-
 
   if (status === "loading") {
     return <div>Loading</div>
   }
   return (
-    <div className="h-screen w-screen bg-blue-400" >
-      <div className="h-screen w-4/12 bg-white">
-        lsdjfldskjf
-        {providers &&
+    <div className="relative">
+      <div className="h-screen w-screen grid place-items-center" style={{
+        background: "url('/login/preview.png') center no-repeat blue",
+        backgroundSize: "cover",
+        filter: "blur(4px)",
+      }} >
+      </div >
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2/6 w-2/6 rounded-3xl bg-white">
+        {providers ? (<div>Loading</div>) :
           (
             <>
               <button
@@ -83,48 +57,21 @@ export default function Login() {
               >
                 "Google"
               </button>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormControl>
-                          <Input type="email" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          This is email.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input type="password" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          This is passman.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit">Submit</Button>
-                </form>
-              </Form>
+
+              <button
+                type="button"
+                key="Github"
+                onClick={() => signIn("github")}
+                className="bg-blue-600 text-black font-bold py-2 px-4 rounded mr-16 border border-black"
+              >
+                "Github"
+              </button>
+              <Button onClick={guestUser} >Guest User</Button>
             </>
           )
         }
 
       </div>
-    </div >
+    </div>
   )
 }

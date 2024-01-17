@@ -15,29 +15,6 @@ export default function Page() {
   useEffect(() => {
     setFruits(datax)
   }, [])
-  // useEffect(() => {
-  //   const getFruits = async () => {
-  //     try {
-  //
-  //       const res = await fetch("/api/fruits", { method: "GET" })
-  //       const data = await res.json()
-  //       if (res.ok) {
-  //         setFruits(data)
-  //       } else {
-  //         return Promise.reject(data)
-  //       }
-  //     } catch (error) {
-  //     }
-  //   }
-  //   getFruits()
-  // }, [])
-  //
-
-  // const handleClick = (e: React.MouseEvent) => {
-  //   e.stopPropagation()
-  //   if (!session) router.replace("/login")
-  // }
-  //
 
 
   return (
@@ -55,7 +32,11 @@ export default function Page() {
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        <Slider arrayOfItems={fruits} />
+        {
+          fruits.length === 0 ? (<div>Loading</div>) : (
+            <Slider arrayOfItems={fruits} />
+          )
+        }
       </div>
       <div className="hidden xl:block m-10">
         <div style={{
@@ -63,8 +44,9 @@ export default function Page() {
           gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
         }} className="bg-white">
 
-          {
+          {fruits.length === 0 ? (<div>Loading</div>) : (
             fruits.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
+          )
           }
         </div>
       </div>
@@ -72,7 +54,11 @@ export default function Page() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider arrayOfItems={fruits} />
+          {
+            fruits.length === 0 ? (<div>Loading</div>) : (
+              <Slider arrayOfItems={fruits} />
+            )
+          }
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
           <Slider arrayOfItems={fruits} />
