@@ -8,6 +8,7 @@ import {
 } from "../../../components/ui/carousel";
 
 export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
+  if (arrayOfItems.length === 0) return (<div>No items in slider</div>)
   return (
     <div className="mx-4">
       <Carousel

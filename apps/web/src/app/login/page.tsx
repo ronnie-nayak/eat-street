@@ -27,51 +27,56 @@ export default function Login() {
 
   function guestUser() {
     const res = signIn('credentials', {
-      email: "aa@bb.lk",
+      email: "guest@user.test",
       redirect: false,
     })
-    console.log(res, "user????")
     router.replace("/homepage")
   }
 
-  if (status === "loading") {
-    return <div>Loading</div>
-  }
   return (
     <div className="relative">
       <div className="h-screen w-screen grid place-items-center" style={{
-        background: "url('/login/preview.png') center no-repeat blue",
+        background: "url('/login/preview.png') center no-repeat",
         backgroundSize: "cover",
         filter: "blur(4px)",
       }} >
       </div >
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2/6 w-2/6 rounded-3xl bg-white">
-        {providers ? (<div>Loading</div>) :
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2/6 w-2/6 rounded-3xl bg-white p-8 flex flex-col"
+        style={{
+          borderRadius: "50px",
+          boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.75)"
+        }}
+      >
+        {!providers ? (<div>Loading</div>) :
           (
             <>
-              <button
-                type="button"
-                key="Google"
-                onClick={() => signIn("google")}
-                className="bg-blue-600 text-black font-bold py-2 px-4 rounded mr-16 border border-black"
-              >
-                "Google"
-              </button>
+              <div className="flex gap-2 justify-center items-center">
+                <button
+                  type="button"
+                  key="Google"
+                  onClick={() => signIn("google")}
+                  className="loginbutton"
+                >
+                  <img src="/login/google.svg" className="h-12" />
+                  <h2>Google</h2>
+                </button>
 
-              <button
-                type="button"
-                key="Github"
-                onClick={() => signIn("github")}
-                className="bg-blue-600 text-black font-bold py-2 px-4 rounded mr-16 border border-black"
-              >
-                "Github"
-              </button>
-              <Button onClick={guestUser} >Guest User</Button>
+                <button
+                  type="button"
+                  key="Github"
+                  onClick={() => signIn("github")}
+                  className="loginbutton"
+                >
+                  <img src="/login/github.svg" className="h-12" />
+                  <h2>Github</h2>
+                </button>
+              </div>
+              <Button onClick={guestUser} className="w-3/4 m-auto h-1/3 text-3xl font-bold">Guest User</Button>
             </>
           )
         }
 
       </div>
-    </div>
+    </div >
   )
 }

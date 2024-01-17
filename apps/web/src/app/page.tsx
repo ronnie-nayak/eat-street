@@ -19,8 +19,6 @@ export default function Page() {
 
   return (
     <div className="relative font-bold" >
-      {/* <div className="h-screen w-screen bg-none fixed z-20 cursor-pointer"> */}
-      {/* </div> */}
       <NavUI />
       <Banner />
       <div className="flex flex-col xl:flex-row justify-center items-center xl:py-8 xl:px-16 m-2">

@@ -9,13 +9,11 @@ export async function GET() {
       return new Response("Unauthorized", { status: 401 })
     }
     await connectToDatabase();
-    const userFavourites = await Users.findOne({ email: session?.user?.email }).populate('favourites.refId');
+    const userFavourites = await Users.findOne({ _id: session?.user?.id }).populate('favourites.refId');
 
     let returner = userFavourites.favourites.map((favourite: any) => favourite.refId)
-    console.log("returner", returner)
     return new Response(JSON.stringify(returner), { status: 200 })
   } catch (error: any) {
-    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }
@@ -35,7 +33,7 @@ export async function PATCH(req: Request) {
     //   { $push: { favorites: _id } }
     // )
     let result = await Users.updateOne(
-      { email: session?.user?.email },
+      { _id: session?.user?.id },
       {
         $pull: {
           favourites: { refId: _id }
@@ -46,7 +44,7 @@ export async function PATCH(req: Request) {
     if (result.modifiedCount === 0) {
       //0 means, no modifikation, that means its already liked
       await Users.updateOne(
-        { email: session?.user?.email },
+        { _id: session?.user?.id },
         {
           $addToSet: {
             favourites: { refId: _id }
@@ -78,7 +76,6 @@ export async function PATCH(req: Request) {
 
     return new Response(JSON.stringify(result), { status: 200 })
   } catch (error: any) {
-    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }

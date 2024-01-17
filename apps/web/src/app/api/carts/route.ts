@@ -10,10 +10,9 @@ export async function GET() {
     }
 
     await connectToDatabase();
-    const userCarts = await Users.findOne({ email: session?.user?.email }).populate('carts.refId');
+    const userCarts = await Users.findOne({ _id: session?.user?.id }).populate('carts.refId');
     return new Response(JSON.stringify(userCarts.carts), { status: 200 })
   } catch (error: any) {
-    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }
@@ -35,7 +34,7 @@ export async function PATCH(req: Request) {
 
 
     let result = await Users.updateOne(
-      { email: session?.user?.email },
+      { _id: session?.user?.id },
       {
         $pull: {
           carts: { refId: _id }
@@ -46,7 +45,7 @@ export async function PATCH(req: Request) {
     if (result.modifiedCount === 0) {
       //0 means, no modifikation, that means its already liked
       await Users.updateOne(
-        { email: session?.user?.email },
+        { _id: session?.user?.id },
         {
           $addToSet: {
             carts: { refId: _id, quantity: amount }
@@ -81,7 +80,6 @@ export async function PATCH(req: Request) {
 
     return new Response(JSON.stringify(result), { status: 200 })
   } catch (error: any) {
-    console.log(error)
     return new Response(error.message, { status: 500 })
   }
 }

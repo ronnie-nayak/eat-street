@@ -2,61 +2,63 @@
 import { Button, Item, Props, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@repo/ui"
 import { useEffect, useState } from "react"
 
+
 export function Grid({ arrayOfItems }: { arrayOfItems: Array<Props> }) {
   const [page, setPage] = useState(1)
-  const [localData, setLocalData] = useState([])
-  const [column, setColumn] = useState('')
+  const [localData, setLocalData] = useState<Props[]>([])
+  const [column, setColumn] = useState('name')
   const [direction, setDirection] = useState(1)
 
-  const sortingFunction = (col, dir) => {
+  const sortingFunction = () => {
     // let direction = 1
     // let column = event.target.id
 
     const sortedData = localData.sort((a, b) => {
+      // @ts-ignore
       if (a[column] >= b[column]) {
         return direction
       }
       return -direction
     })
-    setLocalData(old => [...sortedData])
+    setLocalData(() => [...sortedData])
   }
 
   useEffect(() => setLocalData(arrayOfItems), [arrayOfItems])
 
-  const endPage = Math.ceil(arrayOfItems.length / 10)
+  const endPage = Math.ceil(localData.length / 10)
   return (
     <div>
       <div className="flex gap-6 items-center p-10">
         <Select onValueChange={(val) => setColumn(val)} >
           <SelectTrigger className="w-1/3 ml-auto">
-            <SelectValue placeholder="Select a column to sort" />
+            <SelectValue placeholder="Name" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="name">name</SelectItem>
-            <SelectItem value="price">price</SelectItem>
-            <SelectItem value="stock">stock</SelectItem>
-            <SelectItem value="dateAdded">date</SelectItem>
+            <SelectItem value="name">Name</SelectItem>
+            <SelectItem value="price">Price</SelectItem>
+            <SelectItem value="stock">Stock</SelectItem>
+            <SelectItem value="dateAdded">Date Added</SelectItem>
           </SelectContent>
         </Select>
 
         <Select onValueChange={(val) => setDirection(val === "Asc" ? 1 : -1)} >
           <SelectTrigger className="w-1/3">
-            <SelectValue placeholder="Select Direction" />
+            <SelectValue placeholder="Ascending" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Asc">Asc</SelectItem>
-            <SelectItem value="Desc">Desc</SelectItem>
+            <SelectItem value="Ascending">Asc</SelectItem>
+            <SelectItem value="Descending">Desc</SelectItem>
           </SelectContent>
         </Select>
-        <Button onClick={() => sortingFunction(column, direction)}>Sort</Button>
+        <Button onClick={() => sortingFunction()}>Sort</Button>
       </div>
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
       }} className="bg-white">
-
         {
-          localData.map((item, index) => (<Item {...item} key={index} />)).splice((page - 1) * 10, page * 10)
+          localData.length === 0 ? <div>No items grid</div> :
+            localData.map((item, index) => (<Item {...item} key={index} />)).splice((page - 1) * 10, page * 10)
         }
       </div>
       <div className="p-8 flex gap-5 justify-center items-center">

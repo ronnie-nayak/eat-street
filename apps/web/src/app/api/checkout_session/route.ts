@@ -43,13 +43,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${headersList.get("origin")}/thank-you`,
-      cancel_url: `${headersList.get("origin")}/`,
+      success_url: `${headersList.get("origin")}/dashboard/thankyou`,
+      cancel_url: `${headersList.get("origin")}/dashboard`,
     });
 
     return NextResponse.json({ sessionId: session.id });
   } catch (err) {
-    console.log(err)
     return NextResponse.json({ error: "Error creating checkout session" });
   }
 }

@@ -16,7 +16,7 @@ const quicksand = Quicksand({
   weight: ['400', '700']
 })
 
-export default function RootLayout({
+export default function HomepageLayout({
   children,
 }: {
   children: React.ReactNode

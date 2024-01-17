@@ -18,6 +18,7 @@ export default function HomePage() {
           return Promise.reject(data)
         }
       } catch (error) {
+        console.log(error)
       }
     }
     getFruits()
@@ -35,16 +36,20 @@ export default function HomePage() {
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        <Slider arrayOfItems={fruits} />
+        {
+          fruits.length === 0 ? (<div>Loading</div>) : (
+            <Slider arrayOfItems={fruits} />
+          )
+        }
       </div>
       <div className="hidden xl:block m-10">
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
         }} className="bg-white">
-
-          {
-            fruits.map((item, index) => (<Item  {...item} key={index} />)).splice(0, 10)
+          {fruits.length === 0 ? (<div>Loading</div>) : (
+            fruits.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
+          )
           }
         </div>
       </div>
@@ -52,10 +57,18 @@ export default function HomePage() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider arrayOfItems={fruits} />
+          {
+            fruits.length === 0 ? (<div>Loading</div>) : (
+              <Slider arrayOfItems={fruits} />
+            )
+          }
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider arrayOfItems={fruits} />
+          {
+            fruits.length === 0 ? (<div>Loading</div>) : (
+              <Slider arrayOfItems={fruits} />
+            )
+          }
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>

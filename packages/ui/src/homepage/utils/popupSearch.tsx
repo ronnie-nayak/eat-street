@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "../../../components/ui/button"
 import { Input } from "../../../components/ui/input"
-import { useEffect, useState } from "react"
+import { FormEvent, FormEventHandler, useEffect, useState } from "react"
 import { IoSearch } from "react-icons/io5"
 import {
   Dialog,
@@ -18,34 +18,31 @@ export function PopupSearch() {
   const [search, setSearch] = useState([])
   const [inputValue, setInputValue] = useState("")
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const getFruits = async () => {
-        try {
-          const res = await fetch("/api/search", {
-            method: "PATCH",
-            body: JSON.stringify({ search: inputValue }),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-          const data = await res.json()
-          if (res.ok) {
-            setSearch(() => data)
-          } else {
-            return Promise.reject(data)
+    const getFruits = async () => {
+      try {
+        const res = await fetch("/api/search", {
+          method: "PATCH",
+          body: JSON.stringify({ search: inputValue }),
+          headers: {
+            "Content-Type": "application/json"
           }
-        } catch (error) {
+        })
+        const data = await res.json()
+        if (res.ok) {
+          setSearch(() => data)
+        } else {
+          return Promise.reject(data)
         }
+      } catch (error) {
+        console.log(error)
       }
-      getFruits()
-    }, 300)
-
-    return () => clearTimeout(timeout)
+    }
+    getFruits()
   }, [inputValue])
 
   const router = useRouter()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setInputValue("")
     setSearch([])

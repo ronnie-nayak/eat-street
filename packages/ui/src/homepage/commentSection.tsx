@@ -10,8 +10,8 @@ export function CommentSection({ _id, comments, setComments }: { _id: string, co
   })
 
 
-
   function handleChange(e: React.ChangeEvent) {
+    // @ts-ignore
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
@@ -34,6 +34,7 @@ export function CommentSection({ _id, comments, setComments }: { _id: string, co
         return Promise.reject(data)
       }
     } catch (error) {
+      console.log(error)
     }
   }
 

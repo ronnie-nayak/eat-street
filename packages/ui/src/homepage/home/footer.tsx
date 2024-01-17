@@ -21,7 +21,7 @@ export function Footer() {
         <p className="w-6/12">Sign up to get 10% off your first order and stay up to date on the latest product releases, special offers and news.</p>
         <div className="flex bg-[#111A14]  rounded-full border border-green-900 h-14 p-1 items-center gap-4 ">
           <FontAwesomeIcon icon={faEnvelope} className="text-[#04B06C] ml-3" />
-          <form className="w-5/12 flex">
+          <form onSubmit={e => e.preventDefault()} className="w-5/12 flex">
             <input type="email" placeholder="Your Email" className="bg-[#111A14]  " />
             <button className=" text-white text-sm px-4 h-12 rounded-full bg-[#00AA63] hover:text-[#00AA63] hover:bg-white transition duration-300">Subscribe</button>
           </form>

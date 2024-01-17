@@ -1,14 +1,13 @@
 import { Schema, model, models } from 'mongoose'
 
 const UsersSchema = new Schema({
-  email: {
-    type: String,
-    required: [true, 'Email is required duh']
-  },
-  username: {
-    type: String,
-  },
   image: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  email: {
     type: String,
   },
   favourites: [new Schema({
@@ -17,8 +16,7 @@ const UsersSchema = new Schema({
   carts: [new Schema({
     refId: { type: Schema.Types.ObjectId, ref: 'Items' },
     quantity: { type: Number, default: 1 }
-  }, { _id: false })
-  ],
+  }, { _id: false })]
   // orders: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: Orders

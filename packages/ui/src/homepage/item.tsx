@@ -15,8 +15,6 @@ import {
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation'
 import { PopupPreview } from ".";
-import { useRecoilValue } from "recoil";
-import { idState } from "@repo/atoms"
 import { Props } from "../types";
 import moment from "moment";
 import { v4 } from "uuid"
@@ -46,13 +44,13 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
         }
       })
       const data = await res.json()
-      if (res.ok) {
-      } else {
+      if (!res.ok) {
         setFav(prev => !prev)
         return Promise.reject(data)
       }
     } catch (error) {
       setFav(prev => !prev)
+      console.log(error)
     }
   }
   const addToCart = async () => {
@@ -69,13 +67,13 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
         }
       })
       const data = res.json()
-      if (res.ok) {
-      } else {
+      if (!res.ok) {
         setCart(prev => !prev)
         return Promise.reject(data)
       }
     } catch (error) {
       setCart(prev => !prev)
+      console.log(error)
     }
   }
 
@@ -209,7 +207,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
               <Tooltip>
                 <TooltipTrigger>
                   <button className="rounded-full p-2 border-gray-200 border-2 z-20">
-                    <PopupPreview _id={_id} >
+                    <PopupPreview _id={_id} name={name} desc={desc} price={price} sold={sold} oldPrice={oldPrice} stock={stock} dateAdded={dateAdded} favouriteUsers={favouriteUsers} cartUsers={cartUsers} comments={comments} totalStars={totalStars}  >
                       <FontAwesomeIcon icon={faEye} className="w-5" />
                     </PopupPreview>
 

@@ -1,6 +1,6 @@
 
 'use client'
-import { BreadCrumbs, Grid, NewFilterForm, Products, Props } from "@repo/ui";
+import { BreadCrumbs, Grid, NewFilterForm, Props } from "@repo/ui";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import moment from "moment";
@@ -35,7 +35,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
       }, 300)
       return () => clearTimeout(timeout)
     }
-  }, [searchParams, page])
+  }, [searchParams, page, searchTerm])
 
   useEffect(() => {
     const getFruits = async () => {
@@ -55,6 +55,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
           return Promise.reject(data)
         }
       } catch (error) {
+        console.log(error)
       }
     }
     getFruits()
@@ -66,15 +67,17 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
         <BreadCrumbs path={pathname.split("/").splice(1)} />
         <h1 className="text-4xl">Search</h1>
       </div>
-      <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex"
-      >
-        <div className="py-4 p-2 border border-gray-300 w-2/12" style={{ gridArea: "filter" }}>
-          <NewFilterForm />
+
+      {filteredPage.length === 0 ? <div>Loading</div> : (
+        <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex">
+          <div className="py-4 p-2 border border-gray-300 w-2/12" style={{ gridArea: "filter" }}>
+            <NewFilterForm />
+          </div>
+          <div className="w-full" style={{ gridArea: "products" }}>
+            <Grid arrayOfItems={filteredPage} />
+          </div>
         </div>
-        <div className="w-full" style={{ gridArea: "products" }}>
-          <Grid arrayOfItems={filteredPage} />
-        </div>
-      </div>
+      )}
     </div>
   )
 }

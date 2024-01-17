@@ -9,7 +9,10 @@ export const datax = [
     stock: 100,
     sold: 10,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
   , {
     _id: "2",
@@ -20,7 +23,10 @@ export const datax = [
     stock: 50,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -32,7 +38,10 @@ export const datax = [
     stock: 75,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -44,7 +53,10 @@ export const datax = [
     stock: 25,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -56,7 +68,10 @@ export const datax = [
     stock: 200,
     sold: 50,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -68,7 +83,10 @@ export const datax = [
     stock: 150,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -80,7 +98,10 @@ export const datax = [
     stock: 100,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -92,7 +113,10 @@ export const datax = [
     stock: 50,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 
   , {
@@ -104,7 +128,10 @@ export const datax = [
     stock: 175,
     sold: 0,
     totalStars: 0,
-    dateAdded: new Date('2023-01-01')
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
   }
 ]
 
@@ -129,3 +156,7 @@ export const dataInfo = [
     second: "We use safest payment technologies"
   }
 ]
+
+const stripetestingdata = {
+  cardno: '4242 4242 4242 4242',
+}

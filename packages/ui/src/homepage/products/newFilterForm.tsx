@@ -49,8 +49,8 @@ export function NewFilterForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     router.replace(pathname + "?" + createQueryString(values))
+    // @ts-ignore
     form.reset({ lower: "", upper: "", rating: "" })
-    console.log("values", values)
   }
   return (
     <div className="bg-white">

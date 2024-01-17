@@ -32,6 +32,7 @@ export function Payments() {
           return Promise.reject(data)
         }
       } catch (error) {
+        console.log(error)
       }
     }
     getFruits()
@@ -70,6 +71,14 @@ export function Payments() {
       console.error(error);
     }
   };
+
+  if (page.length === 0) return (
+    <div className="py-7">
+      <div className="w-7/12 h-5/6 bg-white rounded-xl m-auto flex p-4 gap-4">
+        <h1 className="text-2xl text-center m-auto">No items in cart</h1>
+      </div>
+    </div>
+  )
 
   return (
     <div className="py-7">

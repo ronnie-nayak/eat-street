@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 export default function Favourites() {
   const router = useRouter()
+  const pathname = usePathname()
   const [page, setPage] = useState<Props[]>([])
 
   useEffect(() => {
@@ -21,16 +22,16 @@ export default function Favourites() {
           return Promise.reject(data)
         }
       } catch (error) {
+        console.log(error)
       }
     }
     getFruits()
   }, [])
-  console.log("page", page)
-  const pathname = usePathname()
+
   return (
     <div>
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
-        <BreadCrumbs path={pathname.split("/").splice(1)} />
+        <BreadCrumbs path={pathname.split("/").splice(2)} />
         <h1 className="text-4xl">Favourites</h1>
       </div>
       <Table className="w-2/4 mx-auto p-4 bg-white rounded-3xl my-9">
@@ -43,19 +44,20 @@ export default function Favourites() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {page.map((item, index) => (
-            <TableRow key={index} className="cursor-pointer text-3xl"
-              onClick={() => router.push("/homepage/item/" + item._id)}
-            >
-              <TableCell className="font-medium"><img src={`/items/${item.name.toLowerCase()}.jpg`} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>
-              <TableCell>
-                <h3 className="  text-[#243F2F]">{item.name}</h3>
-              </TableCell>
-              <TableCell>
-                <h3 className="  text-[#0BAD69]">${item.price}</h3></TableCell>
-              <TableCell className=""><h1>{item.stock}</h1></TableCell>
-            </TableRow>
-          ))}
+          {page.length === 0 ? (<div>No items favourite</div>) :
+            page.map((item, index) => (
+              <TableRow key={index} className="cursor-pointer text-3xl"
+                onClick={() => router.push("/homepage/item/" + item._id)}
+              >
+                <TableCell className="font-medium"><img src={`/items/${item.name.toLowerCase()}.jpg`} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>
+                <TableCell>
+                  <h3 className="  text-[#243F2F]">{item.name}</h3>
+                </TableCell>
+                <TableCell>
+                  <h3 className="  text-[#0BAD69]">${item.price}</h3></TableCell>
+                <TableCell className=""><h1>{item.stock}</h1></TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div >

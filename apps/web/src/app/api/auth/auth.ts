@@ -23,23 +23,20 @@ export const config = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "jsmith@mail.com" },
+        email: { label: "Email", type: "email", placeholder: "Click submit for guest user" },
       },
       async authorize(credentials) {
 
 
-        console.log("credentials: ", credentials)
-        console.log("credentials.email: ", credentials?.email)
 
         await connectToDatabase();
         const userExists = await Users.findOne({ email: credentials?.email });
 
-        console.log("userExists: ", userExists)
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           return await Users.create({
             email: credentials?.email,
-            username: credentials?.email?.split("@")[0],
+            name: "Guest User",
             image: "/login/user.svg"
           });
         }
@@ -53,31 +50,26 @@ export const config = {
   callbacks: {
     async session({ session }) {
       // store the user id from MongoDB to session
-      const sessionUsers = await Users.findOne({ email: session?.user?.email });
+      const sessionUsers = await Users.findOne({ email: session?.user?.email, name: session?.user?.name, image: session?.user?.image });
       session!.user!.id = sessionUsers._id.toString();
 
       return session;
     },
     async signIn({ profile, user }) {
       try {
-        console.log("profile: ", profile)
-        console.log("user: ", user)
 
 
         await connectToDatabase();
-
         // check if user already exists
-        const userExists = await Users.findOne({ email: user?.email });
-
+        const userExists = await Users.findOne({ email: user?.email, name: user?.name, image: user?.image });
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           await Users.create({
-            email: user?.email,
-            username: user?.name?.replace(" ", "").toLowerCase(),
             image: user?.image,
+            email: user?.email,
+            name: user?.name,
           });
         }
-
         return true
       } catch (error: any) {
         console.log("Error checking if user exists: ", error.message);
