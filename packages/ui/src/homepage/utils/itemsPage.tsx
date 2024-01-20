@@ -8,6 +8,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
   const [page, setPage] = useState<Props[]>([])
   const [filteredPage, setFilteredPage] = useState<Props[]>([])
 
+  const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   useEffect(() => {
@@ -49,7 +50,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
@@ -59,9 +60,9 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
     <div >
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
-        <h1 className="text-4xl">{name}</h1>
+        <h1 className="text-[2vw]">{name}</h1>
       </div>
-      {filteredPage.length === 0 ? <div>Loading</div> : (
+      {
         <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex">
           <div className="py-4 p-2 border border-gray-300 w-2/12" style={{ gridArea: "filter" }}>
             <NewFilterForm />
@@ -70,7 +71,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
             <Grid arrayOfItems={filteredPage} />
           </div>
         </div>
-      )}
+      }
     </div>
   )
 }

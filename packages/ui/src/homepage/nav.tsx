@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="text-[#00D783] text-2xl" >
+      <div className="text-[#00D783] text-[1.5vw]" >
         {icon}
       </div>
       <h3>{title}</h3>
@@ -29,15 +29,7 @@ function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
 export function Nav() {
 
   const { data: session } = useSession()
-  // const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
-  //
-  // useEffect(() => {
-  //   const setProvider = async () => {
-  //     const response = await getProviders()
-  //     setProviders(response)
-  //   }
-  //   setProvider()
-  // }, [])
+
   return (
     <nav className="h-16 2xl:h-24 relative">
       <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-around items-center px-4 2xl:h-24">
@@ -49,50 +41,49 @@ export function Nav() {
         <IoCartOutline size={26} className="text-[#243F2F] 2xl:hidden" />
 
 
-        <div className="hidden 2xl:flex items-center text-[#243F2F] text-2xl gap-6 mr-9">
-          <Option title="Vegetables" icon={<LuCarrot size={32} />} />
-          <Link href="/homepage/fruits">
+        <div className="hidden 2xl:flex items-center text-[#243F2F] text-[1.5vw] gap-6 mr-9">
+
+          <Link href="/homepage/vegetable">
+            <Option title="Vegetables" icon={<LuCarrot size={32} />} />
+          </Link>
+          <Link href="/homepage/fruit">
             <Option title="Fresh Fruit" icon={<LuCherry size={32} />} />
           </Link>
-          <Option title="Meat" icon={<TbMeat size={32} />} />
+
+          <Link href="/homepage/meat">
+            <Option title="Meat" icon={<TbMeat size={32} />} />
+          </Link>
           <Link href="/homepage">
             <img src="/lghome/tastydaily.png" className="h-10 hidden 2xl:block mx-4" />
           </Link>
-          <Option title="Seafood" icon={<IoFishOutline size={32} />} />
-          <Option title="Baking" icon={<GiSlicedBread size={32} />} />
-          <Option title="Drinks" icon={<LuCupSoda size={32} />} />
+
+          <Link href="/homepage/seafood">
+            <Option title="Seafood" icon={<IoFishOutline size={32} />} />
+          </Link>
+
+          <Link href="/homepage/baking">
+            <Option title="Baking" icon={<GiSlicedBread size={32} />} />
+          </Link>
+
+          <Link href="/homepage/drink">
+            <Option title="Drinks" icon={<LuCupSoda size={32} />} />
+          </Link>
         </div>
 
         <div className="hidden 2xl:flex items-center gap-4 justify-self-end absolute right-9">
-          {session?.user ? (
-            <>
-              <PopupSearch />
-              <Link href="/homepage/favourites">
-                <FaRegHeart size={22} />
-              </Link>
-              <Link href="/homepage/carts">
-                <IoCartOutline size={26} className="text-[#243F2F] " />
-              </Link>
-              <img onClick={() => signOut()} src={session?.user?.image ?? ""} className="w-10 h-10 rounded-full cursor-pointer" />
-            </>
-          ) : (
-            <>
-
-              <Link href="/login" className="p-4 rounded-3xl bg-black text-white">SignIn</Link>
-              {/* {providers && */}
-              {/*   Object.values(providers).map((provider) => ( */}
-              {/*     <button */}
-              {/*       type="button" */}
-              {/*       key={provider.name} */}
-              {/*       onClick={() => signIn(provider.id)} */}
-              {/*     > */}
-              {/*       SignIn */}
-              {/*     </button> */}
-              {/*   ) */}
-              {/*   ) */}
-              {/* } */}
-            </>
-          )}
+          <PopupSearch />
+          <Link href="/homepage/favourites">
+            <FaRegHeart size={22} />
+          </Link>
+          <Link href="/homepage/carts">
+            <IoCartOutline size={26} className="text-[#243F2F] " />
+          </Link>
+          <div className="bg-black rounded-3xl flex gap-2 items-center p-1 font-bold pr-2 cursor-pointer"
+            onClick={() => signOut()}
+          >
+            <img src={session?.user?.image ?? ""} className="w-10 h-10 rounded-full" />
+            <h2 className="text-white">Sign Out</h2>
+          </div>
 
         </div>
       </div >

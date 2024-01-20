@@ -9,6 +9,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
   const [page, setPage] = useState<Props[]>([])
   const [filteredPage, setFilteredPage] = useState<Props[]>([])
 
+  const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   useEffect(() => {
@@ -55,7 +56,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
@@ -65,10 +66,10 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
     <div >
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(1)} />
-        <h1 className="text-4xl">Search</h1>
+        <h1 className="text-[2vw]">Search</h1>
       </div>
 
-      {filteredPage.length === 0 ? <div>Loading</div> : (
+      {
         <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex">
           <div className="py-4 p-2 border border-gray-300 w-2/12" style={{ gridArea: "filter" }}>
             <NewFilterForm />
@@ -77,7 +78,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
             <Grid arrayOfItems={filteredPage} />
           </div>
         </div>
-      )}
+      }
     </div>
   )
 }

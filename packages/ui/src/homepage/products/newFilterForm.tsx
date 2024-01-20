@@ -50,11 +50,15 @@ export function NewFilterForm() {
     // ✅ This will be type-safe and validated.
     router.replace(pathname + "?" + createQueryString(values))
     // @ts-ignore
-    form.reset({ lower: "", upper: "", rating: "" })
+    // form.reset({ lower: "", upper: "", rating: "" })
   }
   return (
     <div className="bg-white">
-      <Button onClick={() => router.replace(pathname)} className="flex gap-2 text-base hover:bg-red-300 rounded-full mb-7">
+      <Button onClick={() => {
+        router.replace(pathname)
+        // @ts-ignore
+        form.reset({ lower: "", upper: "", rating: "", new: false, sale: false, sold: false })
+      }} className="flex gap-2 text-[0.85vw] hover:bg-red-300 rounded-full mb-7">
         <h4>X</h4>
         <h2>Clear</h2>
       </Button>
@@ -121,7 +125,7 @@ export function NewFilterForm() {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-base font-bold pb-1">
+                  <FormLabel className="text-[0.85vw] font-bold pb-1">
                     New
                   </FormLabel>
                 </FormItem>
@@ -139,7 +143,7 @@ export function NewFilterForm() {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-base font-bold pb-1">
+                  <FormLabel className="text-[0.85vw] font-bold pb-1">
                     Sale
                   </FormLabel>
                 </FormItem>
@@ -157,7 +161,7 @@ export function NewFilterForm() {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-base font-bold pb-1">
+                  <FormLabel className="text-[0.85vw] font-bold pb-1">
                     Sold
                   </FormLabel>
                 </FormItem>

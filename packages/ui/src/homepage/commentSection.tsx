@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 export function CommentSection({ _id, comments, setComments }: { _id: string, comments: any, setComments: any }) {
   const [formData, setFormData] = useState<{ comment: string, rating: string }>({
     comment: "",
     rating: "5",
   })
+
+  const router = useRouter()
 
 
   function handleChange(e: React.ChangeEvent) {
@@ -34,7 +37,7 @@ export function CommentSection({ _id, comments, setComments }: { _id: string, co
         return Promise.reject(data)
       }
     } catch (error) {
-      console.log(error)
+      router.replace("/login")
     }
   }
 

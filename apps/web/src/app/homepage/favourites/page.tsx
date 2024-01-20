@@ -22,7 +22,7 @@ export default function Favourites() {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
@@ -32,7 +32,7 @@ export default function Favourites() {
     <div>
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
-        <h1 className="text-4xl">Favourites</h1>
+        <h1 className="text-[2vw]">Favourites</h1>
       </div>
       <Table className="w-2/4 mx-auto p-4 bg-white rounded-3xl my-9">
         <TableHeader>
@@ -44,9 +44,9 @@ export default function Favourites() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {page.length === 0 ? (<div>No items favourite</div>) :
+          {page.length === 0 ? (<div className="text-center font-bold text-[1vw] p-4">No Favourites</div>) :
             page.map((item, index) => (
-              <TableRow key={index} className="cursor-pointer text-3xl"
+              <TableRow key={index} className="cursor-pointer text-[1.75vw]"
                 onClick={() => router.push("/homepage/item/" + item._id)}
               >
                 <TableCell className="font-medium"><img src={`/items/${item.name.toLowerCase()}.jpg`} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>

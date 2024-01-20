@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation"
 export function PopupSearch() {
   const [search, setSearch] = useState([])
   const [inputValue, setInputValue] = useState("")
+
+  const router = useRouter()
   useEffect(() => {
     const getFruits = async () => {
       try {
@@ -34,19 +36,18 @@ export function PopupSearch() {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
   }, [inputValue])
 
-  const router = useRouter()
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setInputValue("")
     setSearch([])
-    router.push(`/homepage/search?search=${inputValue}`)
+    router.replace(`/homepage/search?search=${inputValue}`)
   }
 
 
@@ -58,8 +59,8 @@ export function PopupSearch() {
         </DialogTrigger>
         <DialogContent className=" w-[1000px]  flex flex-col justify-center items-center bg-transparent border-0 shadow-none">
           <DialogHeader className="flex w-full">
-            <DialogTitle className="text-white self-center text-5xl">Search</DialogTitle>
-            <DialogClose className="h-14 w-14 rounded-full self-end bg-white font-bold text-xl">X</DialogClose>
+            <DialogTitle className="text-white self-center text-[2.25vw]">Search</DialogTitle>
+            <DialogClose className="h-14 w-14 rounded-full self-end bg-white font-bold text-[1.25vw]">X</DialogClose>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="flex w-full gap-4 items-center p-4 px-20 bg-white rounded-xl">
             <Input className="h-12 rounded-full border border-gray-500" placeholder="Search" onChange={(event) => setInputValue(event.target.value)} />

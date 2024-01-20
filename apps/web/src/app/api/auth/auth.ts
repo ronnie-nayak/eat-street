@@ -21,21 +21,21 @@ export const config = {
     }),
 
     CredentialsProvider({
-      name: "Credentials",
+      name: "Guest User",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "Click submit for guest user" },
       },
-      async authorize(credentials) {
+      async authorize() {
 
 
+        // email: "guest@user.test",
 
         await connectToDatabase();
-        const userExists = await Users.findOne({ email: credentials?.email });
+        const userExists = await Users.findOne({ email: "guest@user.test", name: "Guest User", image: "/login/user.svg" });
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           return await Users.create({
-            email: credentials?.email,
+            email: "guest@user.test",
             name: "Guest User",
             image: "/login/user.svg"
           });
@@ -78,9 +78,10 @@ export const config = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  // session: {
-  //   strategy: "jwt",
-  // },
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 60 // 4 hours
+  },
   // debug: process.env.NODE_ENV === "development",
 } satisfies NextAuthOptions
 

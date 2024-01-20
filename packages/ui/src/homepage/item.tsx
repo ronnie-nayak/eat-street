@@ -20,7 +20,7 @@ import moment from "moment";
 import { v4 } from "uuid"
 
 
-export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars }: Props) {
+export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars, image }: Props) {
   const { data: session, status } = useSession()
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
@@ -50,7 +50,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
       }
     } catch (error) {
       setFav(prev => !prev)
-      console.log(error)
+      router.replace("/login")
     }
   }
   const addToCart = async () => {
@@ -73,8 +73,14 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
       }
     } catch (error) {
       setCart(prev => !prev)
-      console.log(error)
+      router.replace("/login")
     }
+  }
+
+  const handleRedirect = () => {
+
+    if (status !== "authenticated") return router.replace("/login")
+    router.push("/homepage/item/" + _id)
   }
 
 
@@ -98,12 +104,12 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
         }} className="h-full bg-white border border-gray-300" >
           <header style={{
             gridArea: "image"
-          }} className="overflow-hidden cursor-pointer" onClick={() => router.push("/homepage/item/" + _id)}>
-            <img src={`/items/${name.toLowerCase()}.jpg`} className="w-full hover:scale-125 transition duration-300" />
+          }} className="overflow-hidden cursor-pointer" onClick={handleRedirect}>
+            <img src={image} className="w-full hover:scale-125 transition duration-300" />
           </header>
           <section style={{
             gridArea: "content"
-          }} className="px-9 overflow-clip cursor-pointer" onClick={() => router.push("/homepage/item/" + _id)}>
+          }} className="px-9 overflow-clip cursor-pointer" onClick={handleRedirect}>
 
             {
               rating > 0 && (
@@ -130,8 +136,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
                 <h4>Available: {stock - sold}</h4>
               </div>
             </div >
-            <h2 className="font-semibold text-lg">{name}</h2>
-            <p className="text-base py-2 font-normal">
+            <h2 className="font-semibold text-[1.25vw]">{name}</h2>
+            <p className="text-[0.85vw] py-2 font-normal">
               {desc}
             </p>
           </section>
@@ -140,8 +146,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
             alignSelf: "end"
           }} className="flex items-center justify-between px-4 py-8 ">
             <div>
-              {oldPrice > 0 && <h4 className="font-semibold text-lg line-through text-gray-600">${oldPrice}</h4>}
-              <h3 className="font-semibold text-[#00AA63] text-2xl">${price}</h3>
+              {oldPrice > 0 && <h4 className="font-semibold text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
+              <h3 className="font-semibold text-[#00AA63] text-[1.5vw]">${price}</h3>
             </div>
             <TooltipProvider delayDuration={0}>
               <Tooltip>
@@ -233,8 +239,8 @@ export function ItemSmall({ name, price, _id }: Props) {
     >
       <img src={`/items/${name}.jpg`} className="h-full w-[80px] object-cover rounded-xl" />
       <div>
-        <h3 className=" text-2xl text-[#243F2F]">{name}</h3>
-        <h3 className=" text-lg text-[#0BAD69]">${price}</h3>
+        <h3 className=" text-[1.5vw] text-[#243F2F]">{name}</h3>
+        <h3 className=" text-[1vw] text-[#0BAD69]">${price}</h3>
       </div>
     </div >
   )

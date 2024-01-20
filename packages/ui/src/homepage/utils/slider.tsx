@@ -8,7 +8,6 @@ import {
 } from "../../../components/ui/carousel";
 
 export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
-  if (arrayOfItems.length === 0) return (<div>No items in slider</div>)
   return (
     <div className="mx-4">
       <Carousel
@@ -18,11 +17,12 @@ export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
         }}
       >
         <CarouselContent>
-          {arrayOfItems.map((item, index) => (
-            <CarouselItem key={index} className="basis-1/1 2xl:basis-1/4 xl:basis-1/3 lg:basis-1/2">
-              <Item {...item} />
-            </CarouselItem>
-          ))}
+          {arrayOfItems.length === 0 ? (<div className="text-center font-bold text-[1vw] p-4">No Items</div>) :
+            arrayOfItems.map((item, index) => (
+              <CarouselItem key={index} className="basis-1/1 2xl:basis-1/4 xl:basis-1/3 lg:basis-1/2">
+                <Item {...item} />
+              </CarouselItem>
+            ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
@@ -31,33 +31,3 @@ export function Slider({ arrayOfItems }: { arrayOfItems: Array<any> }) {
   );
 }
 
-// const widthOfItems = Math.floor(100 / noOfItems)
-// const slideLeft = () => {
-//   let slider = document.querySelector(`.${name}`)
-//   slider!.scrollLeft += 300
-// }
-// const slideRight = () => {
-//   let slider = document.querySelector(`.${name}`)
-//   slider!.scrollLeft -= 300
-// }
-// return (
-//   <div className="relative m-10 rounded-full">
-//     <button className="rounded-full p-2 absolute z-10 -left-6 top-1/2 border-gray-300 border-2 bg-white"
-//       onClick={slideRight}
-//     >
-//       <FontAwesomeIcon icon={faChevronLeft} className="h-6 w-6" />
-//     </button>
-//     <button className="rounded-full p-2 absolute z-10 -right-6 top-1/2 border-gray-300 border-2 bg-white"
-//       onClick={slideLeft}
-//     >
-//       <FontAwesomeIcon icon={faChevronRight} className="h-6 w-6" />
-//     </button>
-//     <div className={`${name} flex rounded-xl overflow-y-clip overflow-x-scroll scroll-smooth snap-x`}>
-//       {arrayOfItems.map((item, index) => (
-//         <div className="snap-start snap-normal">
-//           <Item {...item} key={index} />
-//         </div>
-//       ))}
-//
-//     </div>
-//   </div >

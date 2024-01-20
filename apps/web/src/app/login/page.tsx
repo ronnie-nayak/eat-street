@@ -4,14 +4,14 @@ import { ClientSafeProvider, LiteralUnion, getProviders, signIn, useSession } fr
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import * as z from "zod"
-import { Button } from "@repo/ui"
+import { Button, Loading } from "@repo/ui"
 
 export default function Login() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  if (status === "authenticated") {
-    router.push("/homepage")
-  }
+  // if (status === "authenticated") {
+  //   router.replace("/homepage")
+  // }
 
 
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
@@ -25,13 +25,8 @@ export default function Login() {
   }, [])
 
 
-  function guestUser() {
-    const res = signIn('credentials', {
-      email: "guest@user.test",
-      redirect: false,
-    })
-    router.replace("/homepage")
-  }
+
+  if (status === "loading") return <div className="h-screen w-screen"><Loading /></div>
 
   return (
     <div className="relative">
@@ -47,14 +42,16 @@ export default function Login() {
           boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.75)"
         }}
       >
-        {!providers ? (<div>Loading</div>) :
+        {!providers ? (<div className="text-center font-bold text-[1vw] p-4">Loading...</div>) :
           (
             <>
               <div className="flex gap-2 justify-center items-center">
                 <button
                   type="button"
                   key="Google"
-                  onClick={() => signIn("google")}
+                  onClick={() => signIn("google", {
+                    callbackUrl: `${window.location.origin}/homepage`,
+                  })}
                   className="loginbutton"
                 >
                   <img src="/login/google.svg" className="h-12" />
@@ -64,14 +61,18 @@ export default function Login() {
                 <button
                   type="button"
                   key="Github"
-                  onClick={() => signIn("github")}
+                  onClick={() => signIn("github", {
+                    callbackUrl: `${window.location.origin}/homepage`,
+                  })}
                   className="loginbutton"
                 >
                   <img src="/login/github.svg" className="h-12" />
                   <h2>Github</h2>
                 </button>
               </div>
-              <Button onClick={guestUser} className="w-3/4 m-auto h-1/3 text-3xl font-bold">Guest User</Button>
+              <Button onClick={() => signIn('credentials', {
+                callbackUrl: `${window.location.origin}/homepage`,
+              })} className="w-3/4 m-auto h-1/3 text-[1.75vw] font-bold">Guest User</Button>
             </>
           )
         }

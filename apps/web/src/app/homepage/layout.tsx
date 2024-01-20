@@ -1,5 +1,5 @@
 'use client'
-import { Footer, Nav } from "@repo/ui";
+import { Footer, Loading, Nav } from "@repo/ui";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
     router.replace("/login")
   }
   if (status === "loading") {
-    return <div>Loading</div>
+    return <div className="w-screen h-screen"><Loading /></div>
   }
   return (
     <div>

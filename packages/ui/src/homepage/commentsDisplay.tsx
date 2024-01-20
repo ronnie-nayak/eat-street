@@ -2,9 +2,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Button } from "../../components/ui/button"
 import { CommentProps } from "../types"
+import { useRouter } from "next/navigation"
 
 export function CommentsDisplay({ _id, comments, setComments }: { _id: string, comments: CommentProps[], setComments: Dispatch<SetStateAction<CommentProps[]>> }) {
   const [page, setPage] = useState(1)
+  const router = useRouter()
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -18,7 +20,7 @@ export function CommentsDisplay({ _id, comments, setComments }: { _id: string, c
         const data = await res.json()
         setComments(data)
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getComments()
@@ -28,7 +30,7 @@ export function CommentsDisplay({ _id, comments, setComments }: { _id: string, c
   return (
     <div className="w-full ">
       {
-        comments.length === 0 ? <p className="m-4 p-4 text-3xl">No items comments</p> :
+        comments.length === 0 ? <p className="m-4 p-4 text-[1.75vw]">No Comments</p> :
           (
             <>
 

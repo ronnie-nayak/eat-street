@@ -28,6 +28,13 @@ const ItemsSchema = new Schema({
   totalStars: {
     type: Number,
   },
+
+  type: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
   // newTag: {
   //   type: Schema.Types.Boolean,
   //   required: [true, 'newTag is required duh']

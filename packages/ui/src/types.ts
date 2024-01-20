@@ -10,6 +10,8 @@ export interface Props {
   // newTag: boolean,
   dateAdded: Date,
   totalStars: number,
+  type: string,
+  image: string,
   favouriteUsers: Array<any>,
   cartUsers: Array<any>
   comments: Array<any>

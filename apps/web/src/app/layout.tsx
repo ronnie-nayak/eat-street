@@ -22,7 +22,7 @@ export default function HomepageLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html className="text-[0.85vw]" lang="en">
       <body className={quicksand.className} >
         <Provider>
           {children}

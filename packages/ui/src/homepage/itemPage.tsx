@@ -16,6 +16,7 @@ import { IconClock, IconTick } from '../react-svg/svg';
 import moment from 'moment';
 import { Props } from '@repo/ui';
 import { v4 } from 'uuid';
+import { useRouter } from 'next/navigation';
 
 const promises = [
   "100% Money Back Warranty",
@@ -26,7 +27,7 @@ const promises = [
 
 
 
-export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars }: Props) {
+export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars, image }: Props) {
 
 
   const [fav, setFav] = useState(false)
@@ -34,6 +35,7 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
   const [amount, setAmount] = useState(1)
   const { data: session } = useSession()
 
+  const router = useRouter()
 
   useEffect(() => {
     const isFav: boolean = favouriteUsers?.some(e => e.refId === session?.user?.id) ?? false
@@ -60,7 +62,7 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
       }
     } catch (error) {
       setFav(prev => !prev)
-      console.log(error)
+      router.replace("/login")
     }
   }
   const addToCart = async () => {
@@ -82,7 +84,7 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
       }
     } catch (error) {
       setCart(prev => !prev)
-      console.log(error)
+      router.replace("/login")
     }
   }
 
@@ -114,14 +116,14 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
           <header style={{
             gridArea: "image"
           }} className="overflow-hidden cursor-pointer" >
-            <img src={`/items/${name.toLowerCase()}.jpg`} className="w-full " />
+            <img src={`${image}`} className="w-full " />
           </header>
 
 
           <div style={{ gridArea: "content" }}>
             <section className="p-9 overflow-clip cursor-pointer" >
 
-              <h2 className="text-5xl text-[150%] mb-4">{name}</h2>
+              <h2 className="text-[2.25vw] text-[150%] mb-4">{name}</h2>
               <p className="text-1xl py-2 font-normal mb-6">
                 {desc}
               </p>
@@ -156,18 +158,18 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
             </section>
             <footer className="p-9 ">
               <div className='flex gap-4 items-baseline mb-4'>
-                {oldPrice > 0 && <h4 className="font-semibold text-lg line-through text-gray-600">${oldPrice}</h4>}
-                <h3 className="font-semibold text-[#00AA63] text-3xl">${price}</h3>
+                {oldPrice > 0 && <h4 className="font-semibold text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
+                <h3 className="font-semibold text-[#00AA63] text-[1.75vw]">${price}</h3>
               </div>
 
 
               <div className='flex gap-4 items-center'>
                 <div className='flex gap-2 p-2 border border-black w-min rounded-3xl'>
-                  <button className='w-9 text-2xl' disabled={amount === 1} onClick={() => setAmount((old) => old - 1)}>
+                  <button className='w-9 text-[1.5vw]' disabled={amount === 1} onClick={() => setAmount((old) => old - 1)}>
                     −
                   </button>
-                  <h2 className='w-5 grid place-items-center text-xl'>{amount}</h2>
-                  <button className='w-9 text-2xl' disabled={amount === (stock - sold)} onClick={() => setAmount((old) => old + 1)}>
+                  <h2 className='w-5 grid place-items-center text-[1.25vw]'>{amount}</h2>
+                  <button className='w-9 text-[1.5vw]' disabled={amount === (stock - sold)} onClick={() => setAmount((old) => old + 1)}>
                     +
                   </button>
                 </div>

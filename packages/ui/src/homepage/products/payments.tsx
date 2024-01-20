@@ -32,7 +32,7 @@ export function Payments() {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
@@ -75,7 +75,7 @@ export function Payments() {
   if (page.length === 0) return (
     <div className="py-7">
       <div className="w-7/12 h-5/6 bg-white rounded-xl m-auto flex p-4 gap-4">
-        <h1 className="text-2xl text-center m-auto">No items in cart</h1>
+        <h1 className="text-[1.5vw] text-center m-auto">No items in cart</h1>
       </div>
     </div>
   )
@@ -99,10 +99,10 @@ export function Payments() {
               >
                 <TableCell className="font-medium"><img src={`/items/${item.refId.name.toLowerCase()}.jpg`} className="h-full w-[80px] object-cover rounded-xl" /></TableCell>
                 <TableCell><div>
-                  <h3 className=" text-2xl text-[#243F2F]">{item.refId.name}</h3>
-                  <h3 className=" text-lg text-[#0BAD69]">${item.refId.price}</h3></div></TableCell>
-                <TableCell className=" text-lg"><h1>{item.quantity}</h1></TableCell>
-                <TableCell className="text-right text-2xl text-limeGreen"><h1>${item.refId.price * item.quantity}</h1></TableCell>
+                  <h3 className=" text-[1.5vw] text-[#243F2F]">{item.refId.name}</h3>
+                  <h3 className=" text-[1vw] text-[#0BAD69]">${item.refId.price}</h3></div></TableCell>
+                <TableCell className=" text-[1vw]"><h1>{item.quantity}</h1></TableCell>
+                <TableCell className="text-right text-[1.5vw] text-limeGreen"><h1>${item.refId.price * item.quantity}</h1></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -110,27 +110,27 @@ export function Payments() {
         <form className="flex flex-col w-1/2 p-8 border border-green-900 rounded-xl pt-10 h-min">
           <div className="border border-gray-300"></div>
           <div className="flex justify-between py-4 items-baseline">
-            <h2 className="font-medium text-2xl">Subtotal</h2>
-            <h2 className="text-forestGreen text-lg">${subTotal.toFixed(2)}</h2>
+            <h2 className="font-medium text-[1.5vw]">Subtotal</h2>
+            <h2 className="text-forestGreen text-[1vw]">${subTotal.toFixed(2)}</h2>
           </div>
           <div className="border border-gray-300"></div>
           <RadioGroup defaultValue="option-one" className="py-4">
-            <h2 className="font-medium text-2xl">Shipping</h2>
+            <h2 className="font-medium text-[1.5vw]">Shipping</h2>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="option-one" id="option-one" onClick={() => setShipping(5)} />
-              <Label htmlFor="option-one" className="text-base">Normal Shipping</Label>
-              <h2 className="text-forestGreen text-lg">$5.00</h2>
+              <Label htmlFor="option-one" className="text-[0.85vw]">Normal Shipping</Label>
+              <h2 className="text-forestGreen text-[1vw]">$5.00</h2>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="option-two" id="option-two" onClick={() => setShipping(10)} />
-              <Label htmlFor="option-two" className="text-base">Express Shipping</Label>
-              <h2 className="text-forestGreen text-lg">$10.00</h2>
+              <Label htmlFor="option-two" className="text-[0.85vw]">Express Shipping</Label>
+              <h2 className="text-forestGreen text-[1vw]">$10.00</h2>
             </div>
           </RadioGroup>
           <div className="border border-gray-300 mt-20"></div>
           <div className="flex justify-between py-4 items-baseline">
-            <h2 className="font-medium text-2xl">Total</h2>
-            <h2 className="text-forestGreen text-lg">${(subTotal + shipping).toFixed(2)}</h2>
+            <h2 className="font-medium text-[1.5vw]">Total</h2>
+            <h2 className="text-forestGreen text-[1vw]">${(subTotal + shipping).toFixed(2)}</h2>
           </div>
           <button
             type="submit"

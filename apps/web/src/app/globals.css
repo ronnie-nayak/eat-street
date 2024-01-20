@@ -106,5 +106,5 @@
 }
 
 .loginbutton{
-  @apply bg-blue-600 text-black font-bold py-2 px-4 rounded border border-black w-5/12 flex justify-center items-center text-2xl
+  @apply bg-blue-600 text-black font-bold py-2 px-4 rounded border border-black w-5/12 flex justify-center items-center text-[1.5vw]
 }

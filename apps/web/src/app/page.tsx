@@ -1,21 +1,17 @@
 'use client'
-import { Banner, Biker, Info, Item, NavUI, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
+import { Banner, Biker, Info, Item, Loading, NavUI, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
 import { dataInfo, datax } from "../lib/data";
-import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
-  if (session) {
+  if (status === "authenticated") {
     router.replace("/homepage")
   }
-  const [fruits, setFruits] = useState<Props[]>([])
-  useEffect(() => {
-    setFruits(datax)
-  }, [])
 
+  if (status === "loading") return <div className="w-screen h-screen"><Loading /></div>
 
   return (
     <div className="relative font-bold" >
@@ -26,15 +22,11 @@ export default function Page() {
         <Sections title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
         <Sections title={"For Steak\nLovers"} image="/home/steak.jpg" />
       </div>
-      <h2 className="text-2xl  text-[#243F2F] text-center m-7 ">
+      <h2 className="text-[1.5vw]  text-[#243F2F] text-center m-7 ">
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        {
-          fruits.length === 0 ? (<div>Loading</div>) : (
-            <Slider arrayOfItems={fruits} />
-          )
-        }
+        <Slider arrayOfItems={datax} />
       </div>
       <div className="hidden xl:block m-10">
         <div style={{
@@ -42,9 +34,8 @@ export default function Page() {
           gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
         }} className="bg-white">
 
-          {fruits.length === 0 ? (<div>Loading</div>) : (
-            fruits.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
-          )
+          {
+            datax.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
           }
         </div>
       </div>
@@ -52,14 +43,10 @@ export default function Page() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          {
-            fruits.length === 0 ? (<div>Loading</div>) : (
-              <Slider arrayOfItems={fruits} />
-            )
-          }
+          <Slider arrayOfItems={datax} />
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider arrayOfItems={fruits} />
+          <Slider arrayOfItems={datax} />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>

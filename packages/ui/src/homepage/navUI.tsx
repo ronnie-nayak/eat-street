@@ -16,7 +16,7 @@ import { Button } from "@repo/ui";
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="text-[#00D783] text-2xl" >
+      <div className="text-[#00D783] text-[1.5vw]" >
         {icon}
       </div>
       <h3>{title}</h3>
@@ -39,7 +39,7 @@ export function NavUI() {
         <IoCartOutline size={26} className="text-[#243F2F] 2xl:hidden" />
 
 
-        <div className="hidden 2xl:flex items-center text-[#243F2F] text-2xl gap-6 mr-9 cursor-pointer"
+        <div className="hidden 2xl:flex items-center text-[#243F2F] text-[1.5vw] gap-6 mr-9 cursor-pointer"
           onClick={() => router.replace('/login')}
         >
           <Option title="Vegetables" icon={<LuCarrot size={32} />} />
@@ -51,7 +51,7 @@ export function NavUI() {
           <Option title="Drinks" icon={<LuCupSoda size={32} />} />
         </div>
 
-        <div className="hidden 2xl:flex items-center gap-4 justify-self-end absolute right-9">
+        <div className="hidden 2xl:flex items-center gap-4 absolute right-9">
           <Link href="/login" className="p-4 rounded-3xl bg-black text-white">SignIn</Link>
         </div>
       </div >

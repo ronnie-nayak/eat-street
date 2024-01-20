@@ -1,11 +1,14 @@
 'use client'
-import { CommentProps, CommentSection, CommentsDisplay, ItemPage, Props } from "@repo/ui";
+import { CommentProps, CommentSection, CommentsDisplay, ItemPage, Loading, Props } from "@repo/ui";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
 export default function Section({ params }: { params: { itemId: string } }) {
 
   const [page, setPage] = useState<Props>()
+
+  const router = useRouter()
 
   useEffect(() => {
     const getFruits = async () => {
@@ -24,7 +27,7 @@ export default function Section({ params }: { params: { itemId: string } }) {
           return Promise.reject(data)
         }
       } catch (error) {
-        console.log(error)
+        router.replace("/login")
       }
     }
     getFruits()
@@ -34,7 +37,7 @@ export default function Section({ params }: { params: { itemId: string } }) {
   const [commentsData, setCommentsData] = useState<CommentProps[]>([])
 
   if (!page) {
-    return <div>loading...</div>
+    return <Loading />
   }
 
   return (
