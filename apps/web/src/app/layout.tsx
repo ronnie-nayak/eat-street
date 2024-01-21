@@ -2,7 +2,6 @@ import "./globals.css";
 import "@repo/ui/styles.css";
 import { Quicksand } from "next/font/google";
 import type { Metadata } from "next";
-import { Footer, Nav } from "@repo/ui";
 import { Toaster } from "@repo/ui/components/ui/sonner";
 import Provider from "./provider";
 

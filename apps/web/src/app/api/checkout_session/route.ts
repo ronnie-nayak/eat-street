@@ -40,8 +40,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${headersList.get("origin")}/dashboard/thankyou`,
-      cancel_url: `${headersList.get("origin")}/dashboard`,
+      success_url: `${headersList.get("origin")}/homepage/thankyou`,
+      cancel_url: `${headersList.get("origin")}/homepage`,
     });
 
     return NextResponse.json({ sessionId: session.id });
