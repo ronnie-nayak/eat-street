@@ -1,0 +1,41 @@
+//
+// import { NextRequest, NextResponse } from "next/server";
+// import { connectToDatabase } from "../../../utils/database";
+// import { Items, Users } from "@repo/db";
+// import { auth } from "../auth/auth";
+//
+//
+//
+// export async function POST(req: NextRequest) {
+//   try {
+//     const session = await auth();
+//     if (!session) {
+//       return new Response("Unauthorized", { status: 401 });
+//     }
+//     await connectToDatabase();
+//     const { page } = await req.json();
+//     page.forEach(async (element) => {
+//       await Items.updateOne(
+//         { _id: element.refId._id },
+//         {
+//           $inc: {
+//             sold: element.quantity,
+//           }
+//         }
+//       )
+//     });
+//     await Users.updateOne(
+//       { _id: session.user.id },
+//       {
+//         $set: {
+//           carts: [],
+//         }
+//       }
+//     )
+//     return NextResponse.json({ success: "Checkout finished" });
+//   } catch (err) {
+//     return NextResponse.json({ error: "Error finishing checkout" });
+//   }
+//
+//
+// }
