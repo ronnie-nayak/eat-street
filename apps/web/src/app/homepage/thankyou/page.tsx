@@ -1,4 +1,21 @@
+'use client'
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 export default function ThankYou() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  useEffect(() => {
+    if (searchParams.has("orderId")) {
+      const getOrder = async () => {
+        await fetch(`/api/orders?orderApiId=${searchParams.get("orderId")}`, { method: "GET" });
+        router.replace("/homepage/thankyou")
+      };
+      getOrder();
+    }
+  }, []);
+
+
   return (
     <div className="my-20">
       <div className="bg-gray-100 sm:text-[2vw]">

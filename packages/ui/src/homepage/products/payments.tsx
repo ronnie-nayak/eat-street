@@ -64,8 +64,19 @@ export function Payments() {
         },
         body: JSON.stringify({ page, shipping }),
       });
-
       const { sessionId } = await checkoutResponse.json();
+
+      // try {
+      //   const res = await fetch("/api/finish_checkout", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ page }),
+      //   });
+      // } catch (error) {
+      //   router.replace("/login");
+      // }
       const stripeError = await stripe.redirectToCheckout({ sessionId });
 
       if (stripeError) {

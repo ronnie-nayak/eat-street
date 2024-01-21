@@ -2,12 +2,21 @@ import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { Props } from "../../../../../../packages/ui/src/types";
+import { Orders } from "@repo/db";
+import { auth } from "../auth/auth";
+import { connectToDatabase } from "../../../utils/database";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   typescript: true,
 });
 
 export async function POST(req: NextRequest, res: NextResponse) {
+
+  const session = await auth();
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+  await connectToDatabase();
   const headersList = headers();
   const { page, shipping } = await req.json();
 
@@ -35,12 +44,31 @@ export async function POST(req: NextRequest, res: NextResponse) {
     quantity: 1,
   });
 
+  const shortenedPage = page.map((item: { refId: Props; quantity: number }) => {
+    return {
+      refId: item.refId._id,
+      quantity: item.quantity,
+    };
+  });
+
+  const orderData = await Orders.create({
+    products: shortenedPage,
+    user: session.user.id,
+  })
+
+  // const commentData = await Comments.create({
+  //   comment: comment.trim(),
+  //   rating,
+  //   item: _id,
+  //   user: session.user.id,
+  // });
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${headersList.get("origin")}/homepage/thankyou`,
+      success_url: `${headersList.get("origin")}/homepage/thankyou?orderId=${orderData._id}`,
       cancel_url: `${headersList.get("origin")}/homepage`,
     });
 

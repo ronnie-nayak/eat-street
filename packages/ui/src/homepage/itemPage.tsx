@@ -80,7 +80,7 @@ export function ItemPage({
       setCart((prev) => !prev);
       const res = await fetch(`/api/carts`, {
         method: "PATCH",
-        body: JSON.stringify({ _id, amount: 1 }),
+        body: JSON.stringify({ _id, amount }),
         headers: {
           "Content-Type": "application/json",
         },
