@@ -20,7 +20,7 @@ export function PopupSearch() {
 
   const router = useRouter()
   useEffect(() => {
-    const getFruits = async () => {
+    const getSearch = async () => {
       try {
         const res = await fetch("/api/search", {
           method: "PATCH",
@@ -39,7 +39,7 @@ export function PopupSearch() {
         router.replace("/login")
       }
     }
-    getFruits()
+    getSearch()
   }, [inputValue])
 
 

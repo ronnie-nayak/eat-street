@@ -38,7 +38,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
   }, [searchParams, page])
 
   useEffect(() => {
-    const getFruits = async () => {
+    const getProducts = async () => {
       try {
 
         let res = await fetch(apiPath, { method: "GET" })
@@ -53,7 +53,7 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
         router.replace("/login")
       }
     }
-    getFruits()
+    getProducts()
   }, [name])
   return (
 

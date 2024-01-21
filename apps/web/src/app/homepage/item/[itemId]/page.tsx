@@ -1,17 +1,17 @@
 'use client'
-import { CommentProps, CommentSection, CommentsDisplay, ItemPage, Loading, Props } from "@repo/ui";
-import { useRouter } from "next/navigation";
+import { CommentProps, CommentSection, CommentsDisplay, ItemPage, Loading, Props, Slider } from "@repo/ui";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
 export default function Section({ params }: { params: { itemId: string } }) {
 
   const [page, setPage] = useState<Props>()
-
+  const [related, setRelated] = useState<Props[]>([])
   const router = useRouter()
 
   useEffect(() => {
-    const getFruits = async () => {
+    const getItem = async () => {
       try {
         let res = await fetch("/api/item", {
           method: "PATCH",
@@ -27,11 +27,33 @@ export default function Section({ params }: { params: { itemId: string } }) {
           return Promise.reject(data)
         }
       } catch (error) {
-        router.replace("/login")
+        return notFound()
       }
     }
-    getFruits()
+    getItem()
   }, [params.itemId])
+
+
+  useEffect(() => {
+    if (page) {
+      const getProducts = async () => {
+
+        try {
+          const res = await fetch(`/api/getProducts?type=${page.type}`, { method: "GET" })
+          const data = await res.json()
+          if (res.ok) {
+            setRelated(data)
+          } else {
+            return Promise.reject(data)
+          }
+        } catch (error) {
+          router.replace("/login")
+        }
+      }
+
+      getProducts()
+    }
+  }, [page])
 
 
   const [commentsData, setCommentsData] = useState<CommentProps[]>([])
@@ -47,6 +69,16 @@ export default function Section({ params }: { params: { itemId: string } }) {
         <CommentSection _id={params.itemId} comments={commentsData} setComments={setCommentsData} />
         <CommentsDisplay _id={params.itemId} comments={commentsData} setComments={setCommentsData} />
       </div>
+      <div className="m-auto max-w-7xl">
+        {
+          related.length === 0 ? null :
+            <>
+              <h2 className="font-bold p-4 text-[1.5vw] text-center">Related Products</h2>
+              <Slider arrayOfItems={related} />
+            </>
+        }
+      </div>
+
     </>
   )
 }

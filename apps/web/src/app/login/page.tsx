@@ -9,9 +9,9 @@ import { Button, Loading } from "@repo/ui"
 export default function Login() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  // if (status === "authenticated") {
-  //   router.replace("/homepage")
-  // }
+  if (status === "authenticated") {
+    router.replace("/homepage")
+  }
 
 
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)

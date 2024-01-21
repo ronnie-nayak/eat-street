@@ -9,7 +9,7 @@ export default function HomePage() {
   const [fruits, setFruits] = useState<Props[]>([])
   const router = useRouter()
   useEffect(() => {
-    const getFruits = async () => {
+    const getProducts = async () => {
       try {
 
         const res = await fetch("/api/getProducts?type=fruit", { method: "GET" })
@@ -23,7 +23,7 @@ export default function HomePage() {
         router.replace("/login")
       }
     }
-    getFruits()
+    getProducts()
   }, [])
 
   return (

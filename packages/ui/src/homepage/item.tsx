@@ -20,7 +20,7 @@ import moment from "moment";
 import { v4 } from "uuid"
 
 
-export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars, image }: Props) {
+export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded, favouriteUsers, cartUsers, comments, totalStars, image, type }: Props) {
   const { data: session, status } = useSession()
   const [fav, setFav] = useState(false)
   const [cart, setCart] = useState(false)
@@ -213,7 +213,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
               <Tooltip>
                 <TooltipTrigger>
                   <button className="rounded-full p-2 border-gray-200 border-2 z-20">
-                    <PopupPreview _id={_id} name={name} desc={desc} price={price} sold={sold} oldPrice={oldPrice} stock={stock} dateAdded={dateAdded} favouriteUsers={favouriteUsers} cartUsers={cartUsers} comments={comments} totalStars={totalStars}  >
+                    <PopupPreview _id={_id} name={name} desc={desc} price={price} sold={sold} oldPrice={oldPrice} stock={stock} dateAdded={dateAdded} favouriteUsers={favouriteUsers} cartUsers={cartUsers} comments={comments} totalStars={totalStars} image={image} type={type}>
                       <FontAwesomeIcon icon={faEye} className="w-5" />
                     </PopupPreview>
 
@@ -231,15 +231,15 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
   )
 }
 
-export function ItemSmall({ name, price, _id }: Props) {
+export function ItemSmall({ name, price, _id, image }: Props) {
   const router = useRouter()
   return (
-    <div className="flex  items-center h-[80px] gap-4 m-4 bg-white rounded-xl w-96 px-9 font-bold cursor-pointer"
+    <div className="flex  items-center h-max gap-4 m-4 bg-white rounded-xl w-96 px-9 font-bold cursor-pointer"
       onClick={() => router.push("/homepage/item/" + _id)}
     >
-      <img src={`/items/${name}.jpg`} className="h-full w-[80px] object-cover rounded-xl" />
+      <img src={image} className="h-full w-[80px] object-cover rounded-xl" />
       <div>
-        <h3 className=" text-[1.5vw] text-[#243F2F]">{name}</h3>
+        <h3 className=" text-[1.25vw] text-[#243F2F]">{name}</h3>
         <h3 className=" text-[1vw] text-[#0BAD69]">${price}</h3>
       </div>
     </div >

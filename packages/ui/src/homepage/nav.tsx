@@ -15,11 +15,11 @@ import { useRouter } from "next/navigation";
 
 function Option({ title, icon }: { title: string, icon: React.JSX.Element }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 font-bold">
       <div className="text-[#00D783] text-[1.5vw]" >
         {icon}
       </div>
-      <h3>{title}</h3>
+      <h3 className="hover:text-green-500 transition-all duration-300">{title}</h3>
     </div>
 
   )
@@ -37,11 +37,11 @@ export function Nav() {
         <div className="h-[60px] flex items-center justify-center 2xl:hidden">
           <FontAwesomeIcon icon={faBars} className="w-[30px] " />
         </div>
-        <img src="/nav/tastydaily.png" className="h-12 mx-auto 2xl:hidden" />
+        <img src="/nav/logo.png" className="h-12 mx-auto 2xl:hidden" />
         <IoCartOutline size={26} className="text-[#243F2F] 2xl:hidden" />
 
 
-        <div className="hidden 2xl:flex items-center text-[#243F2F] text-[1.5vw] gap-6 mr-9">
+        <div className="hidden 2xl:flex items-center text-[#243F2F] text-[1.5vw] gap-6 mr-20">
 
           <Link href="/homepage/vegetable">
             <Option title="Vegetables" icon={<LuCarrot size={32} />} />
@@ -53,8 +53,9 @@ export function Nav() {
           <Link href="/homepage/meat">
             <Option title="Meat" icon={<TbMeat size={32} />} />
           </Link>
+
           <Link href="/homepage">
-            <img src="/lghome/tastydaily.png" className="h-10 hidden 2xl:block mx-4" />
+            <img src="/nav/logo.png" className="h-14 hidden 2xl:block mx-4" />
           </Link>
 
           <Link href="/homepage/seafood">

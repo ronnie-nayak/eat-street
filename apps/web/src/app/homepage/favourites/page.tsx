@@ -11,7 +11,7 @@ export default function Favourites() {
   const [page, setPage] = useState<Props[]>([])
 
   useEffect(() => {
-    const getFruits = async () => {
+    const getFavourites = async () => {
       try {
 
         let res = await fetch('/api/favourites', { method: "GET" })
@@ -25,7 +25,7 @@ export default function Favourites() {
         router.replace("/login")
       }
     }
-    getFruits()
+    getFavourites()
   }, [])
 
   return (
@@ -49,7 +49,7 @@ export default function Favourites() {
               <TableRow key={index} className="cursor-pointer text-[1.75vw]"
                 onClick={() => router.push("/homepage/item/" + item._id)}
               >
-                <TableCell className="font-medium"><img src={`/items/${item.name.toLowerCase()}.jpg`} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>
+                <TableCell className="font-medium"><img src={item.image} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>
                 <TableCell>
                   <h3 className="  text-[#243F2F]">{item.name}</h3>
                 </TableCell>

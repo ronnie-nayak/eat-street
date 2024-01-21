@@ -39,7 +39,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
   }, [searchParams, page, searchTerm])
 
   useEffect(() => {
-    const getFruits = async () => {
+    const getSearch = async () => {
       try {
         const res = await fetch("/api/search", {
           method: "PATCH",
@@ -59,7 +59,7 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
         router.replace("/login")
       }
     }
-    getFruits()
+    getSearch()
   }, [searchTerm])
   return (
 

@@ -22,7 +22,7 @@ export function Payments() {
   const [shipping, setShipping] = useState<number>(5)
   const router = useRouter()
   useEffect(() => {
-    const getFruits = async () => {
+    const getCarts = async () => {
       try {
         let res = await fetch("/api/carts", { method: "GET" })
         let data = await res.json()
@@ -35,7 +35,7 @@ export function Payments() {
         router.replace("/login")
       }
     }
-    getFruits()
+    getCarts()
   }, [])
   useEffect(() => {
     let subTotal = 0
@@ -97,9 +97,9 @@ export function Payments() {
               <TableRow key={index} className="cursor-pointer"
                 onClick={() => router.push("/homepage/item/" + item.refId._id)}
               >
-                <TableCell className="font-medium"><img src={`/items/${item.refId.name.toLowerCase()}.jpg`} className="h-full w-[80px] object-cover rounded-xl" /></TableCell>
+                <TableCell className="font-medium"><img src={item.refId.image} className="h-full w-[80px] object-cover rounded-xl" /></TableCell>
                 <TableCell><div>
-                  <h3 className=" text-[1.5vw] text-[#243F2F]">{item.refId.name}</h3>
+                  <h3 className=" text-[1.5vw] text-[#243F2F] mb-3">{item.refId.name}</h3>
                   <h3 className=" text-[1vw] text-[#0BAD69]">${item.refId.price}</h3></div></TableCell>
                 <TableCell className=" text-[1vw]"><h1>{item.quantity}</h1></TableCell>
                 <TableCell className="text-right text-[1.5vw] text-limeGreen"><h1>${item.refId.price * item.quantity}</h1></TableCell>

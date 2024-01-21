@@ -2,137 +2,132 @@
 export const datax = [
   {
     _id: "1",
-    name: 'Avacado',
-    desc: 'A fruit with a tough outer layer and a soft, tasty inside.',
-    price: 2.99,
-    oldPrice: 3.99,
-    stock: 100,
-    sold: 10,
+    name: 'Avacados',
+    desc: 'Avocados are a rich source of vitamins C, E, K, and B-6.',
+    price: 60.00,
+    oldPrice: 0,
+    stock: 50,
+    sold: 0,
     totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/avacado.jpg',
     dateAdded: new Date('2023-01-01'),
     favouriteUsers: [],
     cartUsers: [],
     comments: []
-  }
-  , {
+  },
+  {
     _id: "2",
-    name: 'Blackberry',
-    desc: 'A sweet fruit with a slightly tart flavor.',
-    price: 1.99,
-    oldPrice: 2.99,
-    stock: 50,
-    sold: 0,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "3",
-    name: 'Blueberry',
-    desc: 'A small, sweet fruit with a slightly tart flavor.',
-    price: 0.99,
-    oldPrice: 1.99,
-    stock: 75,
-    sold: 0,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "4",
-    name: 'Coconut',
-    desc: 'A large, hard-shelled fruit with a sweet, nutty flavor.',
-    price: 4.99,
-    oldPrice: 5.99,
-    stock: 25,
-    sold: 0,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "5",
-    name: 'Grape',
-    desc: 'A small, juicy fruit with a sweet flavor.',
-    price: 0.49,
-    oldPrice: 0.99,
-    stock: 200,
-    sold: 50,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "6",
-    name: 'GreenApple',
-    desc: 'A tart, crunchy fruit with a green skin.',
-    price: 0.79,
-    oldPrice: 1.29,
-    stock: 150,
-    sold: 0,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "7",
     name: 'Kiwi',
-    desc: 'A small, fuzzy fruit with a sweet and tangy flavor.',
-    price: 1.49,
-    oldPrice: 2.49,
-    stock: 100,
-    sold: 0,
-    totalStars: 0,
-    dateAdded: new Date('2023-01-01'),
-    favouriteUsers: [],
-    cartUsers: [],
-    comments: []
-  }
-
-  , {
-    _id: "8",
-    name: 'Mint',
-    desc: 'A fragrant herb with a cool, refreshing flavor.',
-    price: 0.99,
-    oldPrice: 1.99,
+    desc: 'Kiwi is a small, oval-shaped fruit with a brown fuzzy exterior and vibrant green interior.',
+    price: 10.00,
+    oldPrice: 15.00,
     stock: 50,
     sold: 0,
     totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/kiwi.jpg',
     dateAdded: new Date('2023-01-01'),
     favouriteUsers: [],
     cartUsers: [],
     comments: []
-  }
-
-  , {
-    _id: "9",
-    name: 'Strawberry',
-    desc: 'A sweet, juicy fruit with a red exterior.',
-    price: 0.69,
-    oldPrice: 1.19,
-    stock: 175,
+  },
+  {
+    _id: "3",
+    name: 'Fresh Coconut',
+    desc: 'Coconuts are very nutritious and coconuts are rich in fibre, vitamins.',
+    price: 40.00,
+    oldPrice: 0,
+    stock: 50,
     sold: 0,
     totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/coconut.jpg',
     dateAdded: new Date('2023-01-01'),
     favouriteUsers: [],
     cartUsers: [],
     comments: []
-  }
+  },
+  {
+    _id: "4",
+    name: 'Strawberries',
+    desc: 'Strawberries are packed with vitamins, fiber and antioxidants.',
+    price: 70.00,
+    oldPrice: 0,
+    stock: 35,
+    sold: 4,
+    totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/strawberry.jpg',
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
+  },
+  {
+    _id: "5",
+    name: 'Blueberries',
+    desc: 'Carefully hand-picked, these blueberries are crisp and fresh.',
+    price: 40.00,
+    oldPrice: 0,
+    stock: 30,
+    sold: 0,
+    totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/blueberry.jpg',
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
+  },
+  {
+    _id: "6",
+    name: 'Blackberries',
+    desc: 'Blackberries include a wide range of significant nutrients including potassium.',
+    price: 30.00,
+    oldPrice: 0,
+    stock: 30,
+    sold: 0,
+    totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/blackberry.jpg',
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
+  },
+  {
+    _id: "7",
+    name: 'Green Apples',
+    desc: 'Green apples delivered fresh! Crisp, fresh and hand-picked! Essential for your kitchen.',
+    price: 10.00,
+    oldPrice: 0,
+    stock: 50,
+    sold: 24,
+    totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/green-apple.jpg',
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
+  },
+  {
+    _id: "8",
+    name: 'Grapes',
+    desc: 'Grapes are fat free and very low in sodium. Grapes are a very good source of vitamin K.',
+    price: 14.00,
+    oldPrice: 0,
+    stock: 40,
+    sold: 0,
+    totalStars: 0,
+    type: 'fruit',
+    image: '/items/fruit/grape.jpg',
+    dateAdded: new Date('2023-01-01'),
+    favouriteUsers: [],
+    cartUsers: [],
+    comments: []
+  },
 ]
 
 export const dataInfo = [

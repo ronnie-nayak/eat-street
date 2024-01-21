@@ -115,13 +115,13 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
         }} className="h-full bg-white border border-gray-300 ">
           <header style={{
             gridArea: "image"
-          }} className="overflow-hidden cursor-pointer" >
+          }} className="overflow-hidden " >
             <img src={`${image}`} className="w-full " />
           </header>
 
 
           <div style={{ gridArea: "content" }}>
-            <section className="p-9 overflow-clip cursor-pointer" >
+            <section className="p-9 overflow-clip " >
 
               <h2 className="text-[2.25vw] text-[150%] mb-4">{name}</h2>
               <p className="text-1xl py-2 font-normal mb-6">
