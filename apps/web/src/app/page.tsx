@@ -1,6 +1,6 @@
 'use client'
-import { Banner, Biker, Info, Item, Loading, NavUI, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
-import { dataInfo, datax } from "../lib/data";
+import { Banner, Biker, Footer, Info, Item, Loading, NavUI, Order, Props, Sections, Sections2, Sections3, Slider } from "@repo/ui";
+import { dataInfo, datax, dataxVeggies } from "../lib/data";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -18,11 +18,11 @@ export default function Page() {
       <NavUI />
       <Banner />
       <div className="flex flex-col xl:flex-row justify-center items-center xl:py-8 xl:px-16 m-2">
-        <Sections title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
-        <Sections title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
-        <Sections title={"For Steak\nLovers"} image="/home/steak.jpg" />
+        <Sections path="/login" title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
+        <Sections path="/login" title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
+        <Sections path="/login" title={"For Steak\nLovers"} image="/home/steak.jpg" />
       </div>
-      <h2 className="text-[1.5vw]  text-[#243F2F] text-center m-7 ">
+      <h2 className="sm:text-[1.5vw]  text-[#243F2F] text-center m-7 ">
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
@@ -43,10 +43,10 @@ export default function Page() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider arrayOfItems={datax} />
+          <Slider arrayOfItems={dataxVeggies} />
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider arrayOfItems={datax} />
+          <Slider arrayOfItems={dataxVeggies} />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>
@@ -61,6 +61,7 @@ export default function Page() {
       <div className="flex flex-row xl:justify-around gap-4 p-10">
         {dataInfo.map((item, i) => (<Info key={i} image={item.image} first={item.first} second={item.second} />))}
       </div>
+      <Footer />
     </div >
   )
 }

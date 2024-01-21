@@ -3,6 +3,7 @@ import { BreadCrumbs, Grid, NewFilterForm, Props } from "@repo/ui";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import moment from "moment";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../components/ui/accordion";
 
 export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) {
   const [page, setPage] = useState<Props[]>([])
@@ -60,11 +61,19 @@ export function ItemsPage({ apiPath, name }: { apiPath: string, name: string }) 
     <div >
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
-        <h1 className="text-[2vw]">{name}</h1>
+        <h1 className="sm:text-[2vw]">{name}</h1>
       </div>
       {
-        <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex">
-          <div className="py-4 p-2 border border-gray-300 w-2/12" style={{ gridArea: "filter" }}>
+        <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex flex-col sm:flex-row">
+          <Accordion type="single" collapsible className="sm:hidden">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="font-bold p-5">Filter Items</AccordionTrigger>
+              <AccordionContent className="py-4 p-2 ">
+                <NewFilterForm />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <div className="py-4 p-2 border border-gray-300 w-2/12 hidden sm:block" style={{ gridArea: "filter" }}>
             <NewFilterForm />
           </div>
           <div className="w-full" style={{ gridArea: "products" }}>

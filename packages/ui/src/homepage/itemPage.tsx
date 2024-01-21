@@ -106,24 +106,18 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
 
   const uniqueStars = v4()
   return (
-    <div className="m-auto max-w-7xl relative">
+    <div className="m-auto max-w-7xl relative h-[80vh] sm:h-auto ">
       <AspectRatio ratio={1150 / 600} >
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gridTemplateAreas: ` "image content" `
-        }} className="h-full bg-white border border-gray-300 ">
-          <header style={{
-            gridArea: "image"
-          }} className="overflow-hidden " >
-            <img src={`${image}`} className="w-full " />
+        <div className="h-full bg-white border border-gray-300 flex flex-col sm:flex-row">
+          <header className="overflow-hidden sm:w-full min-h-full w-8/12 mx-auto" >
+            <img src={`${image}`} className="" />
           </header>
 
 
-          <div style={{ gridArea: "content" }}>
+          <div className="w-full bg-white">
             <section className="p-9 overflow-clip " >
 
-              <h2 className="text-[2.25vw] text-[150%] mb-4">{name}</h2>
+              <h2 className="sm:text-[2.25vw] mb-4">{name}</h2>
               <p className="text-1xl py-2 font-normal mb-6">
                 {desc}
               </p>
@@ -158,18 +152,18 @@ export function ItemPage({ _id, name, desc, price, sold, oldPrice, stock, dateAd
             </section>
             <footer className="p-9 ">
               <div className='flex gap-4 items-baseline mb-4'>
-                {oldPrice > 0 && <h4 className="font-semibold text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
-                <h3 className="font-semibold text-[#00AA63] text-[1.75vw]">${price}</h3>
+                {oldPrice > 0 && <h4 className="font-semibold sm:text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
+                <h3 className="font-semibold text-[#00AA63] sm:text-[1.75vw]">${price}</h3>
               </div>
 
 
               <div className='flex gap-4 items-center'>
                 <div className='flex gap-2 p-2 border border-black w-min rounded-3xl'>
-                  <button className='w-9 text-[1.5vw]' disabled={amount === 1} onClick={() => setAmount((old) => old - 1)}>
+                  <button className='w-9 sm:text-[1.5vw]' disabled={amount === 1} onClick={() => setAmount((old) => old - 1)}>
                     −
                   </button>
-                  <h2 className='w-5 grid place-items-center text-[1.25vw]'>{amount}</h2>
-                  <button className='w-9 text-[1.5vw]' disabled={amount === (stock - sold)} onClick={() => setAmount((old) => old + 1)}>
+                  <h2 className='w-5 grid place-items-center sm:text-[1.25vw]'>{amount}</h2>
+                  <button className='w-9 sm:text-[1.5vw]' disabled={amount === (stock - sold)} onClick={() => setAmount((old) => old + 1)}>
                     +
                   </button>
                 </div>

@@ -30,7 +30,7 @@ export function CommentsDisplay({ _id, comments, setComments }: { _id: string, c
   return (
     <div className="w-full ">
       {
-        comments.length === 0 ? <p className="m-4 p-4 text-[1.75vw]">No Comments</p> :
+        comments.length === 0 ? <p className="m-4 p-4 sm:text-[1.75vw]">No Comments</p> :
           (
             <>
 

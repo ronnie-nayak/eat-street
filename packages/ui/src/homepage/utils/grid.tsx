@@ -57,7 +57,7 @@ export function Grid({ arrayOfItems }: { arrayOfItems: Array<Props> }) {
         gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
       }} className="bg-white">
         {
-          localData.length === 0 ? <div className="text-center font-bold text-[1vw] p-4">No Items</div> :
+          localData.length === 0 ? <div className="text-center font-bold sm:text-[1vw] p-4">No Items</div> :
             localData.map((item, index) => (<Item {...item} key={index} />)).slice((page - 1) * 10, page * 10)
         }
       </div>

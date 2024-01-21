@@ -17,7 +17,7 @@ export function Footer() {
         <small className="hover:text-white transition duration-300" >Terms and Conditions</small>
       </div>
       <div className="text-center flex flex-col gap-2 items-center xl:items-end order-2 w-full">
-        <h2 className="text-[#04B06C] text-[1vw]  mt-4">Get Latest News</h2>
+        <h2 className="text-[#04B06C] sm:text-[1vw]  mt-4">Get Latest News</h2>
         <p className="w-6/12">Sign up to get 10% off your first order and stay up to date on the latest product releases, special offers and news.</p>
         <div className="flex bg-[#111A14]  rounded-full border border-green-900 h-14 p-1 items-center gap-4 ">
           <FontAwesomeIcon icon={faEnvelope} className="text-[#04B06C] ml-3" />
@@ -26,7 +26,7 @@ export function Footer() {
             <button className=" text-white text-sm px-4 h-12 rounded-full bg-[#00AA63] hover:text-[#00AA63] hover:bg-white transition duration-300">Subscribe</button>
           </form>
         </div>
-        <h2 className="text-[#04B06C] text-[1vw] mt-4">Payment Accepted</h2>
+        <h2 className="text-[#04B06C] sm:text-[1vw] mt-4">Payment Accepted</h2>
         <div className="flex gap-1 w-1/3">
           <img className="w-full" src="/home/cards/visa.png" />
           <img className="w-full" src="/home/cards/mastercard.png" />
@@ -37,7 +37,7 @@ export function Footer() {
         </div>
       </div>
       <div className="text-center flex flex-col gap-2 items-center order-1">
-        <img src="/home/tastydaily.png" className="w-1/3 my-4" />
+        <img src="/lghome/smicon.png" className="w-1/12 my-4" />
         <p className="w-8/12">We're Tasty Daily Shop, an innovative team of food engineers. Our unique model minimizes fresh food handling by up to 85%, sourcing locally and dispatching within hours through cold chain logistics in eco-friendly containers.</p>
         <div className="flex gap-4 text-[#00AA63] my-4" >
           <FontAwesomeIcon className="hover:text-white transition duration-300 cursor-pointer" size="xl" icon={faFacebookF} />

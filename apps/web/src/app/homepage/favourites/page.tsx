@@ -32,7 +32,7 @@ export default function Favourites() {
     <div>
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
-        <h1 className="text-[2vw]">Favourites</h1>
+        <h1 className="sm:text-[2vw]">Favourites</h1>
       </div>
       <Table className="w-2/4 mx-auto p-4 bg-white rounded-3xl my-9">
         <TableHeader>
@@ -44,9 +44,9 @@ export default function Favourites() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {page.length === 0 ? (<div className="text-center font-bold text-[1vw] p-4">No Favourites</div>) :
+          {page.length === 0 ? (<div className="sm:text-center font-bold sm:text-[1vw] p-4">No Favourites</div>) :
             page.map((item, index) => (
-              <TableRow key={index} className="cursor-pointer text-[1.75vw]"
+              <TableRow key={index} className="cursor-pointer sm:text-[1.75vw]"
                 onClick={() => router.push("/homepage/item/" + item._id)}
               >
                 <TableCell className="font-medium"><img src={item.image} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>

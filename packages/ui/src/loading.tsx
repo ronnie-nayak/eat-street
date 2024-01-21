@@ -4,7 +4,7 @@
 export function Loading() {
   return (
     <div className="flex items-center justify-center w-full h-full ">
-      <div className="flex justify-center items-center space-x-1 text-[2vw] text-gray-700">
+      <div className="flex justify-center items-center space-x-1 sm:text-[2vw] text-gray-700">
 
         <svg fill='none' className="w-16 h-16 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
           <path clip-rule='evenodd'
@@ -23,7 +23,7 @@ export function Loading() {
 export function LoadingSmall() {
   return (
     <div className="flex items-center justify-center w-full h-full ">
-      <div className="flex justify-center items-center space-x-1 text-[1vw] text-gray-700">
+      <div className="flex justify-center items-center space-x-1 sm:text-[1vw] text-gray-700">
 
         <svg fill='none' className="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
           <path clip-rule='evenodd'

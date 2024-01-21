@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const [fruits, setFruits] = useState<Props[]>([])
+  const [veggies, setVeggies] = useState<Props[]>([])
   const router = useRouter()
   useEffect(() => {
     const getProducts = async () => {
@@ -24,17 +25,32 @@ export default function HomePage() {
       }
     }
     getProducts()
+
+    const getProductsVeggies = async () => {
+      try {
+        const res = await fetch("/api/getProducts?type=vegetable", { method: "GET" })
+        const data = await res.json()
+        if (res.ok) {
+          setVeggies(data)
+        } else {
+          return Promise.reject(data)
+        }
+      } catch (error) {
+        router.replace("/login")
+      }
+    }
+    getProductsVeggies()
   }, [])
 
   return (
     <div className="relative">
       <Banner />
       <div className="flex flex-col xl:flex-row justify-center items-center xl:py-8 xl:px-16 m-2">
-        <Sections title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
-        <Sections title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
-        <Sections title={"For Steak\nLovers"} image="/home/steak.jpg" />
+        <Sections path="/homepage/seafood" title={"Fresh Seafood\nEveryday!"} image="/home/crab.jpg" />
+        <Sections path="/homepage/drink" title={"Sweet Organic\nDrinks"} image="/home/bottle.jpg" />
+        <Sections path="/homepage/meat" title={"For Steak\nLovers"} image="/home/steak.jpg" />
       </div>
-      <h2 className="text-[1.5vw]  text-[#243F2F] text-center m-7 ">
+      <h2 className="sm:text-[1.5vw] text-[#243F2F] text-center m-7 ">
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
@@ -45,7 +61,7 @@ export default function HomePage() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill,minmax(300px,2fr))",
         }} className="bg-white">
-          {fruits.length === 0 ? (<div className="text-center font-bold text-[1vw] p-4">Loading...</div>) : (
+          {fruits.length === 0 ? (<div className="text-center font-bold sm:text-[1vw] p-4">Loading...</div>) : (
             fruits.map((item, index) => (<Item {...item} key={index} />)).splice(0, 10)
           )
           }
@@ -55,10 +71,10 @@ export default function HomePage() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider arrayOfItems={fruits} />
+          <Slider arrayOfItems={veggies} />
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider arrayOfItems={fruits} />
+          <Slider arrayOfItems={veggies} />
         </div>
         <Sections2 title="Tasty Cheeses From Farm Vendors" image="/home/cheese.jpg" />
       </div>

@@ -136,8 +136,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
                 <h4>Available: {stock - sold}</h4>
               </div>
             </div >
-            <h2 className="font-semibold text-[1.25vw]">{name}</h2>
-            <p className="text-[0.85vw] py-2 font-normal">
+            <h2 className="font-semibold sm:text-[1.25vw]">{name}</h2>
+            <p className="sm:text-[0.85vw] py-2 font-normal">
               {desc}
             </p>
           </section>
@@ -146,8 +146,8 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
             alignSelf: "end"
           }} className="flex items-center justify-between px-4 py-8 ">
             <div>
-              {oldPrice > 0 && <h4 className="font-semibold text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
-              <h3 className="font-semibold text-[#00AA63] text-[1.5vw]">${price}</h3>
+              {oldPrice > 0 && <h4 className="font-semibold sm:text-[1vw] line-through text-gray-600">${oldPrice}</h4>}
+              <h3 className="font-semibold text-[#00AA63] sm:text-[1.5vw]">${price}</h3>
             </div>
             <TooltipProvider delayDuration={0}>
               <Tooltip>
@@ -211,7 +211,7 @@ export function Item({ _id, name, desc, price, sold, oldPrice, stock, dateAdded,
           {
             (status === "authenticated") && (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger className="hidden sm:block">
                   <button className="rounded-full p-2 border-gray-200 border-2 z-20">
                     <PopupPreview _id={_id} name={name} desc={desc} price={price} sold={sold} oldPrice={oldPrice} stock={stock} dateAdded={dateAdded} favouriteUsers={favouriteUsers} cartUsers={cartUsers} comments={comments} totalStars={totalStars} image={image} type={type}>
                       <FontAwesomeIcon icon={faEye} className="w-5" />
@@ -239,8 +239,8 @@ export function ItemSmall({ name, price, _id, image }: Props) {
     >
       <img src={image} className="h-full w-[80px] object-cover rounded-xl" />
       <div>
-        <h3 className=" text-[1.25vw] text-[#243F2F]">{name}</h3>
-        <h3 className=" text-[1vw] text-[#0BAD69]">${price}</h3>
+        <h3 className=" sm:text-[1.25vw] text-[#243F2F]">{name}</h3>
+        <h3 className=" sm:text-[1vw] text-[#0BAD69]">${price}</h3>
       </div>
     </div >
   )

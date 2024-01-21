@@ -65,7 +65,7 @@ export default function Section({ params }: { params: { itemId: string } }) {
   return (
     <>
       <ItemPage {...page} />
-      <div className='m-auto max-w-7xl flex bg-white border border-gray-300 border-t-0'>
+      <div className='m-auto max-w-7xl flex flex-col sm:flex-row bg-white border border-gray-300 border-t-0'>
         <CommentSection _id={params.itemId} comments={commentsData} setComments={setCommentsData} />
         <CommentsDisplay _id={params.itemId} comments={commentsData} setComments={setCommentsData} />
       </div>
@@ -73,7 +73,7 @@ export default function Section({ params }: { params: { itemId: string } }) {
         {
           related.length === 0 ? null :
             <>
-              <h2 className="font-bold p-4 text-[1.5vw] text-center">Related Products</h2>
+              <h2 className="font-bold p-4 sm:text-[1.5vw] text-center">Related Products</h2>
               <Slider arrayOfItems={related} />
             </>
         }
