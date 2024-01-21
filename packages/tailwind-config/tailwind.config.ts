@@ -12,11 +12,11 @@ const config: Omit<Config, "content"> = {
     },
     extend: {
       colors: {
-        transparent: 'transparent',
-        current: 'currentColor',
-        'limeGreen': '#243F2F',
-        'forestGreen': '#00AA63',
-        'purple': '#3f3cbb',
+        transparent: "transparent",
+        current: "currentColor",
+        limeGreen: "#243F2F",
+        forestGreen: "#00AA63",
+        purple: "#3f3cbb",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

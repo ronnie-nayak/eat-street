@@ -7,13 +7,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   typescript: true,
 });
 
-
-
 export async function POST(req: NextRequest, res: NextResponse) {
   const headersList = headers();
   const { page, shipping } = await req.json();
 
-  const lineItems = page.map((item: { refId: Props, quantity: number }) => {
+  const lineItems = page.map((item: { refId: Props; quantity: number }) => {
     return {
       price_data: {
         currency: "usd",
@@ -36,7 +34,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     },
     quantity: 1,
   });
-
 
   try {
     const session = await stripe.checkout.sessions.create({

@@ -1,14 +1,13 @@
-
-import { Schema, model, models } from 'mongoose'
+import { Schema, model, models } from "mongoose";
 
 const ItemsSchema = new Schema({
   name: {
     type: String,
-    required: [true, 'namer is required duh']
+    required: [true, "namer is required duh"],
   },
   desc: {
     type: String,
-    required: [true, 'Itemsname is required dub'],
+    required: [true, "Itemsname is required dub"],
   },
   price: {
     type: Number,
@@ -39,16 +38,30 @@ const ItemsSchema = new Schema({
   //   type: Schema.Types.Boolean,
   //   required: [true, 'newTag is required duh']
   // },
-  favouriteUsers: [new Schema({
-    refId: { type: Schema.Types.ObjectId, ref: 'Users' },
-  }, { _id: false })],
-  cartUsers: [new Schema({
-    refId: { type: Schema.Types.ObjectId, ref: 'Users' },
-  }, { _id: false })],
-  comments: [new Schema({
-    refId: { type: Schema.Types.ObjectId, ref: 'Comments' },
-  }, { _id: false })],
-})
+  favouriteUsers: [
+    new Schema(
+      {
+        refId: { type: Schema.Types.ObjectId, ref: "Users" },
+      },
+      { _id: false },
+    ),
+  ],
+  cartUsers: [
+    new Schema(
+      {
+        refId: { type: Schema.Types.ObjectId, ref: "Users" },
+      },
+      { _id: false },
+    ),
+  ],
+  comments: [
+    new Schema(
+      {
+        refId: { type: Schema.Types.ObjectId, ref: "Comments" },
+      },
+      { _id: false },
+    ),
+  ],
+});
 
-export const Items = models?.Items || model('Items', ItemsSchema)
-
+export const Items = models?.Items || model("Items", ItemsSchema);

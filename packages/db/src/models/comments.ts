@@ -1,28 +1,22 @@
-
-
-import { Schema, model, models } from 'mongoose'
+import { Schema, model, models } from "mongoose";
 
 const CommentsSchema = new Schema({
   comment: {
     type: String,
-    required: [true, 'namer is required duh']
+    required: [true, "namer is required duh"],
   },
   rating: {
     type: Number,
-    required: [true, 'Commentsname is required dub'],
+    required: [true, "Commentsname is required dub"],
   },
-  user:
-  {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: "Users"
+    ref: "Users",
   },
-  item:
-  {
+  item: {
     type: Schema.Types.ObjectId,
-    ref: "Items"
-  }
+    ref: "Items",
+  },
+});
 
-})
-
-export const Comments = models?.Comments || model('Comments', CommentsSchema)
-
+export const Comments = models?.Comments || model("Comments", CommentsSchema);

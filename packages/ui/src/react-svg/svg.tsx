@@ -1,4 +1,3 @@
-
 // icon:clock | Bootstrap https://icons.getbootstrap.com/ | Bootstrap
 import * as React from "react";
 
@@ -29,4 +28,3 @@ export function IconTick(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-

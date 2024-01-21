@@ -1,32 +1,35 @@
-'use client'
+"use client";
 import { BreadCrumbs, ItemSmall, Props } from "@repo/ui";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@repo/ui";
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@repo/ui";
 
 export default function Favourites() {
-  const router = useRouter()
-  const pathname = usePathname()
-  const [page, setPage] = useState<Props[]>([])
+  const router = useRouter();
+  const pathname = usePathname();
+  const [page, setPage] = useState<Props[]>([]);
 
   useEffect(() => {
     const getFavourites = async () => {
       try {
-
-        let res = await fetch('/api/favourites', { method: "GET" })
-        let data = await res.json()
+        let res = await fetch("/api/favourites", { method: "GET" });
+        let data = await res.json();
         if (res.ok) {
-          setPage(data)
-        } else {
-          return Promise.reject(data)
+          setPage(data);
         }
       } catch (error) {
-        router.replace("/login")
+        router.replace("/login");
       }
-    }
-    getFavourites()
-  }, [])
+    };
+    getFavourites();
+  }, []);
 
   return (
     <div>
@@ -38,28 +41,43 @@ export default function Favourites() {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[180px] text-center">Image</TableHead>
-            <TableHead >Product</TableHead>
-            <TableHead >Price</TableHead>
-            <TableHead >Quantity</TableHead>
+            <TableHead>Product</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Quantity</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {page.length === 0 ? (<div className="sm:text-center font-bold sm:text-[1vw] p-4">No Favourites</div>) :
+          {page.length === 0 ? (
+            <div className="sm:text-center font-bold sm:text-[1vw] p-4">
+              No Favourites
+            </div>
+          ) : (
             page.map((item, index) => (
-              <TableRow key={index} className="cursor-pointer sm:text-[1.75vw]"
+              <TableRow
+                key={index}
+                className="cursor-pointer sm:text-[1.75vw]"
                 onClick={() => router.push("/homepage/item/" + item._id)}
               >
-                <TableCell className="font-medium"><img src={item.image} className="h-full w-[180px] object-cover rounded-xl" /></TableCell>
+                <TableCell className="font-medium">
+                  <img
+                    src={item.image}
+                    className="h-full w-[180px] object-cover rounded-xl"
+                  />
+                </TableCell>
                 <TableCell>
                   <h3 className="  text-[#243F2F]">{item.name}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3 className="  text-[#0BAD69]">${item.price}</h3></TableCell>
-                <TableCell className=""><h1>{item.stock}</h1></TableCell>
+                  <h3 className="  text-[#0BAD69]">${item.price}</h3>
+                </TableCell>
+                <TableCell className="">
+                  <h1>{item.stock}</h1>
+                </TableCell>
               </TableRow>
-            ))}
+            ))
+          )}
         </TableBody>
       </Table>
-    </div >
-  )
+    </div>
+  );
 }

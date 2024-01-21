@@ -1,43 +1,70 @@
-
-'use client'
+"use client";
 import { BreadCrumbs, Grid, NewFilterForm, Props } from "@repo/ui";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import moment from "moment";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../../components/ui/accordion";
 
 export function SearchPage({ searchTerm }: { searchTerm: string }) {
-  const [page, setPage] = useState<Props[]>([])
-  const [filteredPage, setFilteredPage] = useState<Props[]>([])
+  const [page, setPage] = useState<Props[]>([]);
+  const [filteredPage, setFilteredPage] = useState<Props[]>([]);
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   useEffect(() => {
     if (page) {
-
       const timeout = setTimeout(() => {
-        const lowPriceSearch = searchParams.has("lower") ? searchParams.get("lower") : null
-        const highPriceSearch = searchParams.has("upper") ? searchParams.get("upper") : null
+        const lowPriceSearch = searchParams.has("lower")
+          ? searchParams.get("lower")
+          : null;
+        const highPriceSearch = searchParams.has("upper")
+          ? searchParams.get("upper")
+          : null;
         // const ratingSearch = searchParams.has("rating") ? searchParams.get("rating") : null
-        const newSearch = searchParams.has("new") ? searchParams.get("new") : null
-        const saleSearch = searchParams.has("sale") ? searchParams.get("sale") : null
-        const soldSearch = searchParams.has("sold") ? searchParams.get("sold") : null
+        const newSearch = searchParams.has("new")
+          ? searchParams.get("new")
+          : null;
+        const saleSearch = searchParams.has("sale")
+          ? searchParams.get("sale")
+          : null;
+        const soldSearch = searchParams.has("sold")
+          ? searchParams.get("sold")
+          : null;
 
-        let filteredData = page
-        if (lowPriceSearch) filteredData = filteredData.filter((row) => row.price >= parseInt(lowPriceSearch))
+        let filteredData = page;
+        if (lowPriceSearch)
+          filteredData = filteredData.filter(
+            (row) => row.price >= parseInt(lowPriceSearch),
+          );
 
-        if (highPriceSearch) filteredData = filteredData.filter((row) => row.price <= parseInt(highPriceSearch))
+        if (highPriceSearch)
+          filteredData = filteredData.filter(
+            (row) => row.price <= parseInt(highPriceSearch),
+          );
         // if (ratingSearch) filteredData = filteredData.filter((row) => row.rating === parseInt(ratingSearch))
-        if (newSearch) filteredData = filteredData.filter((row) => ((moment(row?.dateAdded).add(3, 'y').toDate()) >= new Date()))
-        if (saleSearch) filteredData = filteredData.filter((row) => row.oldPrice)
-        if (soldSearch) filteredData = filteredData.filter((row) => row.sold === row.stock)
-        setFilteredPage(() => [...filteredData])
+        if (newSearch)
+          filteredData = filteredData.filter(
+            (row) =>
+              moment(row?.dateAdded)
+                .add(3, "y")
+                .toDate() >= new Date(),
+          );
+        if (saleSearch)
+          filteredData = filteredData.filter((row) => row.oldPrice);
+        if (soldSearch)
+          filteredData = filteredData.filter((row) => row.sold === row.stock);
+        setFilteredPage(() => [...filteredData]);
         // setPage(1)
-      }, 300)
-      return () => clearTimeout(timeout)
+      }, 300);
+      return () => clearTimeout(timeout);
     }
-  }, [searchParams, page, searchTerm])
+  }, [searchParams, page, searchTerm]);
 
   useEffect(() => {
     const getSearch = async () => {
@@ -46,25 +73,22 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
           method: "PATCH",
           body: JSON.stringify({ search: searchTerm }),
           headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        const data = await res.json()
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
         if (res.ok) {
-          setPage(data)
-          setFilteredPage(data)
-        } else {
-          return Promise.reject(data)
+          setPage(data);
+          setFilteredPage(data);
         }
       } catch (error) {
-        router.replace("/login")
+        router.replace("/login");
       }
-    }
-    getSearch()
-  }, [searchTerm])
+    };
+    getSearch();
+  }, [searchTerm]);
   return (
-
-    <div >
+    <div>
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
         <h1 className="sm:text-[2vw]">Search</h1>
@@ -74,13 +98,18 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
         <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex flex-col sm:flex-row">
           <Accordion type="single" collapsible className="sm:hidden">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="font-bold p-5">Filter Items</AccordionTrigger>
+              <AccordionTrigger className="font-bold p-5">
+                Filter Items
+              </AccordionTrigger>
               <AccordionContent className="py-4 p-2 ">
                 <NewFilterForm />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="py-4 p-2 border border-gray-300 w-2/12 hidden sm:block" style={{ gridArea: "filter" }}>
+          <div
+            className="py-4 p-2 border border-gray-300 w-2/12 hidden sm:block"
+            style={{ gridArea: "filter" }}
+          >
             <NewFilterForm />
           </div>
           <div className="w-full" style={{ gridArea: "products" }}>
@@ -89,5 +118,5 @@ export function SearchPage({ searchTerm }: { searchTerm: string }) {
         </div>
       }
     </div>
-  )
+  );
 }
