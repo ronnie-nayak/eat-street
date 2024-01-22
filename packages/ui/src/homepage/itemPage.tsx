@@ -112,7 +112,7 @@ export function ItemPage({
   const uniqueStars = v4();
   return (
     <div className="m-auto max-w-7xl relative h-[80vh] sm:h-auto ">
-      <AspectRatio ratio={1150 / 600}>
+      <AspectRatio ratio={1050 / 600}>
         <div className="h-full bg-white border border-gray-300 flex flex-col sm:flex-row">
           <header className="overflow-hidden sm:w-full min-h-full w-8/12 mx-auto">
             <img src={`${image}`} className="" />
