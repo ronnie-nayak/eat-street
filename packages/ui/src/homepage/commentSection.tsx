@@ -39,7 +39,7 @@ export function CommentSection({
       let data = await res.json();
       if (res.ok) {
         setFormData({ comment: "", rating: "5" });
-        setComments([...comments, data]);
+        setComments([data, ...comments]);
       }
     } catch (error) {
       router.replace("/login");
