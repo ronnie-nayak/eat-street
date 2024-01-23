@@ -64,20 +64,6 @@ export default function Login() {
             <div className="flex gap-2 justify-center items-center">
               <button
                 type="button"
-                key="Google"
-                onClick={() =>
-                  signIn("google", {
-                    callbackUrl: `${window.location.origin}/homepage`,
-                  })
-                }
-                className="loginbutton"
-              >
-                <img src="/login/google.svg" className="h-12" />
-                <h2>Google</h2>
-              </button>
-
-              <button
-                type="button"
                 key="Github"
                 onClick={() =>
                   signIn("github", {
@@ -89,6 +75,20 @@ export default function Login() {
                 <img src="/login/github.svg" className="h-12" />
                 <h2>Github</h2>
               </button>
+              <button
+                type="button"
+                key="Discord"
+                onClick={() =>
+                  signIn("discord", {
+                    callbackUrl: `${window.location.origin}/homepage`,
+                  })
+                }
+                className="loginbutton"
+              >
+                <img src="/login/discord.png" className="h-12" />
+                <h2>Discord</h2>
+              </button>
+
             </div>
             <Button
               onClick={() =>
