@@ -46,7 +46,7 @@ export function Nav() {
 
   return (
     <nav className="h-16 sm:h-24 relative">
-      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-around items-center px-4 sm:h-24">
+      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-start lg:justify-around items-center px-4 sm:h-24">
         <Link href="/homepage" className="mx-auto sm:hidden">
           <img src="/nav/logo.png" className="h-12 " />
         </Link>
@@ -137,7 +137,7 @@ export function Nav() {
           </SheetContent>
         </Sheet>
 
-        <div className="hidden sm:flex items-center text-[#243F2F] sm:text-[1.25vw] gap-6 mr-20">
+        <div className="hidden sm:flex items-center text-[#243F2F] sm:text-[1.25vw] gap-[0.75vw] mr-20">
           <Link href="/homepage/vegetable">
             <Option title="Vegetables" icon={<LuCarrot size={32} />} />
           </Link>
@@ -150,7 +150,7 @@ export function Nav() {
           </Link>
 
           <Link href="/homepage">
-            <img src="/nav/logo.png" className="h-14 hidden sm:block mx-4" />
+            <img src="/nav/logo.png" className="h-14 hidden sm:block " />
           </Link>
 
           <Link href="/homepage/seafood">
