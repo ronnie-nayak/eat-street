@@ -1,9 +1,8 @@
+![logoFinal](https://github.com/ronnie-nayak/eat-street/assets/60402476/1d9e12a6-88f1-44a1-b696-f42bc3e09c0f)
 
 # Eat Street
 
 Eat Street is a full-stack e-commerce grocery app that allows users to browse and purchase groceries. The app is built with the robust MERN stack with Typescript . It is responsive and has features such as a working checkout system, favourites list and filtering products.
-
-![logoFinal](https://github.com/ronnie-nayak/eat-street/assets/60402476/1d9e12a6-88f1-44a1-b696-f42bc3e09c0f)
 
 
 ## Screenshots
