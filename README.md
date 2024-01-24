@@ -1,58 +1,84 @@
-# Turborepo Tailwind CSS starter
+![logoFinal](https://github.com/ronnie-nayak/eat-street/assets/60402476/1d9e12a6-88f1-44a1-b696-f42bc3e09c0f)
 
-This is an official starter Turborepo.
+# Eat Street
 
-## Using this example
+Eat Street is a full-stack e-commerce grocery app that allows users to browse and purchase groceries. The app is built with the robust MERN stack with Typescript . It is responsive and has features such as a working checkout system, favourites list and filtering products.
 
-Run the following command:
 
-```sh
-npx create-turbo@latest -e with-tailwind
+## Screenshots
+
+![Screenshot 2024-01-24 at 15-08-18 Eat Street](https://github.com/ronnie-nayak/eat-street/assets/60402476/fc6358fc-769a-4047-b8b9-4b21a95d28b6)
+
+
+## Features
+
+- Stripe Payment Integration
+- Login using Github/Discord
+- Responsive Design
+- Add to Cart / Favourite List
+- Filter Products
+
+
+## Tech Stack
+
+**Client:** React, TailwindCSS
+
+**Server:** NextJS, TypeScript, MongoDB
+
+## Visit Deployed Project
+
+**Link:** https://eat-street-web.vercel.app/
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/ronnie-nayak/eat-street
 ```
 
-## What's inside?
+Go to the project directory
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Building packages/ui
-
-This example is set up to produce compiled styles for `ui` components into the `dist` directory. The component `.tsx` files are consumed by the Next.js apps directly using `transpilePackages` in `next.config.js`. This was chosen for several reasons:
-
-- Make sharing one `tailwind.config.js` to apps and packages as easy as possible.
-- Make package compilation simple by only depending on the Next.js Compiler and `tailwindcss`.
-- Ensure Tailwind classes do not overwrite each other. The `ui` package uses a `ui-` prefix for it's classes.
-- Maintain clear package export boundaries.
-
-Another option is to consume `packages/ui` directly from source without building. If using this option, you will need to update the `tailwind.config.js` in your apps to be aware of your package locations, so it can find all usages of the `tailwindcss` class names for CSS compilation.
-
-For example, in [tailwind.config.js](packages/tailwind-config/tailwind.config.js):
-
-```js
-  content: [
-    // app content
-    `src/**/*.{js,ts,jsx,tsx}`,
-    // include packages if not transpiling
-    "../../packages/ui/*.{js,ts,jsx,tsx}",
-  ],
+```bash
+  cd eat-street
 ```
 
-If you choose this strategy, you can remove the `tailwindcss` and `autoprefixer` dependencies from the `ui` package.
+Install dependencies
 
-### Utilities
+```bash
+  npm install
+```
 
-This Turborepo has some additional tools already setup for you:
+Build the Project
 
-- [Tailwind CSS](https://tailwindcss.com/) for styles
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+```bash
+  cd packages/ui && turbo run build && cd ../.. && turbo run build
+```
+
+Run Build Files
+
+```bash
+  cd apps/web && npm run start
+```
+
+
+## Authors
+
+- [@ronnie-nayak](https://github.com/ronnie-nayak)
+
+
+## Acknowledgements
+
+ - [Design Reference](https://parkofideas.com/tastydaily/)
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at abhishek.ron.nayak@gmail.com
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
