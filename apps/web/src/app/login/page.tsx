@@ -67,7 +67,7 @@ export default function Login() {
                 key="Github"
                 onClick={() =>
                   signIn("github", {
-                    callbackUrl: `${window.location.origin}/homepage`,
+                    callbackUrl: `/homepage`,
                   })
                 }
                 className="loginbutton"
@@ -80,7 +80,7 @@ export default function Login() {
                 key="Discord"
                 onClick={() =>
                   signIn("discord", {
-                    callbackUrl: `${window.location.origin}/homepage`,
+                    callbackUrl: `/homepage`,
                   })
                 }
                 className="loginbutton"
@@ -93,7 +93,7 @@ export default function Login() {
             <Button
               onClick={() =>
                 signIn("credentials", {
-                  callbackUrl: `${window.location.origin}/homepage`,
+                  callbackUrl: `/homepage`,
                 })
               }
               className="w-3/4 m-auto h-1/3 sm:text-[1.75vw] font-bold"
