@@ -6,6 +6,7 @@ import {
   Grid,
   Info,
   Item,
+  Loading,
   Order,
   Props,
   Sections,
@@ -77,7 +78,10 @@ export default function HomePage() {
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        <Slider arrayOfItems={fruits} />
+        {
+          fruits.length === 0 ? <Loading /> :
+            <Slider arrayOfItems={fruits} />
+        }
       </div>
       <div className="hidden xl:block m-10">
         <div
@@ -88,9 +92,7 @@ export default function HomePage() {
           className="bg-white"
         >
           {fruits.length === 0 ? (
-            <div className="text-center font-bold sm:text-[1vw] p-4">
-              Loading...
-            </div>
+            <Loading />
           ) : (
             fruits
               .map((item, index) => <Item {...item} key={index} />)
@@ -102,10 +104,16 @@ export default function HomePage() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          <Slider arrayOfItems={veggies} />
+          {
+            veggies.length === 0 ? <Loading /> :
+              <Slider arrayOfItems={veggies} />
+          }
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          <Slider arrayOfItems={veggies} />
+          {
+            veggies.length === 0 ? <Loading /> :
+              <Slider arrayOfItems={veggies} />
+          }
         </div>
         <Sections2
           title="Tasty Cheeses From Farm Vendors"
