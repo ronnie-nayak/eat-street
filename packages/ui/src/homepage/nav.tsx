@@ -45,14 +45,14 @@ export function Nav() {
   const { data: session } = useSession();
 
   return (
-    <nav className="h-16 2xl:h-24 relative">
-      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-around items-center px-4 2xl:h-24">
-        <Link href="/homepage" className="mx-auto 2xl:hidden">
+    <nav className="h-16 sm:h-24 relative">
+      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-around items-center px-4 sm:h-24">
+        <Link href="/homepage" className="mx-auto sm:hidden">
           <img src="/nav/logo.png" className="h-12 " />
         </Link>
         <Sheet>
           <SheetTrigger asChild>
-            <div className="h-[60px] flex items-center justify-center 2xl:hidden absolute left-4 ">
+            <div className="h-[60px] flex items-center justify-center sm:hidden absolute left-4 ">
               <FontAwesomeIcon icon={faBars} className="w-[30px] text-4xl" />
             </div>
           </SheetTrigger>
@@ -137,7 +137,7 @@ export function Nav() {
           </SheetContent>
         </Sheet>
 
-        <div className="hidden 2xl:flex items-center text-[#243F2F] sm:text-[1.25vw] gap-6 mr-20">
+        <div className="hidden sm:flex items-center text-[#243F2F] sm:text-[1.25vw] gap-6 mr-20">
           <Link href="/homepage/vegetable">
             <Option title="Vegetables" icon={<LuCarrot size={32} />} />
           </Link>
@@ -150,7 +150,7 @@ export function Nav() {
           </Link>
 
           <Link href="/homepage">
-            <img src="/nav/logo.png" className="h-14 hidden 2xl:block mx-4" />
+            <img src="/nav/logo.png" className="h-14 hidden sm:block mx-4" />
           </Link>
 
           <Link href="/homepage/seafood">
@@ -166,7 +166,7 @@ export function Nav() {
           </Link>
         </div>
 
-        <div className="hidden 2xl:flex items-center gap-4 justify-self-end absolute right-9">
+        <div className="hidden sm:flex items-center gap-4 justify-self-end absolute right-9">
           <PopupSearch />
           <Link href="/homepage/favourites">
             <FaRegHeart size={22} />
