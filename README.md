@@ -25,6 +25,10 @@ Eat Street is a full-stack e-commerce grocery app that allows users to browse an
 
 **Server:** NextJS, TypeScript, MongoDB
 
+## Visit Deployed Project
+
+**Link:** https://eat-street-web.vercel.app/
+
 
 ## Run Locally
 
