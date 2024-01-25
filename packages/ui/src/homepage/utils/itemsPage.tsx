@@ -60,7 +60,7 @@ export function ItemsPage({
             (row) =>
               row?.comments?.length! > 0 &&
               Math.ceil(row.totalStars / row?.comments?.length!) ===
-              parseInt(ratingSearch),
+                parseInt(ratingSearch),
           );
         if (newSearch)
           filteredData = filteredData.filter(

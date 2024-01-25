@@ -38,7 +38,12 @@ export function NewFilterForm() {
     (values: z.infer<typeof formSchema>) => {
       const params = new URLSearchParams(searchParams.toString());
       for (const [key, value] of Object.entries(values)) {
-        if (value === undefined || value === null || value === 0 || value === false) {
+        if (
+          value === undefined ||
+          value === null ||
+          value === 0 ||
+          value === false
+        ) {
           params.delete(key);
           continue;
         }

@@ -78,10 +78,7 @@ export default function HomePage() {
         Bestsellers in September
       </h2>
       <div className="xl:hidden">
-        {
-          fruits.length === 0 ? <Loading /> :
-            <Slider arrayOfItems={fruits} />
-        }
+        {fruits.length === 0 ? <Loading /> : <Slider arrayOfItems={fruits} />}
       </div>
       <div className="hidden xl:block m-10">
         <div
@@ -104,16 +101,18 @@ export default function HomePage() {
 
       <div className="flex flex-col xl:flex-row items-center justify-between">
         <div className="xl:hidden w-full">
-          {
-            veggies.length === 0 ? <Loading /> :
-              <Slider arrayOfItems={veggies} />
-          }
+          {veggies.length === 0 ? (
+            <Loading />
+          ) : (
+            <Slider arrayOfItems={veggies} />
+          )}
         </div>
         <div className="hidden xl:block w-9/12 mx-auto">
-          {
-            veggies.length === 0 ? <Loading /> :
-              <Slider arrayOfItems={veggies} />
-          }
+          {veggies.length === 0 ? (
+            <Loading />
+          ) : (
+            <Slider arrayOfItems={veggies} />
+          )}
         </div>
         <Sections2
           title="Tasty Cheeses From Farm Vendors"

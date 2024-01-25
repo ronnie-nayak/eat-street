@@ -1,4 +1,3 @@
-
 import { Schema, model, models } from "mongoose";
 
 const OrdersSchema = new Schema({
@@ -16,7 +15,6 @@ const OrdersSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Users",
   },
-
 });
 
 export const Orders = models?.Orders || model("Orders", OrdersSchema);

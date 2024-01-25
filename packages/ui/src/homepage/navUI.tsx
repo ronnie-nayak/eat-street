@@ -27,7 +27,10 @@ export function NavUI() {
         <Link href="/login" className="mx-auto sm:hidden">
           <img src="/nav/logo.png" className="h-12 " />
         </Link>
-        <Link href="/login" className=" h-[60px] sm:hidden absolute left-4 flex items-center justify-center">
+        <Link
+          href="/login"
+          className=" h-[60px] sm:hidden absolute left-4 flex items-center justify-center"
+        >
           <FontAwesomeIcon icon={faBars} className="w-[30px] text-4xl" />
         </Link>
         <div

@@ -89,7 +89,6 @@ export default function Login() {
                 <img src="/login/discord.png" className="h-16" />
                 <h2>Discord</h2>
               </button>
-
             </div>
 
             <div className="h-full flex flex-col justify-around items-center">
@@ -104,11 +103,13 @@ export default function Login() {
                 Guest User
               </Button>
 
-              <h2 className=" w-max mx-auto my-4 text-[4vw] sm:text-[1.5vw] font-bold">Kindly wait 5-10 sec for Login to complete</h2>
+              <h2 className=" w-max mx-auto my-4 text-[4vw] sm:text-[1.5vw] font-bold">
+                Kindly wait 5-10 sec for Login to complete
+              </h2>
             </div>
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }

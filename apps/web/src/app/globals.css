@@ -7,7 +7,7 @@
   position: relative;
   width: 25px;
   height: 25px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .heart-container .checkbox {
@@ -40,7 +40,7 @@
 
 .heart-container .svg-celebrate {
   position: absolute;
-  animation: keyframes-svg-celebrate .5s;
+  animation: keyframes-svg-celebrate 0.5s;
   animation-fill-mode: forwards;
   display: none;
   stroke: var(--heart-color);
@@ -48,12 +48,12 @@
   stroke-width: 2px;
 }
 
-.heart-container .checkbox:checked~.svg-container .svg-filled {
-  display: block
+.heart-container .checkbox:checked ~ .svg-container .svg-filled {
+  display: block;
 }
 
-.heart-container .checkbox:checked~.svg-container .svg-celebrate {
-  display: block
+.heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
+  display: block;
 }
 
 @keyframes keyframes-svg-filled {
@@ -87,8 +87,6 @@
     display: none;
   }
 }
-
-
 
 .animate-timer {
   position: relative;

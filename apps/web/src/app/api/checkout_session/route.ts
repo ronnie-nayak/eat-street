@@ -11,7 +11,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(req: NextRequest, res: NextResponse) {
-
   const session = await auth();
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const orderData = await Orders.create({
     products: shortenedPage,
     user: session.user.id,
-  })
+  });
 
   // const commentData = await Comments.create({
   //   comment: comment.trim(),
@@ -68,7 +67,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${headersList.get("origin")}/homepage/thankyou?orderId=${orderData._id}`,
+      success_url: `${headersList.get("origin")}/homepage/thankyou?orderId=${
+        orderData._id
+      }`,
       cancel_url: `${headersList.get("origin")}/homepage`,
     });
 

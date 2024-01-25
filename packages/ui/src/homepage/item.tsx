@@ -210,10 +210,11 @@ export function Item({
               <Tooltip>
                 <TooltipTrigger>
                   <button
-                    className={`${cart
+                    className={`${
+                      cart
                         ? "text-white bg-gray-800"
                         : "text-limeGreen bg-gray-200"
-                      } rounded-full p-2 border-2 hover:border-limeGreen transition-all duration-300`}
+                    } rounded-full p-2 border-2 hover:border-limeGreen transition-all duration-300`}
                     onClick={addToCart}
                   >
                     <IoCartOutline size={26} />

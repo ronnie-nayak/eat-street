@@ -22,7 +22,6 @@ export default function HomepageLayout({
   return (
     <html className="sm:sm:text-[0.85vw]" lang="en">
       <body className={quicksand.className}>
-
         <Provider>{children}</Provider>
         <Toaster />
       </body>
