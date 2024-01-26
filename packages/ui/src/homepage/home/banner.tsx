@@ -14,13 +14,13 @@ export function Banner() {
           Order Tasty Fruits <br />
           and Get Free Delivery!
         </h1>
-        <div className="flex flex-col xl:flex-row gap-4 items-start xl:items-center xl:mt-12 xl:sm:text-[1.25vw]">
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center sm:mt-12 text-[4vw] sm:text-[1.5vw]">
           <Link
             href={"/homepage/fruit"}
-            className="flex gap-3 bg-limeGreen text-white p-4 rounded-full xl:p-6 hover:text-limeGreen hover:bg-white transition-all duration-300"
+            className="flex gap-3 justify-start items-center bg-limeGreen text-white  p-4 rounded-full hover:text-limeGreen hover:bg-white transition-all duration-300"
           >
             <img src="/home/cart.svg" />
-            Explore Shop
+            <h2>Explore Shop</h2>
           </Link>
           <h2 className="text-white font-semibold">2500+ Fresh Products</h2>
         </div>

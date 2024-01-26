@@ -99,7 +99,9 @@ export function ItemsPage({
     <div>
       <div className="h-36 bg-white flex flex-col gap-6 items-center justify-center">
         <BreadCrumbs path={pathname.split("/").splice(2)} />
-        <h1 className="sm:text-[2vw]">{name}</h1>
+        <h1 className="sm:text-[2vw]">
+          {name.charAt(0).toUpperCase() + name.slice(1)}
+        </h1>
       </div>
       {
         <div className="m-9 bg-white border-2 rounded-3xl overflow-hidden border-gray-300 flex flex-col sm:flex-row">
