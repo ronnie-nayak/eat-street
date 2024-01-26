@@ -46,8 +46,8 @@ export function Nav() {
 
   return (
     <nav className="h-16 sm:h-24 relative">
-      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-start lg:justify-around items-center px-4 sm:h-24">
-        <Link href="/homepage" className="mx-auto sm:hidden">
+      <div className="fixed top-0 left-0 w-screen h-16 z-10 bg-white flex justify-center items-center gap-6 sm:h-24">
+        <Link href="/homepage" className="sm:hidden">
           <img src="/nav/logo.png" className="h-12 " />
         </Link>
         <Sheet>
@@ -137,7 +137,7 @@ export function Nav() {
           </SheetContent>
         </Sheet>
 
-        <div className="hidden sm:flex items-center text-[#243F2F] sm:text-[1.25vw] gap-[0.75vw] mr-20">
+        <div className="hidden sm:flex items-center text-[#243F2F] sm:text-[1.25vw] lg:gap-1 xl:gap-6 lg:mr-20">
           <Link href="/homepage/vegetable">
             <Option title="Vegetables" icon={<LuCarrot size={32} />} />
           </Link>
@@ -150,7 +150,11 @@ export function Nav() {
           </Link>
 
           <Link href="/homepage">
-            <img src="/nav/logo.png" className="h-14 hidden sm:block " />
+            <img src="/nav/logo.png" className="h-14 hidden lg:block " />
+            <img
+              src="/lghome/smicon.png"
+              className="h-14 hidden sm:block lg:hidden px-4"
+            />
           </Link>
 
           <Link href="/homepage/seafood">
@@ -166,7 +170,7 @@ export function Nav() {
           </Link>
         </div>
 
-        <div className="hidden sm:flex items-center gap-4 justify-self-end absolute right-9">
+        <div className="hidden sm:flex items-center gap-4 justify-self-end lg:absolute right-10">
           <PopupSearch />
           <Link href="/homepage/favourites">
             <FaRegHeart size={22} />
