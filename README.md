@@ -49,7 +49,7 @@ Install dependencies
 Build the Project
 
 ```bash
-  cd packages/ui && turbo run build && cd ../.. && turbo run build
+  npm run build
 ```
 
 Run Build Files
