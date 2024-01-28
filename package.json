@@ -6,7 +6,8 @@
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "clean": "turbo clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "start": "cd apps/web && npm run start"
   },
   "dependencies": {
     "@repo/typescript-config": "*",

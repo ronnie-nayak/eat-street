@@ -55,7 +55,7 @@ Build the Project
 Run Build Files
 
 ```bash
-  cd apps/web && npm run start
+  npm run start
 ```
 
 ## Authors
