@@ -26,45 +26,9 @@ Eat Street is a full-stack e-commerce grocery app that allows users to browse an
 
 **Link:** https://eat-street-web.vercel.app/
 
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/ronnie-nayak/eat-street.git
-```
-
-Go to the project directory
-
-```bash
-  cd eat-street
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Build the Project
-
-```bash
-  npm run build
-```
-
-Run Build Files
-
-```bash
-  npm run start
-```
-
 ## Authors
 
 - [@ronnie-nayak](https://github.com/ronnie-nayak)
-
-## Acknowledgements
-
-- [Design Reference](https://parkofideas.com/tastydaily/)
 
 ## Feedback
 
